@@ -3,7 +3,10 @@ import 'package:barbers/items/select_time_grid.dart';
 import 'package:barbers/models/barber.dart';
 import 'package:barbers/models/service.dart';
 import 'package:barbers/util/app_controller.dart';
+import 'package:barbers/util/dialog_widgets.dart';
 import 'package:barbers/util/main_colors.dart';
+import 'package:barbers/widgets/icon_text_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -38,12 +41,10 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   }
 
   void selectDay(DateTime dateTime) {
-    if (!_canSelectTime) {
-      setState(() {
-        _canSelectTime = true;
-        _selectedDateTime = dateTime;
-      });
-    }
+    setState(() {
+      _canSelectTime = true;
+      _selectedDateTime = dateTime;
+    });
   }
 
   void selectTime(int hour, int minute) {
@@ -56,6 +57,11 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
       _canBook = true;
       _selectedDateTime = _selectedDateTime!.add(Duration(hours: hour, minutes: minute));
     });
+  }
+
+  void bookNow() {
+    print("BOOK NOW");
+    DialogWidgets.instance.dialog(context);
   }
 
   @override
@@ -186,7 +192,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                               )
                             ],
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: 12.5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,31 +253,13 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15),
+                          SizedBox(height: 12.5),
                           Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: MainColors.black,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.calendar_month,
-                                    color: MainColors.white,
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text(
-                                    "Book now",
-                                    style: TextStyle(
-                                      color: MainColors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: IconTextButton(
+                              func: bookNow,
+                              icon: Icons.timelapse,
+                              text: "Select Schedule",
+                              borderRadius: BorderRadius.circular(16),
                             ),
                           )
                         ],

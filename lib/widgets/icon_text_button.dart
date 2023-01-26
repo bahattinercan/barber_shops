@@ -11,6 +11,7 @@ class IconTextButton extends StatelessWidget {
   final EdgeInsets? padding;
   final String text;
   final double? width, height;
+  final BorderRadius? borderRadius;
 
   IconTextButton({
     super.key,
@@ -24,6 +25,7 @@ class IconTextButton extends StatelessWidget {
     required this.text,
     this.width,
     this.height,
+    this.borderRadius,
   });
 
   @override
@@ -37,7 +39,7 @@ class IconTextButton extends StatelessWidget {
         padding: padding,
         decoration: BoxDecoration(
           color: backgroundColor == null ? MainColors.black : backgroundColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: borderRadius == null ? BorderRadius.circular(16) : borderRadius,
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(
