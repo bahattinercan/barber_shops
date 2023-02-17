@@ -1,4 +1,4 @@
-import 'package:barbers/util/main_colors.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class IconTextButton extends StatelessWidget {

@@ -1,11 +1,11 @@
-import 'package:barbers/util/main_colors.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
-class DialogWidgets {
-  static final instance = DialogWidgets._internal();
-  DialogWidgets._internal();
+class Dialogs {
+  static final instance = Dialogs._internal();
+  Dialogs._internal();
 
-  void dialog({
+  static void dialog({
     required BuildContext context,
     required String title,
     required String content,
@@ -57,7 +57,7 @@ class DialogWidgets {
     );
   }
 
-  successDialog({required BuildContext context, Function? okFunction, String? content}) {
+  static successDialog({required BuildContext context, Function? okFunction, String? content}) {
     dialog(
         context: context,
         title: "Bilgilendirme",
@@ -66,7 +66,7 @@ class DialogWidgets {
         okFunction: okFunction);
   }
 
-  failDialog({required BuildContext context, Function? okFunction, String? content}) {
+  static failDialog({required BuildContext context, Function? okFunction, String? content}) {
     dialog(
       context: context,
       title: "Dikkat",
@@ -76,7 +76,7 @@ class DialogWidgets {
     );
   }
 
-  yesNoDialog(BuildContext context, String title, String content, {Function? cancelF, Function? okF}) {
+  static yesNoDialog(BuildContext context, String title, String content, {Function? cancelF, Function? okF}) {
     dialog(
       context: context,
       title: title,
@@ -88,7 +88,7 @@ class DialogWidgets {
     );
   }
 
-  choice2Dialog(
+  static choice2Dialog(
     BuildContext context,
     String title,
     String content, {
@@ -108,7 +108,7 @@ class DialogWidgets {
     );
   }
 
-  customDialog({
+  static customDialog({
     required BuildContext context,
     required String title,
     Widget? content,

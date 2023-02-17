@@ -1,5 +1,5 @@
-import 'package:barbers/util/app_controller.dart';
-import 'package:barbers/util/main_colors.dart';
+import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

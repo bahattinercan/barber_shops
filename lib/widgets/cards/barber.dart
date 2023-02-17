@@ -1,6 +1,6 @@
 import 'package:barbers/models/barber_shop_static.dart';
-import 'package:barbers/page/barber.dart';
-import 'package:barbers/util/main_colors.dart';
+import 'package:barbers/pages/barber.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class BarberCard extends StatefulWidget {

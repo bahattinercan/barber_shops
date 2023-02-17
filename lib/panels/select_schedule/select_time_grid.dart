@@ -1,6 +1,6 @@
-import 'package:barbers/widgets/select_time_card.dart';
+import 'package:barbers/widgets/cards/select_time.dart';
 import 'package:barbers/models/work_time_static.dart';
-import 'package:barbers/util/app_controller.dart';
+import 'package:barbers/utils/app_controller.dart';
 import 'package:flutter/material.dart';
 
 class SelectTimeGrid extends StatefulWidget {

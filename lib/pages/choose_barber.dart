@@ -1,43 +1,26 @@
-import 'package:barbers/widgets/choose_service_card.dart';
+import 'package:barbers/widgets/cards/choose_barber.dart';
 import 'package:barbers/models/barber_static.dart';
-import 'package:barbers/models/service_static.dart';
-import 'package:barbers/page/select_schedule.dart';
-import 'package:barbers/util/app_controller.dart';
-import 'package:barbers/util/main_colors.dart';
-import 'package:barbers/widgets/icon_text_button.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class ChooseServicePage extends StatelessWidget {
-  BarberStatic? barber;
-  ChooseServicePage({
+class ChooseBarberPage extends StatefulWidget {
+  ChooseBarberPage({
     Key? key,
-    required this.barber,
   }) : super(key: key);
 
-  List<ServiceStatic> selectedServices = [];
+  @override
+  State<ChooseBarberPage> createState() => _ChooseBarberPageState();
+}
 
-  void selectService(ServiceStatic service, bool isActive) {
-    if (isActive) {
-      selectedServices.add(service);
-    } else {
-      selectedServices.remove(service);
-    }
-  }
-
-  void selectSchedule(BuildContext context) {
-    if (selectedServices.length == 0) {
-      return;
-    }
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) {
-        return SelectSchedulePage(
-          selectedServices: selectedServices,
-          barber: barber,
-        );
-      },
-    ));
-  }
+class _ChooseBarberPageState extends State<ChooseBarberPage> {
+  List<BarberStatic> barbers = [
+    BarberStatic(name: "Osman", availableTime: DateTime.now()),
+    BarberStatic(name: "Deniz", availableTime: DateTime.now().add(Duration(hours: 5, minutes: 1))),
+    BarberStatic(name: "Gökhan", availableTime: DateTime.now()),
+    BarberStatic(name: "Mehmet", availableTime: DateTime.now()),
+    BarberStatic(name: "Furkan", availableTime: DateTime.now()),
+    BarberStatic(name: "İsmail", availableTime: DateTime.now()),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +33,7 @@ class ChooseServicePage extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                    flex: 7,
+                    flex: 10,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 10, top: 10),
                       child: Row(
@@ -63,7 +46,7 @@ class ChooseServicePage extends StatelessWidget {
                                   color: MainColors.primary_w900, borderRadius: BorderRadius.circular(100)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.arrow_back),
+                                child: Icon(Icons.close),
                               ),
                             ),
                           )
@@ -73,7 +56,7 @@ class ChooseServicePage extends StatelessWidget {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    "Choose services",
+                    "Choose your barber",
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 28,
@@ -81,34 +64,27 @@ class ChooseServicePage extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 76,
+                  flex: 83,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                     child: GridView.builder(
-                      itemCount: AppController.instance.services.length,
+                      itemCount: barbers.length + 1,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 1.65,
+                        childAspectRatio: .9,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
                       ),
-                      itemBuilder: (context, index) {
-                        return ChooseServiceCard(
-                          barber: barber,
-                          service: AppController.instance.services[index],
-                          selectServiceF: selectService,
-                        );
+                      itemBuilder: (context, _) {
+                        int index = _ - 1;
+                        if (index == -1)
+                          return ChooseBarberCard(isAny: true);
+                        else
+                          return ChooseBarberCard(
+                            barber: barbers[index],
+                          );
                       },
                     ),
-                  ),
-                ),
-                Expanded(
-                  flex: 10,
-                  child: IconTextButton(
-                    func: () => selectSchedule(context),
-                    icon: Icons.timelapse,
-                    text: "Select Schedule",
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   ),
                 ),
               ],
