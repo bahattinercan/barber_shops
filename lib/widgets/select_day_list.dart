@@ -1,4 +1,4 @@
-import 'package:barbers/items/select_day_item.dart';
+import 'package:barbers/widgets/select_day_item.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable

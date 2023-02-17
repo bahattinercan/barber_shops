@@ -1,11 +1,11 @@
-import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/barber_shop_static.dart';
 import 'package:barbers/page/choose_barber.dart';
 import 'package:barbers/util/app_controller.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class BarberShopPage extends StatefulWidget {
-  final BarberShop shop;
+  final BarberShopStatic shop;
   BarberShopPage({
     Key? key,
     required this.shop,

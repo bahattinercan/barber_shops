@@ -1,6 +1,6 @@
-import 'package:barbers/items/choose_service_card.dart';
-import 'package:barbers/models/barber.dart';
-import 'package:barbers/models/service.dart';
+import 'package:barbers/widgets/choose_service_card.dart';
+import 'package:barbers/models/barber_static.dart';
+import 'package:barbers/models/service_static.dart';
 import 'package:barbers/page/select_schedule.dart';
 import 'package:barbers/util/app_controller.dart';
 import 'package:barbers/util/main_colors.dart';
@@ -9,15 +9,15 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ChooseServicePage extends StatelessWidget {
-  Barber? barber;
+  BarberStatic? barber;
   ChooseServicePage({
     Key? key,
     required this.barber,
   }) : super(key: key);
 
-  List<Service> selectedServices = [];
+  List<ServiceStatic> selectedServices = [];
 
-  void selectService(Service service, bool isActive) {
+  void selectService(ServiceStatic service, bool isActive) {
     if (isActive) {
       selectedServices.add(service);
     } else {

@@ -1,6 +1,5 @@
 import 'package:barbers/page/home.dart';
 import 'package:barbers/util/main_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {

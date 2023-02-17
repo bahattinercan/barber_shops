@@ -1,10 +1,10 @@
-import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/barber_shop_static.dart';
 import 'package:barbers/page/barber.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class BarberCard extends StatefulWidget {
-  final BarberShop shop;
+  final BarberShopStatic shop;
   BarberCard({
     Key? key,
     required this.shop,
@@ -18,7 +18,7 @@ class _BarberCardState extends State<BarberCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: GestureDetector(
         onTap: () {
           Navigator.push(

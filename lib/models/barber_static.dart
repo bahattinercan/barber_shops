@@ -1,7 +1,7 @@
-class Barber {
+class BarberStatic {
   String name;
   DateTime availableTime;
-  Barber({
+  BarberStatic({
     required this.name,
     required this.availableTime,
   });

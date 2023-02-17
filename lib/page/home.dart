@@ -1,5 +1,5 @@
-import 'package:barbers/items/barber_card.dart';
-import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/widgets/barber_card.dart';
+import 'package:barbers/models/barber_shop_static.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<BarberShop> _shops = [
-    BarberShop(
+  List<BarberShopStatic> _shops = [
+    BarberShopStatic(
       name: "Demiroğlu",
       stars: 4.2,
       numberOfStars: 1500,
@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
       isOpen: true,
       description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
     ),
-    BarberShop(
+    BarberShopStatic(
       name: "İbrahim & Dostça",
       stars: 4.2,
       numberOfStars: 1500,
@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       isOpen: false,
       description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
     ),
-    BarberShop(
+    BarberShopStatic(
       name: "Altın",
       stars: 4.2,
       numberOfStars: 1500,
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
       isOpen: true,
       description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
     ),
-    BarberShop(
+    BarberShopStatic(
       name: "Birikim",
       stars: 4.2,
       numberOfStars: 1500,
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       isOpen: false,
       description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
     ),
-    BarberShop(
+    BarberShopStatic(
       name: "Men",
       stars: 4.2,
       numberOfStars: 1500,
@@ -58,17 +58,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 10,
+        child: Container(
+          child: Column(
+            children: [
+              Expanded(
+                flex: 10,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                   child: Container(
                     decoration: BoxDecoration(
                       color: MainColors.primary_w500,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(12.0),
                                   child: Icon(
                                     Icons.gps_fixed,
                                   ),
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(16.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: Icon(
                                 Icons.person,
                               ),
@@ -128,9 +128,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 90,
+              ),
+              Expanded(
+                flex: 90,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8),
                   child: ListView.builder(
+                    padding: EdgeInsets.all(8),
                     itemCount: _shops.length,
                     itemBuilder: (context, index) {
                       return BarberCard(
@@ -139,8 +143,8 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

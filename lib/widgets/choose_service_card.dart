@@ -1,12 +1,12 @@
-import 'package:barbers/models/barber.dart';
-import 'package:barbers/models/service.dart';
+import 'package:barbers/models/barber_static.dart';
+import 'package:barbers/models/service_static.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ChooseServiceCard extends StatefulWidget {
-  Barber? barber;
-  Service service;
+  BarberStatic? barber;
+  ServiceStatic service;
   Function selectServiceF;
   ChooseServiceCard({
     Key? key,

@@ -1,5 +1,5 @@
-import 'package:barbers/items/choose_barber_card.dart';
-import 'package:barbers/models/barber.dart';
+import 'package:barbers/widgets/choose_barber_card.dart';
+import 'package:barbers/models/barber_static.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +13,13 @@ class ChooseBarberPage extends StatefulWidget {
 }
 
 class _ChooseBarberPageState extends State<ChooseBarberPage> {
-  List<Barber> barbers = [
-    Barber(name: "Osman", availableTime: DateTime.now()),
-    Barber(name: "Deniz", availableTime: DateTime.now().add(Duration(hours: 5, minutes: 1))),
-    Barber(name: "Gökhan", availableTime: DateTime.now()),
-    Barber(name: "Mehmet", availableTime: DateTime.now()),
-    Barber(name: "Furkan", availableTime: DateTime.now()),
-    Barber(name: "İsmail", availableTime: DateTime.now()),
+  List<BarberStatic> barbers = [
+    BarberStatic(name: "Osman", availableTime: DateTime.now()),
+    BarberStatic(name: "Deniz", availableTime: DateTime.now().add(Duration(hours: 5, minutes: 1))),
+    BarberStatic(name: "Gökhan", availableTime: DateTime.now()),
+    BarberStatic(name: "Mehmet", availableTime: DateTime.now()),
+    BarberStatic(name: "Furkan", availableTime: DateTime.now()),
+    BarberStatic(name: "İsmail", availableTime: DateTime.now()),
   ];
 
   @override

@@ -1,7 +1,7 @@
-class Service {
+class ServiceStatic {
   String name;
   double price;
-  Service({
+  ServiceStatic({
     required this.name,
     required this.price,
   });

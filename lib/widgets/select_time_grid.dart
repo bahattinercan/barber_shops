@@ -1,5 +1,5 @@
-import 'package:barbers/items/select_time_card.dart';
-import 'package:barbers/models/work_time.dart';
+import 'package:barbers/widgets/select_time_card.dart';
+import 'package:barbers/models/work_time_static.dart';
 import 'package:barbers/util/app_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -35,7 +35,7 @@ class _SelectTimeGridState extends State<SelectTimeGrid> {
         childAspectRatio: 2.25,
       ),
       itemBuilder: (context, index) {
-        WorkTime workTime = AppController.instance.workTimes[index];
+        WorkTimeStatic workTime = AppController.instance.workTimes[index];
         return SelectTimeCard(
           hour: workTime.hour,
           minute: workTime.minute,

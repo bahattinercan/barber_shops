@@ -1,4 +1,4 @@
-class BarberShop {
+class BarberShopStatic {
   String name;
   double stars;
   int numberOfStars;
@@ -6,7 +6,7 @@ class BarberShop {
   bool isOpen;
   String description;
 
-  BarberShop({
+  BarberShopStatic({
     required this.name,
     required this.stars,
     required this.numberOfStars,

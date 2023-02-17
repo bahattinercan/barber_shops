@@ -1,8 +1,8 @@
-class WorkTime {
+class WorkTimeStatic {
   bool available;
   int hour;
   int minute;
-  WorkTime({
+  WorkTimeStatic({
     required this.available,
     required this.hour,
     required this.minute,

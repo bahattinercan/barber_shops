@@ -1,4 +1,4 @@
-import 'package:barbers/models/barber.dart';
+import 'package:barbers/models/barber_static.dart';
 import 'package:barbers/page/choose_service.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class ChooseBarberCard extends StatefulWidget {
   bool isAny;
-  Barber? barber;
+  BarberStatic? barber;
   ChooseBarberCard({
     Key? key,
     this.isAny = false,

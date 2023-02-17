@@ -1,18 +1,17 @@
-import 'package:barbers/items/select_day_list.dart';
-import 'package:barbers/items/select_time_grid.dart';
-import 'package:barbers/models/barber.dart';
-import 'package:barbers/models/service.dart';
+import 'package:barbers/widgets/select_day_list.dart';
+import 'package:barbers/widgets/select_time_grid.dart';
+import 'package:barbers/models/barber_static.dart';
+import 'package:barbers/models/service_static.dart';
 import 'package:barbers/util/app_controller.dart';
 import 'package:barbers/util/dialog_widgets.dart';
 import 'package:barbers/util/main_colors.dart';
 import 'package:barbers/widgets/icon_text_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SelectSchedulePage extends StatefulWidget {
-  final Barber? barber;
-  final List<Service> selectedServices;
+  final BarberStatic? barber;
+  final List<ServiceStatic> selectedServices;
 
   SelectSchedulePage({Key? key, required this.selectedServices, required this.barber}) : super(key: key);
 
@@ -61,7 +60,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
 
   void bookNow() {
     print("BOOK NOW");
-    DialogWidgets.instance.dialog(context);
+    DialogWidgets.instance.successDialog(context: context);
   }
 
   @override
