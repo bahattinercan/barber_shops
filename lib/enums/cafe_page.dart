@@ -1,0 +1,4 @@
+enum ECafePage {
+  normal,
+  favourite,
+}

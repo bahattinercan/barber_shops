@@ -1,0 +1,1 @@
+enum ECafeCard { normal, admin }

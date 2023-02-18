@@ -4,6 +4,7 @@ class MainColors {
   static Color primary_w900 = Color.fromARGB(255, 235, 208, 181);
   static Color primary_w500 = Color.fromARGB(255, 244, 226, 209);
   static Color primary_w100 = Color.fromARGB(255, 255, 249, 244);
+  static Color secondary = Color(0xFFd1e3f4);
   static Color active = Color.fromARGB(255, 250, 197, 145);
   static Color icon = Color.fromARGB(255, 249, 198, 147);
   static Color black = Color.fromARGB(255, 27, 29, 37);
@@ -11,6 +12,20 @@ class MainColors {
   static Color light_grey = Colors.grey;
   static Color green = Color.fromARGB(255, 72, 241, 154);
   static Color white = Colors.white;
+
+  static Color new_primary = Color(0xFF8f1300);
+  static Color new_primary_variant = Color(0xFF890000);
+  static Color new_secondary = Color(0xFF528cc1);
+  static Color new_seconday_variant = Color(0xFF00004f);
+
+  /// primary benzer renk 1
+  static Color similar_color = Color(0xFFd84a30);
+
+  /// primary benzer renk 2
+  static Color similar_color2 = Color(0xFFcdca4d);
+
+  static Color triadic_1 = Color(0xFF90c859);
+  static Color triadic_2 = Color(0xFF42cb8c);
 
   static MaterialColor getMatColor(Color color) {
     List strengths = <double>[.05];

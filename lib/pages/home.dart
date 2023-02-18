@@ -1,3 +1,5 @@
+import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/barber.dart';
 import 'package:barbers/models/barber_shop_static.dart';
 import 'package:barbers/utils/main_colors.dart';
@@ -54,9 +56,21 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
+  adminButton() {
+    PushManager.pushAndRemoveAll(context, AdminBarberShopsPage());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: adminButton,
+        child: Icon(
+          Icons.admin_panel_settings_rounded,
+          size: 36,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(
           child: Column(
@@ -95,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Current location",
+                                    "Şuanki konum",
                                     style: TextStyle(
                                       color: MainColors.grey,
                                     ),
