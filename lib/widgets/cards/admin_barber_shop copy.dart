@@ -1,8 +1,10 @@
 import 'package:barbers/enums/user.dart';
-import 'package:barbers/models/appointment.dart';
-import 'package:barbers/utils/dialogs.dart';
+import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/pages/admin/barber_shop.dart';
+import 'package:barbers/utils/dialog_widgets.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/push_manager.dart';
 import 'package:flutter/material.dart';
 
 enum ECafeCard {
@@ -11,21 +13,21 @@ enum ECafeCard {
 }
 
 // ignore: must_be_immutable
-class AdminAppointmentCard extends StatefulWidget {
+class AdminBarberShopCard extends StatefulWidget {
   EUser eUser;
-  Appointment appointment;
-  AdminAppointmentCard(this.appointment, this.eUser, {super.key});
+  BarberShop shop;
+  AdminBarberShopCard(this.shop, this.eUser, {super.key});
 
   @override
-  State<AdminAppointmentCard> createState() => _AdminAppointmentCardState();
+  State<AdminBarberShopCard> createState() => _AdminBarberShopCardState();
 }
 
-class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
+class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
   bool isActive = true;
 
-  updateCafe(Appointment appointment) {
+  updateCafe(BarberShop shop) {
     setState(() {
-      widget.appointment = appointment;
+      widget.shop = shop;
     });
   }
 
@@ -40,7 +42,7 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
   }
 
   deleteButton(int id) {
-    Dialogs.yesNoDialog(context, "Randevu'yu sil", "Randevu silinsin mi?", okF: () => delete(id));
+    Dialogs.yesNoDialog(context, "Kafe'yi sil", "Kafe silinsin mi?", okF: () => delete(id));
   }
 
   @override
@@ -67,26 +69,43 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                     leading: IconButton(
                       color: MainColors.triadic_1,
                       onPressed: () {},
-                      icon: Icon(Icons.bookmark_rounded),
+                      icon: Icon(Icons.bookmark),
                     ),
                     title: Text(
-                      widget.appointment.fullname!,
+                      widget.shop.name!,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: PopupMenuButton(itemBuilder: (context) {
                       return [
+                        const PopupMenuItem<int>(value: 1, child: Text("Düzenle")),
                         const PopupMenuItem<int>(value: 99, child: Text("Sil")),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
+                        case 1:
+                          switch (widget.eUser) {
+                            case EUser.boss:
+                              PushManager.push(context, AdminBarberPage(shop: widget.shop));
+                              break;
+                            case EUser.worker:
+                              // TODO İLERİDE YAP
+                              //PushManager.push(context, WorkerCafePage(cafe: widget.shop));
+                              break;
+                            case EUser.normal:
+                              break;
+                            case EUser.admin:
+                              break;
+                          }
+
+                          break;
                         case 99:
-                          deleteButton(widget.appointment.id!);
+                          deleteButton(widget.shop.id!);
                           break;
                         default:
                       }
                     }),
                     subtitle: Text(
-                      widget.appointment.phoneNo!,
+                      widget.shop.location!,
                       style: TextStyle(color: Colors.black),
                     ),
                   ),

@@ -1,5 +1,5 @@
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
 import 'package:flutter/material.dart';

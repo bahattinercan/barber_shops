@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';

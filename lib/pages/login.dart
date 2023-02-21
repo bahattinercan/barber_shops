@@ -3,7 +3,7 @@ import 'package:barbers/pages/home.dart';
 import 'package:barbers/pages/signin.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';

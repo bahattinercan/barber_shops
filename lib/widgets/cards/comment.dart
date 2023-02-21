@@ -1,6 +1,6 @@
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

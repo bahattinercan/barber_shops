@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:barbers/models/service.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';

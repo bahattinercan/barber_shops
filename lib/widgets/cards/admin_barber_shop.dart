@@ -1,7 +1,7 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shop.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/utils/push_manager.dart';

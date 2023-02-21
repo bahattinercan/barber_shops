@@ -1,6 +1,6 @@
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/login.dart';
-import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
