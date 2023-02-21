@@ -1,5 +1,3 @@
-import 'package:barbers/enums/cafe_card.dart';
-import 'package:barbers/enums/cafe_page.dart';
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/create_cafe.dart';

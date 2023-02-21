@@ -1,5 +1,6 @@
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BaseTextFormField extends StatefulWidget {
   final bool autofocus;
@@ -9,6 +10,7 @@ class BaseTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
 
   BaseTextFormField({
     Key? key,
@@ -20,6 +22,7 @@ class BaseTextFormField extends StatefulWidget {
     this.validator = ValidatorManager.baseValidator,
     this.keyboardType,
     this.maxLength,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -41,6 +44,7 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
       ),
       validator: widget.validator,
       maxLength: widget.maxLength,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }

@@ -22,6 +22,8 @@ class Appointment {
     this.services,
     this.time,
     this.workerId,
+    this.fullname,
+    this.phoneNo,
   });
 
   int? id;
@@ -31,6 +33,8 @@ class Appointment {
   List<int>? services;
   DateTime? time;
   int? workerId;
+  String? fullname;
+  String? phoneNo;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
         id: json["id"],
@@ -40,6 +44,8 @@ class Appointment {
         services: json["services"] == null ? [] : List<int>.from(json["services"]!.map((x) => x)),
         time: json["time"] == null ? null : DateTime.parse(json["time"]),
         workerId: json["worker_id"],
+        fullname: json["fullname"],
+        phoneNo: json["phone_no"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,5 +56,7 @@ class Appointment {
         "services": services == null ? [] : List<dynamic>.from(services!.map((x) => x)),
         "time": time?.toIso8601String(),
         "worker_id": workerId,
+        "fullname": fullname,
+        "phone_no": phoneNo,
       };
 }

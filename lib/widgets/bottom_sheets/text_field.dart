@@ -2,6 +2,7 @@ import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFieldBS extends StatefulWidget {
   final Function(
@@ -17,6 +18,7 @@ class TextFieldBS extends StatefulWidget {
   final String titleText;
   final String buttonText;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
   const TextFieldBS({
     required this.submit,
     this.onStart,
@@ -28,6 +30,7 @@ class TextFieldBS extends StatefulWidget {
     this.hintText,
     this.labelText,
     this.maxLength,
+    this.inputFormatters,
     super.key,
   });
 
@@ -94,6 +97,7 @@ class _TextFieldBSState extends State<TextFieldBS> {
                 validator: (value) =>
                     widget.validator != null ? widget.validator!(value) : ValidatorManager.baseValidator(value),
                 maxLength: widget.maxLength,
+                inputFormatters: widget.inputFormatters,
               ),
               SizedBox(height: 5),
               BaseButton(

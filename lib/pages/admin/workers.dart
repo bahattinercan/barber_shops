@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/models/user.dart';
+import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
 import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/dialog_widgets.dart';
+import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/cards/worker.dart';
-import 'package:barbers/widgets/nav_bars/admin_cafe.dart';
+import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -26,11 +30,15 @@ class AdminWorkersPage extends StatefulWidget {
 }
 
 class _AdminWorkersPageState extends State<AdminWorkersPage> {
-  late Future<List<User>>? users;
+  List<Worker> workers = [];
 
   @override
   initState() {
-    users = getUsers();
+    getData.then((value) {
+      setState(() {
+        workers = value;
+      });
+    });
     super.initState();
   }
 
@@ -38,32 +46,25 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     widget.shop = shop;
   }
 
-  Future<List<User>>? getUsers() async {
-    // TODO YAP
-    // try {
-    //   String datas = "";
-    //   if (widget.shop.workers != null) {
-    //     if (widget.shop.workers!.isEmpty) return [];
-    //     datas = await HttpReqManager.postReq(
-    //       '/users/with_ids',
-    //       jsonEncode({"ids": List<dynamic>.from(widget.shop.workers!.map((x) => x))}),
-    //     );
-    //   } else {
-    //     datas = await HttpReqManager.getReq('/users');
-    //   }
-    //   return userListFromJson(datas);
-    // } catch (e) {
-    //   print(e);
-    //   return [];
-    // }
-    return [];
+  Future<List<Worker>> get getData async {
+    try {
+      String datas = "";
+      datas = await HttpReqManager.getReq('/workers/shop/${widget.shop.id}');
+
+      return workerListFromJson(datas);
+    } catch (e) {
+      print(e);
+      return [];
+    }
   }
 
-  void RefreshUser(User user) {
+  void UpdateWorker(Worker worker) {
     setState(() {
-      user;
+      worker;
     });
   }
+
+  void removeWorker(worker) => setState(() => workers.remove(worker));
 
   void addWorkerButton() {
     AppManager.bottomSheet(
@@ -80,35 +81,44 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
   }
 
   addWorker(GlobalKey<FormState> formKey, String text) async {
-    // TODO add worker
-    // try {
-    //   if (!formKey.currentState!.validate()) return;
-    //   // find user
-    //   final workerRes = await HttpReqManager.getReq("/users/has_email/${text}");
-    //   if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
-    //     Dialogs.failDialog(context: context);
-    //     return;
-    //   }
-    //   int workerId = jsonDecode(workerRes)["id"];
-    //   // check if this user is already added
-    //   if (widget.shop.workers!.contains(workerId)) return;
+    try {
+      if (!formKey.currentState!.validate()) return;
+      // find user
+      final hasEmailRes = await HttpReqManager.getReq("/users/has_email/${text}");
+      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+        Dialogs.failDialog(context: context);
+        return;
+      }
+      int userId = jsonDecode(hasEmailRes)["id"];
 
-    //   // add to the cafe
-    //   await HttpReqManager.putReq("/cafes/add_worker/${widget.shop.id}/${workerId}", null);
-    //   // check for the result
-    //   if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
-    //     Dialogs.failDialog(context: context);
-    //     return;
-    //   }
-    //   // update
-    //   setState(() {
-    //     widget.shop.workers!.add(workerId);
-    //   });
-    //   Navigator.pop(context);
-    //   DialogManager.instance.successDialog(context: context);
-    // } catch (e) {
-    //   print(e);
-    // }
+      // check if this user is already added
+      if (workers.any((element) => element.id == userId)) return;
+
+      // add to the cafe
+      final workerRes = await HttpReqManager.postReq(
+          "/workers",
+          workerToJson(Worker(
+            userId: userId,
+            barberShopId: widget.shop.id,
+          )));
+
+      // check for the result
+      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+        Dialogs.failDialog(context: context);
+        return;
+      }
+      Worker newWorker = workerFromJson(workerRes);
+      // add to the list
+      setState(() {
+        workers.add(newWorker);
+      });
+
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } catch (e) {
+      Dialogs.failDialog(context: context);
+      print(e);
+    }
   }
 
   @override
@@ -130,32 +140,16 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
           width: media.size.width,
           child: Column(children: [
             Expanded(
-              child: FutureBuilder(
-                future: users,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return snapshot.data == null
-                        ? Container()
-                        : ListView.builder(
-                            itemBuilder: (context, index) {
-                              return WorkerCard(
-                                snapshot.data![index],
-                                canRemoveWorker: widget.canRemoveWorker,
-                                cafeId: widget.shop.id!,
-                                removeWorker: (uid) {
-                                  setState(() {
-                                    // TODO REMOVE WORKER
-                                    // widget.shop.workers!.remove(uid);
-                                  });
-                                },
-                              );
-                            },
-                            itemCount: snapshot.data!.length,
-                          );
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return WorkerCard(
+                    workers[index],
+                    canRemoveWorker: widget.canRemoveWorker,
+                    shopId: widget.shop.id!,
+                    removeWorker: removeWorker,
+                  );
                 },
+                itemCount: workers.length,
               ),
             ),
           ]),

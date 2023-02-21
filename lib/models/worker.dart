@@ -18,18 +18,24 @@ class Worker {
     this.userId,
     this.barberShopId,
     this.image,
+    this.fullname,
+    this.phoneNo,
   });
 
   int? id;
   int? userId;
   int? barberShopId;
   String? image;
+  String? fullname;
+  String? phoneNo;
 
   factory Worker.fromJson(Map<String, dynamic> json) => Worker(
         id: json["id"],
         userId: json["user_id"],
         barberShopId: json["barber_shop_id"],
         image: json["image"],
+        fullname: json["fullname"],
+        phoneNo: json["phone_no"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +43,6 @@ class Worker {
         "user_id": userId,
         "barber_shop_id": barberShopId,
         "image": image,
+        "phone_no": phoneNo,
       };
 }

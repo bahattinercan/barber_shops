@@ -1,11 +1,17 @@
+import 'dart:async';
+
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/service.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/dialog_widgets.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
 import 'package:barbers/widgets/cards/admin_service.dart';
-import 'package:barbers/widgets/nav_bars/admin_cafe.dart';
+import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 // ignore: must_be_immutable
 class AdminServicesPage extends StatefulWidget {
@@ -29,39 +35,67 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   }
 
   Future<List<Service>>? getData() async {
-    final datas = await HttpReqManager.getReq('/menu_items/cafe/${widget.shop.id}');
-    return serviceListFromJson(datas);
+    try {
+      final datas = await HttpReqManager.getReq('/services/barber_shop/${widget.shop.id}');
+      return serviceListFromJson(datas);
+    } catch (e) {
+      print(e);
+      return [];
+    }
   }
 
   void addItemButton() {
-    // TODO
-    // AppManager.bottomSheet(context, AddMenuItemBS(submit: addItem));
+    AppManager.bottomSheet(
+      context,
+      TextField2BS(
+        submit: addItem,
+        maxLength: 40,
+        labelText: "isim",
+        hintText: "saç kesim",
+        maxLength2: 12,
+        labelText2: "ücret",
+        hintText2: "5.00₺",
+        keyboardType2: TextInputType.number,
+        icon2: Icons.money,
+        inputFormatters2: [
+          CurrencyInputFormatter(
+            leadingSymbol: "₺",
+            thousandSeparator: ThousandSeparator.None,
+            useSymbolPadding: false,
+          )
+        ],
+      ),
+    );
   }
 
-  // TODO yap
-  // addItem(GlobalKey<FormState> formKey, String name, EMenuItem menuItemType) async {
-  //   try {
-  //     if (!formKey.currentState!.validate()) return;
-  //     final result = await HttpReqManager.postReq(
-  //       "/menu_items",
-  //       menuItemToJson(MenuItem(
-  //         name: name,
-  //         type: MenuItem.itemTypeToInt(menuItemType),
-  //         cafeId: widget.cafe.id,
-  //       )),
-  //     );
-  //     if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
-  //       DialogManager.instance.failDialog(context: context);
-  //       return;
-  //     }
-  //     MenuItem newItem = menuItemFromJson(result);
-  //     addItemToList(newItem);
-  //     Navigator.pop(context);
-  //     DialogManager.instance.successDialog(context: context);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  addItem(GlobalKey<FormState> formKey, String text, String text2) async {
+    try {
+      if (!formKey.currentState!.validate()) return;
+
+      final moneyString = text2.replaceAll("₺", "");
+      final result = await HttpReqManager.postReq(
+        "/services",
+        serviceToJson(Service(
+          name: text,
+          price: moneyString,
+          userId: AppManager.user.id,
+          barberShopId: widget.shop.id,
+        )),
+      );
+
+      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+        Dialogs.failDialog(context: context);
+        return;
+      }
+
+      Service newItem = serviceFromJson(result);
+      addItemToList(newItem);
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   addItemToList(Service service) async {
     (await services)!.add(service);

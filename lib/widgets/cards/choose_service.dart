@@ -53,7 +53,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
                 width: 25,
                 child: Divider(
                   thickness: 2,
-                  // color: MainColors.grey,
+                  color: isActive == false ? MainColors.light_grey : MainColors.black,
                 ),
               ),
             ),
@@ -63,7 +63,8 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
                 textAlign: TextAlign.center,
                 "₺" + widget.service.price.toStringAsFixed(2),
                 style: TextStyle(
-                  color: MainColors.grey,
+                  color: isActive == false ? MainColors.grey : MainColors.black,
+                  fontSize: 16,
                 ),
               ),
             ),

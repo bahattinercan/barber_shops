@@ -2,6 +2,7 @@ import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextField2BS extends StatefulWidget {
   final Function(
@@ -17,6 +18,7 @@ class TextField2BS extends StatefulWidget {
   final String? labelText;
   final String? Function(String?)? validator;
   final int? maxLength;
+  final List<TextInputFormatter>? inputFormatters;
   // textField 2
   final TextInputType? keyboardType2;
   final dynamic icon2;
@@ -24,6 +26,7 @@ class TextField2BS extends StatefulWidget {
   final String? labelText2;
   final String? Function(String?)? validator2;
   final int? maxLength2;
+  final List<TextInputFormatter>? inputFormatters2;
 
   final String buttonText;
   const TextField2BS({
@@ -36,6 +39,7 @@ class TextField2BS extends StatefulWidget {
     this.hintText,
     this.labelText,
     this.maxLength,
+    this.inputFormatters,
     // text field 2
     this.keyboardType2,
     this.validator2,
@@ -43,6 +47,7 @@ class TextField2BS extends StatefulWidget {
     this.hintText2,
     this.labelText2,
     this.maxLength2,
+    this.inputFormatters2,
     this.buttonText = "Değiştir",
     super.key,
   });
@@ -66,7 +71,7 @@ class _TextField2BSState extends State<TextField2BS> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
         child: Container(
           width: double.infinity,
@@ -89,6 +94,7 @@ class _TextField2BSState extends State<TextField2BS> {
                 validator: (value) =>
                     widget.validator != null ? widget.validator!(value) : ValidatorManager.baseValidator(value),
                 maxLength: widget.maxLength,
+                inputFormatters: widget.inputFormatters,
               ),
               SizedBox(height: 5),
               BaseTextFormField(
@@ -100,6 +106,7 @@ class _TextField2BSState extends State<TextField2BS> {
                 validator: (value) =>
                     widget.validator2 != null ? widget.validator2!(value) : ValidatorManager.baseValidator(value),
                 maxLength: widget.maxLength2,
+                inputFormatters: widget.inputFormatters2,
               ),
               SizedBox(height: 5),
               BaseButton(

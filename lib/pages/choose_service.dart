@@ -46,7 +46,7 @@ class ChooseServicePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            decoration: BoxDecoration(color: MainColors.primary_w500, borderRadius: BorderRadius.circular(24)),
+            decoration: BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
             child: Column(
               children: [
                 Expanded(
@@ -60,7 +60,9 @@ class ChooseServicePage extends StatelessWidget {
                             onTap: () => Navigator.pop(context),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: MainColors.primary_w900, borderRadius: BorderRadius.circular(100)),
+                                color: MainColors.white,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(Icons.arrow_back),

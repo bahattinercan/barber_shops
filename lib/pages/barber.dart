@@ -37,7 +37,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                   width: double.infinity,
                   height: 250,
                   decoration: BoxDecoration(
-                    color: MainColors.primary_w500,
+                    color: MainColors.backgroundColor,
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
                       image: AssetImage("assets/icons/barber_shop.jpg"),
@@ -63,7 +63,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                             padding: const EdgeInsets.only(left: 8, top: 8),
                             child: Container(
                               decoration: BoxDecoration(
-                                color: MainColors.primary_w500,
+                                color: MainColors.white,
                                 borderRadius: BorderRadius.circular(100),
                               ),
                               child: GestureDetector(
@@ -98,7 +98,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: MainColors.primary_w500,
+                      color: MainColors.backgroundColor,
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Padding(
@@ -178,7 +178,8 @@ class _BarberShopPageState extends State<BarberShopPage> {
                                   flex: 20,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: MainColors.primary_w900, borderRadius: BorderRadius.circular(16)),
+                                        color: MainColors.secondary_mat.shade200,
+                                        borderRadius: BorderRadius.circular(16)),
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                                       child: Icon(Icons.message),

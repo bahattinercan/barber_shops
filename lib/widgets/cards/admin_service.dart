@@ -5,9 +5,11 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialog_widgets.dart';
 import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 // ignore: must_be_immutable
 class AdminServiceCard extends StatefulWidget {
@@ -33,7 +35,7 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
   }
 
   delete(int id) async {
-    final request = await HttpReqManager.deleteReq("/menu_items/${id}");
+    final request = await HttpReqManager.deleteReq("/services/${id}");
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);
@@ -59,11 +61,50 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
     try {
       if (!formKey.currentState!.validate()) return;
       bool result = await HttpReqManager.putReq(
-        "/menu_items/data/${widget.service}/name",
+        "/services/data/${widget.service.id}/name",
         jsonEncode({"data": text}),
       );
       if (result) {
         setState(() => widget.service.name = text);
+        Navigator.pop(context);
+        Dialogs.successDialog(context: context);
+      } else {
+        Dialogs.failDialog(context: context);
+      }
+    } catch (e) {
+      print(e);
+      Dialogs.failDialog(context: context);
+    }
+  }
+
+  void editPriceButton() {
+    AppManager.bottomSheet(
+        context,
+        TextFieldBS(
+          submit: editPrice,
+          maxLength: 60,
+          keyboardType: TextInputType.number,
+          icon: Icons.money,
+          inputFormatters: [
+            CurrencyInputFormatter(
+              leadingSymbol: "₺",
+              thousandSeparator: ThousandSeparator.None,
+              useSymbolPadding: false,
+            )
+          ],
+        ));
+  }
+
+  void editPrice(GlobalKey<FormState> formKey, String text) async {
+    try {
+      if (!formKey.currentState!.validate()) return;
+      final moneyString = text.replaceAll("₺", "");
+      bool result = await HttpReqManager.putReq(
+        "/services/data/${widget.service.id}/price",
+        jsonEncode({"data": moneyString}),
+      );
+      if (result) {
+        setState(() => widget.service.price = moneyString);
         Navigator.pop(context);
         Dialogs.successDialog(context: context);
       } else {
@@ -101,39 +142,35 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
                   ListTile(
                     minLeadingWidth: 12,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 4),
                     leading: Padding(
-                      padding: const EdgeInsets.only(left: 12, right: 8),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: (widget.service.image == null || widget.service.image == "" || imageData == null)
-                            ? Image.asset(
-                                "assets/images/coffee.jpg",
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.memory(
-                                imageData!,
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                              ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.design_services,
+                        color: MainColors.triadic_1,
                       ),
                     ),
                     title: Text(
                       widget.service.name!,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                    subtitle: Text(
+                      widget.service.price! + " ₺",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     trailing: PopupMenuButton(itemBuilder: (context) {
                       return [
                         const PopupMenuItem<int>(value: 1, child: Text("İsim düzenle")),
+                        const PopupMenuItem<int>(value: 2, child: Text("Fiyat düzenle")),
                         const PopupMenuItem<int>(value: 99, child: Text("Sil")),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
                         case 1:
                           editNameButton();
+                          break;
+                        case 2:
+                          editPriceButton();
                           break;
                         case 99:
                           deleteButton(widget.service.id!);

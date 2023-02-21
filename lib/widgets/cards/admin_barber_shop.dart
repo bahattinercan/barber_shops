@@ -67,7 +67,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                     horizontalTitleGap: 4,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
-                      color: MainColors.similar_color,
+                      color: MainColors.triadic_1,
                       onPressed: () {},
                       icon: Icon(Icons.bookmark),
                     ),
@@ -88,7 +88,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                               PushManager.push(context, AdminBarberPage(shop: widget.shop));
                               break;
                             case EUser.worker:
-                              // TODO İLERİDE YAP
+                              // TODO ADMİN WORKER PAGE
                               //PushManager.push(context, WorkerCafePage(cafe: widget.shop));
                               break;
                             case EUser.normal:

@@ -1,50 +1,46 @@
-import 'package:barbers/models/worker.dart';
+import 'package:barbers/enums/user.dart';
+import 'package:barbers/models/appointment.dart';
 import 'package:barbers/utils/dialog_widgets.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class WorkerCard extends StatefulWidget {
-  Worker worker;
-  int shopId;
-
-  /// if true then you needed to specify removeWorker function.
-  bool canRemoveWorker;
-  void Function(Worker worker)? removeWorker;
-  WorkerCard(
-    this.worker, {
-    super.key,
-    this.canRemoveWorker = false,
-    this.removeWorker,
-    required this.shopId,
-  });
-
-  @override
-  State<WorkerCard> createState() => _WorkerCardState();
+enum ECafeCard {
+  boss,
+  worker,
 }
 
-class _WorkerCardState extends State<WorkerCard> {
+// ignore: must_be_immutable
+class AdminAppointmentCard extends StatefulWidget {
+  EUser eUser;
+  Appointment appointment;
+  AdminAppointmentCard(this.appointment, this.eUser, {super.key});
+
+  @override
+  State<AdminAppointmentCard> createState() => _AdminAppointmentCardState();
+}
+
+class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
   bool isActive = true;
 
-  Color get iconColor {
-    return MainColors.triadic_1;
-  }
-
-  removeWorkerButton() async {
-    Dialogs.yesNoDialog(context, "Çıkart", "Çalışan çıkartılsın mı?", okF: removeWorker);
-  }
-
-  removeWorker() async {
-    await HttpReqManager.deleteReq("/workers/${widget.worker.id}");
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
-      Dialogs.failDialog(context: context);
-      return;
-    }
+  updateCafe(Appointment appointment) {
     setState(() {
-      isActive = false;
+      widget.appointment = appointment;
     });
-    if (widget.removeWorker != null) widget.removeWorker!(widget.worker);
+  }
+
+  delete(int id) async {
+    final request = await HttpReqManager.deleteReq("/barber_shops/${id}");
+    if (request) {
+      setState(() => isActive = false);
+      Dialogs.successDialog(context: context);
+    } else {
+      Dialogs.failDialog(context: context);
+    }
+  }
+
+  deleteButton(int id) {
+    Dialogs.yesNoDialog(context, "Randevu'yu sil", "Randevu silinsin mi?", okF: () => delete(id));
   }
 
   @override
@@ -67,33 +63,31 @@ class _WorkerCardState extends State<WorkerCard> {
                   ListTile(
                     minLeadingWidth: 12,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
+                      color: MainColors.triadic_1,
                       onPressed: () {},
-                      icon: Icon(
-                        Icons.person,
-                        color: iconColor,
-                      ),
+                      icon: Icon(Icons.bookmark_rounded),
                     ),
                     title: Text(
-                      widget.worker.fullname!,
+                      widget.appointment.fullname!,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     trailing: PopupMenuButton(itemBuilder: (context) {
                       return [
-                        if (widget.canRemoveWorker) const PopupMenuItem<int>(value: 98, child: Text("Çıkart")),
+                        const PopupMenuItem<int>(value: 99, child: Text("Sil")),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
-                        case 98:
-                          removeWorkerButton();
+                        case 99:
+                          deleteButton(widget.appointment.id!);
                           break;
                         default:
                       }
                     }),
                     subtitle: Text(
-                      "Tel : " + widget.worker.phoneNo!,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                      widget.appointment.phoneNo!,
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ],

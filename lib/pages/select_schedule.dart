@@ -74,7 +74,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
               Expanded(
                 flex: 75,
                 child: Container(
-                  decoration: BoxDecoration(color: MainColors.primary_w500, borderRadius: BorderRadius.circular(24)),
+                  decoration: BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
                   child: Column(
                     children: [
                       Expanded(
@@ -88,7 +88,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                   onTap: () => Navigator.pop(context),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                        color: MainColors.primary_w900, borderRadius: BorderRadius.circular(100)),
+                                        color: MainColors.white, borderRadius: BorderRadius.circular(100)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Icon(Icons.arrow_back),
@@ -167,7 +167,8 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                     margin: EdgeInsets.only(
                       top: 10,
                     ),
-                    decoration: BoxDecoration(color: MainColors.primary_w500, borderRadius: BorderRadius.circular(24)),
+                    decoration:
+                        BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
@@ -178,7 +179,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                 "ORDER AT: ",
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: MainColors.light_grey,
+                                  color: MainColors.grey,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -224,7 +225,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                 ? " +${widget.selectedServices.length - 1}"
                                                 : ""),
                                         style: TextStyle(
-                                          color: MainColors.light_grey,
+                                          color: MainColors.grey,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),
@@ -235,7 +236,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                 .format(_selectedDateTime!)
                                                 .toString(),
                                         style: TextStyle(
-                                          color: MainColors.light_grey,
+                                          color: MainColors.grey,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       ),

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/comments.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialog_widgets.dart';
 import 'package:barbers/utils/http_req_manager.dart';
@@ -11,7 +12,7 @@ import 'package:barbers/widgets/bottom_sheets/change_location.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/buttons/edit_text.dart';
-import 'package:barbers/widgets/nav_bars/admin_cafe.dart';
+import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -355,6 +356,10 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                 BaseButton(
                   text: "Konumu değiştir",
                   onPressed: () => AppManager.bottomSheet(context, ChangeLocationBS(submit: changeLocation)),
+                ),
+                BaseButton(
+                  text: "Yorumlar",
+                  onPressed: () => PushManager.push(context, AdminCommentsPage(shop: widget.shop)),
                 ),
                 SizedBox(
                   height: 10,

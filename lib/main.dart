@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-import 'package:barbers/pages/login.dart';
 import 'package:barbers/pages/start.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +18,19 @@ class MyApp extends StatelessWidget {
       title: 'Berberim',
       theme: ThemeData(
         colorScheme: ColorScheme.light(
-          primary: MainColors.new_primary,
-          primaryVariant: MainColors.new_primary_variant,
+          primary: MainColors.new_secondary,
+          primaryVariant: MainColors.new_seconday_variant,
           secondary: MainColors.new_secondary,
           secondaryVariant: MainColors.new_seconday_variant,
         ),
-        primarySwatch: MainColors.getMatColor(MainColors.new_primary),
-        accentColor: MainColors.new_secondary,
+        primarySwatch: MainColors.secondary_mat,
+        accentColor: MainColors.new_seconday_variant,
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          toolbarHeight: 75,
+        ),
         // appBarTheme: AppBarTheme(
         //   elevation: 0,
         //   color: Colors.transparent,
@@ -66,7 +71,7 @@ class MyApp extends StatelessWidget {
         // textButtonTheme:
         //     TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStatePropertyAll(MainColors.black))),
       ),
-      home: LoginPage(),
+      home: StartPage(),
     );
   }
 }

@@ -24,8 +24,6 @@ class _LoginPageState extends State<LoginPage> {
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
 
-  bool _isHidden = true;
-
   Future<void> _loginButton() async {
     try {
       if (!_formKey.currentState!.validate()) return;

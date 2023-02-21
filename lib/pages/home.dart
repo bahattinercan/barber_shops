@@ -1,6 +1,6 @@
 import 'package:barbers/pages/admin/barber_shops.dart';
 import 'package:barbers/utils/push_manager.dart';
-import 'package:barbers/widgets/cards/barber.dart';
+import 'package:barbers/widgets/cards/barber_shop.dart';
 import 'package:barbers/models/barber_shop_static.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +63,43 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Şuanki konum",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              "Royal Ln. Mesa, New Jersey",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                color: MainColors.secondary_mat.shade200,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.person_rounded),
+                onPressed: () {
+                  // Add your onPressed callback here
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: adminButton,
         child: Icon(
@@ -76,86 +113,14 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Expanded(
-                flex: 10,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: MainColors.primary_w500,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: MainColors.primary_w900,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Icon(
-                                    Icons.gps_fixed,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Şuanki konum",
-                                    style: TextStyle(
-                                      color: MainColors.grey,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "Royal Ln. Mesa, New Jersey",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: MainColors.primary_w900,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Icon(
-                                Icons.person,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 90,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: ListView.builder(
-                    padding: EdgeInsets.all(8),
-                    itemCount: _shops.length,
-                    itemBuilder: (context, index) {
-                      return BarberCard(
-                        shop: _shops[index],
-                      );
-                    },
-                  ),
+                child: ListView.builder(
+                  padding: EdgeInsets.all(8),
+                  itemCount: _shops.length,
+                  itemBuilder: (context, index) {
+                    return BarberShopCard(
+                      shop: _shops[index],
+                    );
+                  },
                 ),
               ),
             ],

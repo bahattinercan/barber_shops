@@ -3,22 +3,22 @@ import 'package:barbers/pages/barber.dart';
 import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
-class BarberCard extends StatefulWidget {
+class BarberShopCard extends StatefulWidget {
   final BarberShopStatic shop;
-  BarberCard({
+  BarberShopCard({
     Key? key,
     required this.shop,
   }) : super(key: key);
 
   @override
-  State<BarberCard> createState() => _BarberCardState();
+  State<BarberShopCard> createState() => _BarberShopCardState();
 }
 
-class _BarberCardState extends State<BarberCard> {
+class _BarberShopCardState extends State<BarberShopCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -34,7 +34,7 @@ class _BarberCardState extends State<BarberCard> {
           width: double.infinity,
           height: 250,
           decoration: BoxDecoration(
-            color: MainColors.primary_w500,
+            color: MainColors.backgroundColor,
             borderRadius: BorderRadius.circular(24),
             image: DecorationImage(
               image: AssetImage("assets/icons/barber_shop.jpg"),
@@ -48,9 +48,9 @@ class _BarberCardState extends State<BarberCard> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   gradient: LinearGradient(
-                    begin: Alignment.topCenter,
+                    begin: Alignment.center,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[Colors.black.withAlpha(0), Colors.black12, Colors.black45],
+                    colors: <Color>[Colors.black.withAlpha(0), Colors.black54, Colors.black],
                   ),
                 ),
               ),
@@ -62,11 +62,11 @@ class _BarberCardState extends State<BarberCard> {
                   children: [
                     Text(
                       widget.shop.name,
-                      style: TextStyle(color: MainColors.white, fontSize: 32, fontWeight: FontWeight.w400),
+                      style: TextStyle(color: MainColors.white, fontSize: 28, fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      "Barbershop",
-                      style: TextStyle(color: MainColors.white, fontSize: 32, fontWeight: FontWeight.w400),
+                      widget.shop.description,
+                      style: TextStyle(color: MainColors.white, fontSize: 14, fontWeight: FontWeight.w400),
                     ),
                     Row(
                       children: [
