@@ -1,6 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/pages/appointments.dart';
+import 'package:barbers/pages/profile.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
@@ -79,9 +80,7 @@ class _HomePageState extends State<HomePage> {
                   color: ColorManager.primaryVariant,
                   size: 32,
                 ),
-                onPressed: () {
-                  // TODO make profile page
-                },
+                onPressed: () => PushManager.push(context, ProfilePage()),
               ),
             ),
           ),

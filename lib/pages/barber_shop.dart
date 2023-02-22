@@ -1,6 +1,6 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/choose_barber.dart';
-import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +26,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
   }
 
   void selectBarberShop() {
-    AppController.instance.shop = widget.shop;
+    AppManager.shop = widget.shop;
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return ChooseBarberPage(
         shop: widget.shop,
@@ -55,27 +55,27 @@ class _BarberShopPageState extends State<BarberShopPage> {
                   decoration: BoxDecoration(
                     color: ColorManager.surface,
                     borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                      //TODO DEĞİŞTİR
-                      image: AssetImage("assets/icons/barber_shop.jpg"),
-                      // (widget.shop.profilePicture == null || widget.shop.profilePicture == "" || imageData == null)
-                      //     ? Image.asset(
-                      //         "assets/images/test.png",
-                      //         width: 200,
-                      //         height: 200,
-                      //         fit: BoxFit.cover,
-                      //       )
-                      //     : Image.memory(
-                      //         imageData!,
-                      //         width: 200,
-                      //         height: 200,
-                      //         fit: BoxFit.cover,
-                      //       ),
-                      fit: BoxFit.cover,
-                    ),
                   ),
                   child: Stack(
                     children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(30),
+                        child: (widget.shop.profilePicture == null ||
+                                widget.shop.profilePicture == "" ||
+                                imageData == null)
+                            ? Image.asset(
+                                "assets/images/test.png",
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.memory(
+                                imageData!,
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
                       Container(
                         alignment: Alignment.bottomCenter,
                         decoration: BoxDecoration(
@@ -146,7 +146,6 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           Row(
                             children: [
                               Icon(
-                                // TODO icon slider yap
                                 Icons.star,
                                 color: Colors.amber,
                               ),

@@ -1,6 +1,5 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
-import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';

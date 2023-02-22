@@ -1,5 +1,5 @@
-import 'package:barbers/utils/app_controller.dart';
 import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/custom_formats.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -37,8 +37,8 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
   @override
   void initState() {
     super.initState();
-    hourText = AppController.instance.formatIntTo2Letter(widget.hour);
-    minuteText = AppController.instance.formatIntTo2Letter(widget.minute);
+    hourText = CustomFormats.intTo2Letter(widget.hour);
+    minuteText = CustomFormats.intTo2Letter(widget.minute);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:flutter/material.dart';
@@ -166,7 +167,7 @@ class _CommentCardState extends State<CommentCard> {
                               ),
                               SizedBox(width: 2),
                               Text(
-                                AppManager.instance.dateFormatter.format(widget.comment.time!),
+                                CustomFormats.dateFormatter.format(widget.comment.time!),
                                 style: TextStyle(
                                   fontSize: 11,
                                   color: ColorManager.onSurface,

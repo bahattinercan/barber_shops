@@ -95,7 +95,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dükkan Oluştur"),
+        title: Text(AppManager.stringToTitle("oluştur")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

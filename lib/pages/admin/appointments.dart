@@ -2,6 +2,7 @@ import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
@@ -42,7 +43,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.shop.name!),
+        title: Text(AppManager.stringToTitle("randevu")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

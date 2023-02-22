@@ -1,5 +1,4 @@
 import 'package:barbers/utils/validator_manager.dart';
-import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

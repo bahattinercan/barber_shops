@@ -1,5 +1,5 @@
-import 'package:barbers/utils/app_controller.dart';
 import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/custom_formats.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -52,7 +52,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppController.instance.formatDayOfTheWeek(widget.datetime),
+                  CustomFormats.dayOfTheWeek(widget.datetime),
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     color: ColorManager.onBackground,

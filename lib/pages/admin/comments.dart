@@ -1,6 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/pages/admin/shop.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/comment.dart';
@@ -53,7 +54,7 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.shop.name!),
+        title: Text(AppManager.stringToTitle("Yorum")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

@@ -171,7 +171,6 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
       );
       if (result) {
         setState(() => widget.shop.isOpen = value);
-        Dialogs.successDialog(context: context);
       } else {
         Dialogs.failDialog(context: context);
       }
@@ -188,7 +187,6 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
       );
       if (result) {
         setState(() => widget.shop.isEmpty = value);
-        Dialogs.successDialog(context: context);
       } else {
         Dialogs.failDialog(context: context);
       }
@@ -252,7 +250,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.shop.name!),
+        title: Text(AppManager.stringToTitle("detaylar")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new_rounded),

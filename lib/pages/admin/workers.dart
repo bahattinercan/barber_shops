@@ -126,7 +126,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.shop.name!),
+        title: Text(AppManager.stringToTitle("Çalışan")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

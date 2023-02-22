@@ -46,7 +46,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
-        title: const Text('Dükkanlar'),
+        title: Text(AppManager.stringToTitle("dükkan")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

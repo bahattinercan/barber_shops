@@ -1,12 +1,9 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
-import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
-import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentsPage extends StatefulWidget {
@@ -41,7 +38,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
       appBar: BaseAppBar(
-        title: 'Randevular',
+        title: AppManager.stringToTitle('randevu'),
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(

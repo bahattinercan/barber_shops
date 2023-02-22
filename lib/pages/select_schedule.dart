@@ -3,7 +3,7 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/home.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
 import 'package:barbers/panels/select_schedule/select_time_grid.dart';
-import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/push_manager.dart';
@@ -72,7 +72,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: 'Randevu Al',
+        title: AppManager.stringToTitle('Randevu'),
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(
@@ -150,7 +150,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                         child: Column(
                           children: [
                             Text(
-                              AppController.instance.shop.name! + " Barbershop",
+                              AppManager.shop.name! + " Barbershop",
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,

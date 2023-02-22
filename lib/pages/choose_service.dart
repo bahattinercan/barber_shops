@@ -1,11 +1,11 @@
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
 import 'package:barbers/pages/select_schedule.dart';
-import 'package:barbers/utils/app_controller.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +39,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   Future<List<Service>> get getData async {
     try {
       String datas = "";
-      datas = await HttpReqManager.getReq('/services/barber_shop/${AppController.instance.shop.id}');
+      datas = await HttpReqManager.getReq('/services/barber_shop/${AppManager.shop.id}');
 
       return serviceListFromJson(datas);
     } catch (e) {
@@ -78,7 +78,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: 'Hizmetler',
+        title: AppManager.stringToTitle('hizmet'),
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(

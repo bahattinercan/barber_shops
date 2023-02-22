@@ -108,7 +108,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.shop.name!),
+        title: Text(AppManager.stringToTitle("hizmet")),
         centerTitle: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

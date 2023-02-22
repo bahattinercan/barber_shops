@@ -1,6 +1,6 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/worker.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_barber.dart';
@@ -46,7 +46,7 @@ class _ChooseBarberPageState extends State<ChooseBarberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        title: 'Berberler',
+        title: AppManager.stringToTitle('berber'),
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(

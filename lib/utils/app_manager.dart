@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/user.dart';
-import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,10 +9,17 @@ class AppManager {
   static final instance = AppManager._internal();
   AppManager._internal();
   static late User user;
-  //TODO custom formattera taşı
-  DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
+  static late BarberShop shop;
 
-  DateFormat backendFormatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+  static String stringToTitle(String title) {
+    title = title.toUpperCase();
+    String spacedWord = "";
+
+    for (int i = 0; i < title.length; i++) {
+      spacedWord += title[i] + " ";
+    }
+    return spacedWord;
+  }
 
   static Future bottomSheet(BuildContext context, Widget widget) async {
     return showModalBottomSheet(

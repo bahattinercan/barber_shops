@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-import 'package:barbers/pages/signin.dart';
 import 'package:barbers/pages/start.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +46,8 @@ class MyApp extends StatelessWidget {
           ),
           titleTextStyle: TextStyle(
             color: ColorManager.onBackground,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
         ),
         scaffoldBackgroundColor: ColorManager.background,

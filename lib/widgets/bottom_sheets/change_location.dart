@@ -1,9 +1,10 @@
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
 
 class ChangeLocationBS extends StatefulWidget {
-  final Function(
+  final void Function(
     String? countryValue,
     String? stateValue,
     String? cityValue,
@@ -55,6 +56,11 @@ class _ChangeLocationBSState extends State<ChangeLocationBS> {
                 else
                   cityValue = value;
               },
+              dropdownColor: ColorManager.surface,
+              iconColor: ColorManager.onBackground,
+              style: TextStyle(
+                color: ColorManager.onBackground,
+              ),
             ),
             SizedBox(height: 5),
             BaseButton(

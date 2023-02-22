@@ -1,8 +1,9 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/barber_shop.dart';
-import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class BarberShopCard extends StatefulWidget {
   final BarberShop shop;
@@ -16,13 +17,21 @@ class BarberShopCard extends StatefulWidget {
 }
 
 class _BarberShopCardState extends State<BarberShopCard> {
+  Uint8List? imageData = null;
+
+  @override
+  void initState() {
+    imageData = widget.shop.getImage();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
-          AppController.instance.shop = widget.shop;
+          AppManager.shop = widget.shop;
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -38,14 +47,25 @@ class _BarberShopCardState extends State<BarberShopCard> {
           decoration: BoxDecoration(
             color: ColorManager.surface,
             borderRadius: BorderRadius.circular(24),
-            image: DecorationImage(
-              //TODO DÜZELT
-              image: AssetImage("assets/icons/barber_shop.jpg"),
-              fit: BoxFit.cover,
-            ),
           ),
           child: Stack(
             children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: (widget.shop.profilePicture == null || widget.shop.profilePicture == "" || imageData == null)
+                    ? Image.asset(
+                        "assets/images/test.png",
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.memory(
+                        imageData!,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        fit: BoxFit.cover,
+                      ),
+              ),
               Container(
                 alignment: Alignment.bottomCenter,
                 decoration: BoxDecoration(
