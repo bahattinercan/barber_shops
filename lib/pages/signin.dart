@@ -1,5 +1,6 @@
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/login.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
@@ -151,6 +152,11 @@ class _SignInPageState extends State<SignInPage> {
                       else
                         cityValue = value;
                     },
+                    dropdownColor: ColorManager.surface,
+                    iconColor: ColorManager.onBackground,
+                    style: TextStyle(
+                      color: ColorManager.onBackground,
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,4 +1,5 @@
 // ignore_for_file: deprecated_member_use
+import 'package:barbers/pages/signin.dart';
 import 'package:barbers/pages/start.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -60,29 +61,49 @@ class MyApp extends StatelessWidget {
         ),
         // BUTTONS
         elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.disabled)) {
-                return ColorManager.primary;
-              }
-              return ColorManager.onSecondary;
-            },
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return ColorManager.primary;
+                }
+                return ColorManager.onSecondary;
+              },
+            ),
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return ColorManager.surface;
+                }
+                return ColorManager.secondary;
+              },
+            ),
           ),
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.disabled)) {
-                return ColorManager.surface;
-              }
-              return ColorManager.secondary;
-            },
-          ),
-        )),
+        ),
         // NAV BARS
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           backgroundColor: ColorManager.surface,
           unselectedItemColor: ColorManager.onBackground,
           selectedItemColor: ColorManager.primaryVariant,
+        ),
+        // BOTTOM SHEET
+        bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: ColorManager.background,
+        ),
+
+        dropdownMenuTheme: DropdownMenuThemeData(
+          menuStyle: MenuStyle(),
+        ),
+
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return ColorManager.surface;
+              }
+              return ColorManager.onSurface;
+            },
+          ),
         ),
       ),
       home: StartPage(),

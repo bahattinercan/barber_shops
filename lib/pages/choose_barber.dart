@@ -2,6 +2,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_barber.dart';
 import 'package:flutter/material.dart';
 
@@ -44,24 +45,10 @@ class _ChooseBarberPageState extends State<ChooseBarberPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Berberini seç",
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            color: ColorManager.primary,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: ColorManager.primary,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: 'Berberler',
+        onPressed: () => Navigator.pop(context),
+      ).build(context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

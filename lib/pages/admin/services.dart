@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/service.dart';
-import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';

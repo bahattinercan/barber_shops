@@ -1,25 +1,25 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
-class AdminBarberAppointmentsPage extends StatefulWidget {
+class AdminAppointmentsPage extends StatefulWidget {
   final BarberShop shop;
-  const AdminBarberAppointmentsPage({
+  const AdminAppointmentsPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
 
   @override
-  State<AdminBarberAppointmentsPage> createState() => _AdminBarberAppointmentsPageState();
+  State<AdminAppointmentsPage> createState() => _AdminAppointmentsPageState();
 }
 
-class _AdminBarberAppointmentsPageState extends State<AdminBarberAppointmentsPage> {
+class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
   List<Appointment> appointments = [];
 
   @override

@@ -87,7 +87,7 @@ class _TextField2BSState extends State<TextField2BS> {
               BaseTextFormField(
                 autofocus: true,
                 keyboardType: widget.keyboardType,
-                icon: widget.icon != null ? widget.icon : Icons.text_fields,
+                icon: widget.icon != null ? widget.icon : null,
                 hintText: widget.hintText != null ? widget.hintText! : "",
                 labelText: widget.labelText != null ? widget.labelText! : "",
                 controller: _controller,
@@ -99,7 +99,7 @@ class _TextField2BSState extends State<TextField2BS> {
               SizedBox(height: 5),
               BaseTextFormField(
                 keyboardType: widget.keyboardType2,
-                icon: widget.icon2 != null ? widget.icon2 : Icons.text_fields,
+                icon: widget.icon != null ? widget.icon2 : null,
                 hintText: widget.hintText2 != null ? widget.hintText2! : "",
                 labelText: widget.labelText2 != null ? widget.labelText2! : "",
                 controller: _controller2,

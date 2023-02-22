@@ -7,7 +7,7 @@ import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
-import 'package:barbers/widgets/text_form_fields/custom.dart';
+import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
 import 'package:flutter/material.dart';
 
@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(height: 25),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _emailTextController,
                     autofocus: true,
                     keyboardType: TextInputType.emailAddress,

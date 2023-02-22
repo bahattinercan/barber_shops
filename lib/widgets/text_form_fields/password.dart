@@ -42,7 +42,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       controller: widget.controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        icon: Icon(widget.icon),
+        prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         labelText: widget.labelText,
         suffix: InkWell(

@@ -1,9 +1,9 @@
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_appointments.dart';
+import 'package:barbers/pages/admin/appointments.dart';
 import 'package:barbers/pages/admin/services.dart';
 import 'package:barbers/pages/admin/workers.dart';
 import 'package:barbers/utils/push_manager.dart';
-import 'package:barbers/pages/admin/barber_shop.dart';
+import 'package:barbers/pages/admin/shop.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -58,7 +58,7 @@ class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
             ));
         break;
       case 3:
-        PushManager.pushReplacement(context, AdminBarberAppointmentsPage(shop: widget.shop));
+        PushManager.pushReplacement(context, AdminAppointmentsPage(shop: widget.shop));
         break;
       default:
     }

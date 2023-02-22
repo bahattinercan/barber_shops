@@ -29,7 +29,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
   bool isActive = true;
 
   Color get iconColor {
-    return ColorManager.primary;
+    return ColorManager.primaryVariant;
   }
 
   removeWorkerButton() async {
@@ -78,11 +78,23 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                     ),
                     title: Text(
                       widget.worker.fullname!,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.onSurface,
+                      ),
                     ),
                     trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
-                        if (widget.canRemoveWorker) const PopupMenuItem<int>(value: 98, child: Text("Çıkart")),
+                        if (widget.canRemoveWorker)
+                          const PopupMenuItem<int>(
+                            value: 98,
+                            child: Text(
+                              "Çıkart",
+                              style: TextStyle(
+                                color: ColorManager.onSurface,
+                              ),
+                            ),
+                          ),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
@@ -94,7 +106,10 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                     }),
                     subtitle: Text(
                       "Tel : " + widget.worker.phoneNo!,
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: ColorManager.onSurface,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],

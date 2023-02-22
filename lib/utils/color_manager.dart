@@ -11,6 +11,7 @@ class ColorManager {
   static const Color onSurface = primary;
   static const Color onPrimary = Colors.white;
   static const Color onSecondary = Colors.white;
+  static const Color disableColor = Color(0xFFd1a675);
 
   static MaterialColor getMatColor(Color color) {
     List strengths = <double>[.05];

@@ -3,14 +3,14 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/buttons/base.dart';
-import 'package:barbers/widgets/text_form_fields/custom.dart';
+import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -146,7 +146,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _name,
                     labelText: "isim",
                     maxLength: 60,
@@ -154,14 +154,14 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _desc,
                     labelText: "açıklama",
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _address,
                     labelText: "adres",
                     icon: Icons.location_on,
@@ -169,7 +169,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _phone,
                     labelText: "telefon",
                     hintText: "5xx xxx xx xx",
@@ -180,7 +180,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  CustomTextFormField(
+                  BaseTextFormField(
                     controller: _insta,
                     labelText: "instagram",
                     icon: Icons.camera,

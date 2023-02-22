@@ -1,10 +1,13 @@
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
+import 'package:barbers/pages/home.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
 import 'package:barbers/panels/select_schedule/select_time_grid.dart';
 import 'package:barbers/utils/app_controller.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
+import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -60,30 +63,18 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
 
   void bookNow() {
     print("BOOK NOW");
+
+    PushManager.pushAndRemoveAll(context, HomePage());
     Dialogs.successDialog(context: context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Randevu zamanı seç",
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            color: ColorManager.primary,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: ColorManager.primary,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: 'Randevu Al',
+        onPressed: () => Navigator.pop(context),
+      ).build(context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

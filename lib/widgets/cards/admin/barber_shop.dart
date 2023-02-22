@@ -1,17 +1,12 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_shop.dart';
+import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
-
-enum ECafeCard {
-  boss,
-  worker,
-}
 
 // ignore: must_be_immutable
 class AdminBarberShopCard extends StatefulWidget {

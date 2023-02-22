@@ -1,6 +1,5 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
-import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
@@ -9,16 +8,16 @@ import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class AdminAppointmentCard extends StatefulWidget {
+class AppointmentCard extends StatefulWidget {
   EUser eUser;
   Appointment appointment;
-  AdminAppointmentCard(this.appointment, this.eUser, {super.key});
+  AppointmentCard(this.appointment, this.eUser, {super.key});
 
   @override
-  State<AdminAppointmentCard> createState() => _AdminAppointmentCardState();
+  State<AppointmentCard> createState() => _AppointmentCardState();
 }
 
-class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
+class _AppointmentCardState extends State<AppointmentCard> {
   bool isActive = true;
 
   updateCafe(Appointment appointment) {
@@ -28,7 +27,7 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
   }
 
   delete(int id) async {
-    final request = await HttpReqManager.deleteReq("/appointments/${id}");
+    final request = await HttpReqManager.deleteReq("/barber_shops/${id}");
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);

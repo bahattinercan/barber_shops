@@ -2,6 +2,7 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
 import 'package:barbers/pages/select_schedule.dart';
 import 'package:barbers/utils/app_controller.dart';
@@ -76,24 +77,10 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Hizmetlerini seç",
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            color: ColorManager.primary,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: ColorManager.primary,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: 'Hizmetler',
+        onPressed: () => Navigator.pop(context),
+      ).build(context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

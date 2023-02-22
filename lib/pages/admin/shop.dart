@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/pages/admin/comments.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
@@ -368,7 +368,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                 ),
                 BaseButton(
                   text: "Yorumlar",
-                  onPressed: () => PushManager.push(context, AdminCommentsPage(shop: widget.shop)),
+                  onPressed: () => PushManager.pushReplacement(context, AdminCommentsPage(shop: widget.shop)),
                 ),
                 SizedBox(
                   height: 10,

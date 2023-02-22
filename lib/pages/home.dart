@@ -1,5 +1,6 @@
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/pages/admin/shops.dart';
+import 'package:barbers/pages/appointments.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
@@ -56,6 +57,15 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         actions: [
+          Container(
+            child: IconButton(
+              icon: Icon(
+                Icons.bookmarks_rounded,
+                color: ColorManager.onBackground,
+              ),
+              onPressed: () => PushManager.push(context, AppointmentsPage()),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Container(
@@ -70,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   size: 32,
                 ),
                 onPressed: () {
-                  // Add your onPressed callback here
+                  // TODO make profile page
                 },
               ),
             ),

@@ -74,7 +74,7 @@ class _TextFieldBSState extends State<TextFieldBS> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
-        autovalidateMode: AutovalidateMode.always,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
         child: Container(
           width: double.infinity,
@@ -85,12 +85,11 @@ class _TextFieldBSState extends State<TextFieldBS> {
             bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               BaseTextFormField(
                 autofocus: true,
                 keyboardType: widget.keyboardType,
-                icon: widget.icon != null ? widget.icon : Icons.text_fields,
+                icon: widget.icon != null ? widget.icon : null,
                 hintText: widget.hintText != null ? widget.hintText! : "",
                 labelText: widget.labelText != null ? widget.labelText! : "",
                 controller: _controller,
@@ -100,9 +99,12 @@ class _TextFieldBSState extends State<TextFieldBS> {
                 inputFormatters: widget.inputFormatters,
               ),
               SizedBox(height: 5),
-              BaseButton(
-                text: widget.buttonText,
-                onPressed: () => widget.submit(_formKey, _controller.text),
+              Container(
+                width: 150,
+                child: ElevatedButton(
+                  onPressed: () => widget.submit(_formKey, _controller.text),
+                  child: Text(widget.buttonText),
+                ),
               ),
               SizedBox(
                 height: 2.5,

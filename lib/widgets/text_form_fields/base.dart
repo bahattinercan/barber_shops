@@ -1,3 +1,4 @@
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ class BaseTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
 
   BaseTextFormField({
@@ -22,6 +24,7 @@ class BaseTextFormField extends StatefulWidget {
     this.validator = ValidatorManager.baseValidator,
     this.keyboardType,
     this.maxLength,
+    this.maxLines = 1,
     this.inputFormatters,
   }) : super(key: key);
 
@@ -38,12 +41,19 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
       controller: widget.controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        icon: Icon(widget.icon),
+        prefixIcon: widget.icon == null ? null : Icon(widget.icon),
         hintText: widget.hintText,
         labelText: widget.labelText,
+        hintStyle: TextStyle(
+          color: ColorManager.disableColor,
+        ),
+        helperStyle: TextStyle(
+          color: ColorManager.onSurface,
+        ),
       ),
       validator: widget.validator,
       maxLength: widget.maxLength,
+      maxLines: widget.maxLines,
       inputFormatters: widget.inputFormatters,
     );
   }
