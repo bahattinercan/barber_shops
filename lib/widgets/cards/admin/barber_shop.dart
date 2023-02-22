@@ -1,10 +1,11 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shop.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 enum ECafeCard {
@@ -58,6 +59,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
+              color: ColorManager.surface,
               elevation: 2.5,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -67,46 +69,63 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                     horizontalTitleGap: 4,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
-                      color: MainColors.triadic_1,
+                      color: ColorManager.primaryVariant,
                       onPressed: () {},
                       icon: Icon(Icons.bookmark),
                     ),
                     title: Text(
                       widget.shop.name!,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.onSurface,
+                      ),
                     ),
-                    trailing: PopupMenuButton(itemBuilder: (context) {
-                      return [
-                        const PopupMenuItem<int>(value: 1, child: Text("Düzenle")),
-                        const PopupMenuItem<int>(value: 99, child: Text("Sil")),
-                      ];
-                    }, onSelected: (value) {
-                      switch (value) {
-                        case 1:
-                          switch (widget.eUser) {
-                            case EUser.boss:
-                              PushManager.push(context, AdminBarberPage(shop: widget.shop));
-                              break;
-                            case EUser.worker:
-                              // TODO ADMİN WORKER PAGE
-                              //PushManager.push(context, WorkerCafePage(cafe: widget.shop));
-                              break;
-                            case EUser.normal:
-                              break;
-                            case EUser.admin:
-                              break;
-                          }
-
-                          break;
-                        case 99:
-                          deleteButton(widget.shop.id!);
-                          break;
-                        default:
-                      }
-                    }),
+                    trailing: BasePopupMenuButton(
+                      itemBuilder: (context) {
+                        return [
+                          const PopupMenuItem<int>(
+                              value: 1,
+                              child: Text(
+                                "Düzenle",
+                                style: TextStyle(color: ColorManager.onSurface),
+                              )),
+                          const PopupMenuItem<int>(
+                              value: 99,
+                              child: Text(
+                                "Sil",
+                                style: TextStyle(color: ColorManager.onSurface),
+                              )),
+                        ];
+                      },
+                      onSelected: (value) {
+                        switch (value) {
+                          case 1:
+                            switch (widget.eUser) {
+                              case EUser.boss:
+                                PushManager.push(context, AdminBarberPage(shop: widget.shop));
+                                break;
+                              case EUser.worker:
+                                // TODO ADMİN WORKER PAGE
+                                //PushManager.push(context, WorkerCafePage(cafe: widget.shop));
+                                break;
+                              case EUser.normal:
+                                break;
+                              case EUser.admin:
+                                break;
+                            }
+                            break;
+                          case 99:
+                            deleteButton(widget.shop.id!);
+                            break;
+                          default:
+                        }
+                      },
+                    ),
                     subtitle: Text(
                       widget.shop.location!,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        color: ColorManager.onSurface,
+                      ),
                     ),
                   ),
                 ],

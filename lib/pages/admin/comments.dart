@@ -4,6 +4,7 @@ import 'package:barbers/pages/admin/barber_shop.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/comment.dart';
+import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -73,6 +74,10 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
             ),
           ]),
         ),
+      ),
+      bottomNavigationBar: AdminBarberShopBottomNB(
+        selectedIndex: 0,
+        shop: widget.shop,
       ),
     );
   }

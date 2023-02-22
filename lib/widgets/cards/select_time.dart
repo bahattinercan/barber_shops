@@ -1,5 +1,5 @@
 import 'package:barbers/utils/app_controller.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -48,10 +48,10 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
       child: Container(
         decoration: BoxDecoration(
           color: !widget.available
-              ? MainColors.grey
+              ? ColorManager.surface
               : widget.selectedIndex == widget.index
-                  ? MainColors.active
-                  : MainColors.white,
+                  ? ColorManager.primaryVariant
+                  : ColorManager.surface,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -61,17 +61,21 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
             Icon(
               Icons.timelapse,
               color: !widget.available
-                  ? MainColors.light_grey
+                  ? ColorManager.secondary
                   : widget.selectedIndex == widget.index
-                      ? MainColors.black
-                      : MainColors.active,
+                      ? ColorManager.onPrimary
+                      : ColorManager.onSurface,
             ),
             Text(
               " $hourText.$minuteText",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                color: !widget.available ? MainColors.light_grey : MainColors.black,
+                color: !widget.available
+                    ? ColorManager.secondary
+                    : widget.selectedIndex == widget.index
+                        ? ColorManager.onPrimary
+                        : ColorManager.onSurface,
               ),
             ),
           ],

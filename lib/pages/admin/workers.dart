@@ -9,7 +9,7 @@ import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
-import 'package:barbers/widgets/cards/worker.dart';
+import 'package:barbers/widgets/cards/admin/worker.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
@@ -142,7 +142,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return WorkerCard(
+                  return AdminWorkerCard(
                     workers[index],
                     canRemoveWorker: widget.canRemoveWorker,
                     shopId: widget.shop.id!,

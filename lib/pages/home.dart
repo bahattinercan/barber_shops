@@ -1,8 +1,10 @@
+import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
+import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/cards/barber_shop.dart';
-import 'package:barbers/models/barber_shop_static.dart';
-import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,48 +15,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<BarberShopStatic> _shops = [
-    BarberShopStatic(
-      name: "Demiroğlu",
-      stars: 4.2,
-      numberOfStars: 1500,
-      distance: 1.2,
-      isOpen: true,
-      description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
-    ),
-    BarberShopStatic(
-      name: "İbrahim & Dostça",
-      stars: 4.2,
-      numberOfStars: 1500,
-      distance: 1.2,
-      isOpen: false,
-      description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
-    ),
-    BarberShopStatic(
-      name: "Altın",
-      stars: 4.2,
-      numberOfStars: 1500,
-      distance: 1.2,
-      isOpen: true,
-      description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
-    ),
-    BarberShopStatic(
-      name: "Birikim",
-      stars: 4.2,
-      numberOfStars: 1500,
-      distance: 1.2,
-      isOpen: false,
-      description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
-    ),
-    BarberShopStatic(
-      name: "Men",
-      stars: 4.2,
-      numberOfStars: 1500,
-      distance: 1.2,
-      isOpen: true,
-      description: "If you happen to be in the North New Hyde Park are and you need to look like a rock star",
-    ),
-  ];
+  List<BarberShop> _shops = [];
+
+  @override
+  initState() {
+    getData().then((value) => setState(() => _shops = value));
+    super.initState();
+  }
+
+  Future<List<BarberShop>> getData() async {
+    final datas = await HttpReqManager.postReq(
+        '/barber_shops/nearby',
+        barberShopToJson(BarberShop(
+          country: AppManager.user.country,
+          province: AppManager.user.province,
+          district: AppManager.user.district,
+        )));
+    return barberShopListFromJson(datas);
+  }
 
   adminButton() {
     PushManager.pushAndRemoveAll(context, AdminBarberShopsPage());
@@ -69,16 +47,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               "Şuanki konum",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: ColorManager.onBackground),
             ),
             Text(
-              "Royal Ln. Mesa, New Jersey",
-              style: TextStyle(
-                fontSize: 16,
-              ),
+              '${AppManager.user.provinceToString()}, ${AppManager.user.districtToString()}',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: ColorManager.onBackground),
             ),
           ],
         ),
@@ -87,11 +60,15 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.only(right: 20),
             child: Container(
               decoration: BoxDecoration(
-                color: MainColors.secondary_mat.shade200,
+                color: ColorManager.onBackground,
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(Icons.person_rounded),
+                icon: Icon(
+                  Icons.person_rounded,
+                  color: ColorManager.primaryVariant,
+                  size: 32,
+                ),
                 onPressed: () {
                   // Add your onPressed callback here
                 },

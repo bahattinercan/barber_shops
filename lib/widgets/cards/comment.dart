@@ -157,7 +157,7 @@ class _CommentCardState extends State<CommentCard> {
                               ),
                               SizedBox(width: 2),
                               Text(
-                                AppManager.instance.formatter.format(widget.comment.time!),
+                                AppManager.instance.dateFormatter.format(widget.comment.time!),
                                 style: TextStyle(fontSize: 11),
                               ),
                             ],

@@ -1,4 +1,4 @@
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class IconTextButton extends StatelessWidget {
@@ -38,19 +38,19 @@ class IconTextButton extends StatelessWidget {
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
-          color: backgroundColor == null ? MainColors.black : backgroundColor,
+          color: backgroundColor == null ? ColorManager.secondary : backgroundColor,
           borderRadius: borderRadius == null ? BorderRadius.circular(16) : borderRadius,
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(
             icon,
-            color: iconColor == null ? MainColors.white : iconColor,
+            color: iconColor == null ? ColorManager.onSecondary : iconColor,
           ),
           SizedBox(width: 5),
           Text(
             text,
             style: TextStyle(
-              color: textColor == null ? MainColors.white : textColor,
+              color: textColor == null ? ColorManager.onSecondary : textColor,
               fontWeight: FontWeight.w700,
             ),
           ),

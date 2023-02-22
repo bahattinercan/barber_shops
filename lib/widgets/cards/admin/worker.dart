@@ -1,18 +1,19 @@
 import 'package:barbers/models/worker.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class WorkerCard extends StatefulWidget {
+class AdminWorkerCard extends StatefulWidget {
   Worker worker;
   int shopId;
 
   /// if true then you needed to specify removeWorker function.
   bool canRemoveWorker;
   void Function(Worker worker)? removeWorker;
-  WorkerCard(
+  AdminWorkerCard(
     this.worker, {
     super.key,
     this.canRemoveWorker = false,
@@ -21,14 +22,14 @@ class WorkerCard extends StatefulWidget {
   });
 
   @override
-  State<WorkerCard> createState() => _WorkerCardState();
+  State<AdminWorkerCard> createState() => _AdminWorkerCardState();
 }
 
-class _WorkerCardState extends State<WorkerCard> {
+class _AdminWorkerCardState extends State<AdminWorkerCard> {
   bool isActive = true;
 
   Color get iconColor {
-    return MainColors.triadic_1;
+    return ColorManager.primary;
   }
 
   removeWorkerButton() async {
@@ -79,7 +80,7 @@ class _WorkerCardState extends State<WorkerCard> {
                       widget.worker.fullname!,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    trailing: PopupMenuButton(itemBuilder: (context) {
+                    trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
                         if (widget.canRemoveWorker) const PopupMenuItem<int>(value: 98, child: Text("Çıkart")),
                       ];

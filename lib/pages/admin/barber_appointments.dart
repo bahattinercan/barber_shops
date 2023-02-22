@@ -4,7 +4,8 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
-import 'package:barbers/widgets/cards/admin_appointment.dart';
+import 'package:barbers/widgets/cards/admin/appointment.dart';
+import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
 class AdminBarberAppointmentsPage extends StatefulWidget {
@@ -63,6 +64,10 @@ class _AdminBarberAppointmentsPageState extends State<AdminBarberAppointmentsPag
             ),
           ]),
         ),
+      ),
+      bottomNavigationBar: AdminBarberShopBottomNB(
+        selectedIndex: 3,
+        shop: widget.shop,
       ),
     );
   }

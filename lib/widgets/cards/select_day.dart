@@ -1,5 +1,5 @@
 import 'package:barbers/utils/app_controller.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -35,7 +35,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: widget.selectedIndex == widget.index ? MainColors.active : MainColors.white,
+                  color: widget.selectedIndex == widget.index ? ColorManager.primaryVariant : ColorManager.surface,
                   borderRadius: BorderRadius.circular(8)),
               child: Center(
                   child: Text(
@@ -43,6 +43,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
+                  color: widget.selectedIndex == widget.index ? ColorManager.onPrimary : ColorManager.onBackground,
                 ),
               )),
             ),
@@ -52,7 +53,10 @@ class _SelectDayItemState extends State<SelectDayItem> {
               children: [
                 Text(
                   AppController.instance.formatDayOfTheWeek(widget.datetime),
-                  style: TextStyle(fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: ColorManager.onBackground,
+                  ),
                 ),
               ],
             ),

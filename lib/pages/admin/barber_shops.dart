@@ -5,7 +5,7 @@ import 'package:barbers/pages/home.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
-import 'package:barbers/widgets/cards/admin_barber_shop.dart';
+import 'package:barbers/widgets/cards/admin/barber_shop.dart';
 import 'package:flutter/material.dart';
 
 class AdminBarberShopsPage extends StatefulWidget {
@@ -16,11 +16,11 @@ class AdminBarberShopsPage extends StatefulWidget {
 }
 
 class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
-  late Future<List<BarberShop>> cafes;
+  late Future<List<BarberShop>> shops;
 
   @override
   initState() {
-    cafes = getData();
+    shops = getData();
     super.initState();
   }
 
@@ -59,7 +59,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
           child: Column(children: [
             Expanded(
               child: FutureBuilder(
-                future: cafes,
+                future: shops,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return snapshot.data == null

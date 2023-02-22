@@ -5,6 +5,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/barber_shops.dart';
 import 'package:barbers/pages/admin/comments.dart';
 import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
@@ -254,7 +255,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
         title: Text(widget.shop.name!),
         centerTitle: true,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back_ios_new_rounded),
           onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
         ),
       ),
@@ -265,7 +266,6 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                SizedBox(height: 20),
                 Container(
                   width: 200,
                   height: 200,
@@ -289,11 +289,20 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                                 fit: BoxFit.cover,
                               ),
                       ),
-                      GestureDetector(
-                        onTap: changeImage,
+                      Container(
+                        alignment: Alignment(.9, -.9),
                         child: Container(
-                          alignment: Alignment(.9, -.9),
-                          child: Icon(Icons.edit),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: ColorManager.secondary,
+                          ),
+                          child: IconButton(
+                            color: ColorManager.onSecondary,
+                            onPressed: changeImage,
+                            icon: Icon(
+                              Icons.edit,
+                            ),
+                          ),
                         ),
                       )
                     ],

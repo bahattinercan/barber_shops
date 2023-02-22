@@ -8,7 +8,7 @@ import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
-import 'package:barbers/widgets/cards/admin_service.dart';
+import 'package:barbers/widgets/cards/admin/service.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';

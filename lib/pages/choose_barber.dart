@@ -1,11 +1,15 @@
+import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/worker.dart';
+import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/widgets/cards/choose_barber.dart';
-import 'package:barbers/models/barber_static.dart';
-import 'package:barbers/utils/main_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChooseBarberPage extends StatefulWidget {
+  final BarberShop shop;
   ChooseBarberPage({
     Key? key,
+    required this.shop,
   }) : super(key: key);
 
   @override
@@ -13,76 +17,72 @@ class ChooseBarberPage extends StatefulWidget {
 }
 
 class _ChooseBarberPageState extends State<ChooseBarberPage> {
-  List<BarberStatic> barbers = [
-    BarberStatic(name: "Osman", availableTime: DateTime.now()),
-    BarberStatic(name: "Deniz", availableTime: DateTime.now().add(Duration(hours: 5, minutes: 1))),
-    BarberStatic(name: "Gökhan", availableTime: DateTime.now()),
-    BarberStatic(name: "Mehmet", availableTime: DateTime.now()),
-    BarberStatic(name: "Furkan", availableTime: DateTime.now()),
-    BarberStatic(name: "İsmail", availableTime: DateTime.now()),
-  ];
+  List<Worker> workers = [];
+
+  @override
+  initState() {
+    getData.then((value) {
+      setState(() {
+        workers = value;
+      });
+    });
+    super.initState();
+  }
+
+  Future<List<Worker>> get getData async {
+    try {
+      String datas = "";
+      datas = await HttpReqManager.getReq('/comments/shop/${widget.shop.id}');
+
+      return workerListFromJson(datas);
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Berberini seç",
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            color: ColorManager.primary,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: ColorManager.primary,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            decoration: BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
             child: Column(
               children: [
                 Expanded(
-                    flex: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, top: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              decoration:
-                                  BoxDecoration(color: MainColors.white, borderRadius: BorderRadius.circular(100)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.close),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
-                Expanded(
-                  flex: 7,
-                  child: Text(
-                    "Choose your barber",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 28,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 83,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                     child: GridView.builder(
-                      itemCount: barbers.length + 1,
+                      itemCount: workers.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: .9,
+                        childAspectRatio: .83,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 8,
                       ),
-                      itemBuilder: (context, _) {
-                        int index = _ - 1;
-                        if (index == -1)
-                          return ChooseBarberCard(isAny: true);
-                        else
-                          return ChooseBarberCard(
-                            barber: barbers[index],
-                          );
+                      itemBuilder: (context, index) {
+                        return ChooseBarberCard(
+                          worker: workers[index],
+                        );
                       },
                     ),
                   ),

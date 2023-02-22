@@ -1,10 +1,11 @@
-import 'package:barbers/models/barber_shop_static.dart';
-import 'package:barbers/pages/barber.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/pages/barber_shop.dart';
+import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class BarberShopCard extends StatefulWidget {
-  final BarberShopStatic shop;
+  final BarberShop shop;
   BarberShopCard({
     Key? key,
     required this.shop,
@@ -21,6 +22,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
       padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
+          AppController.instance.shop = widget.shop;
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -34,9 +36,10 @@ class _BarberShopCardState extends State<BarberShopCard> {
           width: double.infinity,
           height: 250,
           decoration: BoxDecoration(
-            color: MainColors.backgroundColor,
+            color: ColorManager.surface,
             borderRadius: BorderRadius.circular(24),
             image: DecorationImage(
+              //TODO DÜZELT
               image: AssetImage("assets/icons/barber_shop.jpg"),
               fit: BoxFit.cover,
             ),
@@ -61,44 +64,40 @@ class _BarberShopCardState extends State<BarberShopCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.shop.name,
-                      style: TextStyle(color: MainColors.white, fontSize: 28, fontWeight: FontWeight.w400),
+                      widget.shop.name!,
+                      style: TextStyle(
+                        color: ColorManager.onPrimary,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     Text(
-                      widget.shop.description,
-                      style: TextStyle(color: MainColors.white, fontSize: 14, fontWeight: FontWeight.w400),
+                      widget.shop.description!,
+                      style: TextStyle(
+                        color: ColorManager.onPrimary,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                     Row(
                       children: [
                         Icon(
                           Icons.star,
-                          color: MainColors.active,
+                          color: Colors.amber,
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: 2),
                         Text(
-                          "${widget.shop.stars}",
+                          "${widget.shop.starAverage}",
                           style: TextStyle(
-                            color: MainColors.white,
+                            color: ColorManager.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: 2),
                         Text(
-                          "(${widget.shop.numberOfStars})",
+                          "(${widget.shop.comments})",
                           style: TextStyle(
-                            color: MainColors.white,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Icon(
-                          Icons.route,
-                          color: MainColors.active,
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "${widget.shop.distance} km",
-                          style: TextStyle(
-                            color: MainColors.white,
+                            color: ColorManager.onPrimary,
                           ),
                         ),
                       ],

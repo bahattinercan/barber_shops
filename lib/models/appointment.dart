@@ -22,8 +22,10 @@ class Appointment {
     this.services,
     this.time,
     this.workerId,
-    this.fullname,
-    this.phoneNo,
+    this.workerUid,
+    this.customerName,
+    this.customerPhone,
+    this.barberName,
   });
 
   int? id;
@@ -33,8 +35,10 @@ class Appointment {
   List<int>? services;
   DateTime? time;
   int? workerId;
-  String? fullname;
-  String? phoneNo;
+  int? workerUid;
+  String? customerName;
+  String? customerPhone;
+  String? barberName;
 
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
         id: json["id"],
@@ -44,8 +48,10 @@ class Appointment {
         services: json["services"] == null ? [] : List<int>.from(json["services"]!.map((x) => x)),
         time: json["time"] == null ? null : DateTime.parse(json["time"]),
         workerId: json["worker_id"],
-        fullname: json["fullname"],
-        phoneNo: json["phone_no"],
+        workerUid: json["worker_uid"],
+        customerName: json["customer_name"],
+        customerPhone: json["customer_phone"],
+        barberName: json["barber_name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -56,7 +62,9 @@ class Appointment {
         "services": services == null ? [] : List<dynamic>.from(services!.map((x) => x)),
         "time": time?.toIso8601String(),
         "worker_id": workerId,
-        "fullname": fullname,
-        "phone_no": phoneNo,
+        "worker_uid": workerUid,
+        "customer_name": customerName,
+        "customer_phone": customerPhone,
+        "barber_name": barberName,
       };
 }

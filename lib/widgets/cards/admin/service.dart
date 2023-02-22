@@ -3,10 +3,11 @@ import 'dart:io';
 
 import 'package:barbers/models/service.dart';
 import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
+import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -147,22 +148,43 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.design_services,
-                        color: MainColors.triadic_1,
+                        color: ColorManager.primaryVariant,
                       ),
                     ),
                     title: Text(
                       widget.service.name!,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: ColorManager.onSurface,
+                      ),
                     ),
                     subtitle: Text(
                       widget.service.price! + " ₺",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.onSurface,
+                      ),
                     ),
-                    trailing: PopupMenuButton(itemBuilder: (context) {
+                    trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
-                        const PopupMenuItem<int>(value: 1, child: Text("İsim düzenle")),
-                        const PopupMenuItem<int>(value: 2, child: Text("Fiyat düzenle")),
-                        const PopupMenuItem<int>(value: 99, child: Text("Sil")),
+                        const PopupMenuItem<int>(
+                            value: 1,
+                            child: Text(
+                              "İsim düzenle",
+                              style: TextStyle(color: ColorManager.onSurface),
+                            )),
+                        const PopupMenuItem<int>(
+                            value: 2,
+                            child: Text(
+                              "Fiyat düzenle",
+                              style: TextStyle(color: ColorManager.onSurface),
+                            )),
+                        const PopupMenuItem<int>(
+                            value: 99,
+                            child: Text(
+                              "Sil",
+                              style: TextStyle(color: ColorManager.onSurface),
+                            )),
                       ];
                     }, onSelected: (value) {
                       switch (value) {

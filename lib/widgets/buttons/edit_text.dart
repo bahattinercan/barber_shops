@@ -1,3 +1,4 @@
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class EditTextButton extends StatefulWidget {
@@ -27,17 +28,28 @@ class _EditTextButtonState extends State<EditTextButton> {
             children: [
               Text(
                 widget.label,
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16,
+                  color: ColorManager.onBackground,
+                ),
               ),
               SizedBox(width: 2.5),
               GestureDetector(
                 onTap: widget.onTap,
-                child: Icon(Icons.edit),
+                child: Icon(
+                  Icons.edit,
+                  color: ColorManager.onBackground,
+                ),
               ),
             ],
           ),
           SizedBox(height: 2.5),
-          Text(widget.text, style: TextStyle(fontSize: 16)),
+          Text(widget.text,
+              style: TextStyle(
+                fontSize: 16,
+                color: ColorManager.onPrimary,
+              )),
         ],
       ),
     );

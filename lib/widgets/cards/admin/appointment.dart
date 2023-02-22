@@ -1,8 +1,11 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
+import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 enum ECafeCard {
@@ -62,20 +65,28 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                 children: [
                   ListTile(
                     minLeadingWidth: 12,
+                    minVerticalPadding: 6,
                     horizontalTitleGap: 4,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
-                      color: MainColors.triadic_1,
+                      color: ColorManager.primaryVariant,
                       onPressed: () {},
                       icon: Icon(Icons.bookmark_rounded),
                     ),
                     title: Text(
-                      widget.appointment.fullname!,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      "Müşteri: " + widget.appointment.customerName!,
+                      style: TextStyle(fontWeight: FontWeight.w700, color: ColorManager.onSurface),
                     ),
-                    trailing: PopupMenuButton(itemBuilder: (context) {
+                    trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
-                        const PopupMenuItem<int>(value: 99, child: Text("Sil")),
+                        const PopupMenuItem<int>(
+                            value: 99,
+                            child: Text(
+                              "Sil",
+                              style: TextStyle(
+                                color: ColorManager.onSurface,
+                              ),
+                            )),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
@@ -86,9 +97,15 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                       }
                     }),
                     subtitle: Text(
-                      widget.appointment.phoneNo!,
-                      style: TextStyle(color: Colors.black),
+                      "Tel: " +
+                          widget.appointment.customerPhone! +
+                          "\nBerber:" +
+                          widget.appointment.barberName! +
+                          "\nTarih:" +
+                          CustomFormats.time.format(widget.appointment.time!),
+                      style: TextStyle(fontWeight: FontWeight.w500, color: ColorManager.onSurface),
                     ),
+                    isThreeLine: true,
                   ),
                 ],
               ),

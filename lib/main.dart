@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:barbers/pages/start.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,59 +17,73 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Berberim',
       theme: ThemeData(
-        colorScheme: ColorScheme.light(
-          primary: MainColors.new_secondary,
-          primaryVariant: MainColors.new_seconday_variant,
-          secondary: MainColors.new_secondary,
-          secondaryVariant: MainColors.new_seconday_variant,
+        colorScheme: ColorScheme(
+          primary: ColorManager.primary,
+          primaryVariant: ColorManager.primaryVariant,
+          secondary: ColorManager.secondary,
+          secondaryVariant: ColorManager.secondaryVariant,
+          background: ColorManager.background,
+          surface: ColorManager.onSurface,
+          onBackground: ColorManager.onBackground,
+          onSurface: ColorManager.onSurface,
+          onPrimary: ColorManager.onPrimary,
+          onSecondary: ColorManager.onSecondary,
+          brightness: Brightness.dark,
+          error: Colors.red,
+          onError: Colors.white,
         ),
-        primarySwatch: MainColors.secondary_mat,
-        accentColor: MainColors.new_seconday_variant,
+        primaryColor: ColorManager.primary,
+        primarySwatch: ColorManager.getMatColor(ColorManager.primary),
+        accentColor: ColorManager.getMatColor(ColorManager.secondary),
+        // WIDGETS
         appBarTheme: AppBarTheme(
           elevation: 0,
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           toolbarHeight: 75,
+          iconTheme: IconThemeData(
+            color: ColorManager.onBackground,
+          ),
+          titleTextStyle: TextStyle(
+            color: ColorManager.onBackground,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        // appBarTheme: AppBarTheme(
-        //   elevation: 0,
-        //   color: Colors.transparent,
-        //   actionsIconTheme: IconThemeData(color: MainColors.black),
-        //   iconTheme: IconThemeData(color: MainColors.black),
-        //   // toolbarTextStyle: text.bodyText2,
-        //   titleTextStyle: TextStyle(
-        //     color: MainColors.black,
-        //     fontWeight: FontWeight.w700,
-        //     fontSize: 20,
-        //   ),
-        //   toolbarHeight: 75,
-        // ),
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //   style: ButtonStyle(
-        //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-        //     ),
-        //   ),
-        // ),
-        // cardTheme: CardTheme(
-        //   shape: RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.circular(16),
-        //   ),
-        // ),
-        // colorScheme: ColorScheme.light(
-        //   primary: MainColors.primary_w900,
-        //   primaryVariant: MainColors.primary_w900,
-        //   secondary: MainColors.primary_w500,
-        //   secondaryVariant: MainColors.primary_w900,
-        // ),
-        // primarySwatch: MainColors.getMatColor(MainColors.primary_w900),
-        // accentColor: MainColors.getMatColor(MainColors.primary_w900),
-        // dialogTheme: DialogTheme(
-        //   titleTextStyle: TextStyle(color: MainColors.black),
-        //   backgroundColor: MainColors.white,
-        // ),
-        // textButtonTheme:
-        //     TextButtonThemeData(style: ButtonStyle(foregroundColor: MaterialStatePropertyAll(MainColors.black))),
+        scaffoldBackgroundColor: ColorManager.background,
+        cardTheme: CardTheme(
+          color: ColorManager.surface,
+          elevation: 0,
+        ),
+        popupMenuTheme: PopupMenuThemeData(
+          color: ColorManager.surface,
+        ),
+        // BUTTONS
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          foregroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return ColorManager.primary;
+              }
+              return ColorManager.onSecondary;
+            },
+          ),
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return ColorManager.surface;
+              }
+              return ColorManager.secondary;
+            },
+          ),
+        )),
+        // NAV BARS
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: ColorManager.surface,
+          unselectedItemColor: ColorManager.onBackground,
+          selectedItemColor: ColorManager.primaryVariant,
+        ),
       ),
       home: StartPage(),
     );

@@ -7,6 +7,7 @@ import 'package:barbers/pages/home.dart';
 import 'package:barbers/pages/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:flutter/material.dart';
@@ -66,18 +67,45 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 20,
+            ),
+            Container(
+              width: 215,
+              child: Divider(
+                color: ColorManager.primary,
+                thickness: 5,
+              ),
             ),
             Text(
-              "Kafeni Bul",
-              style: Theme.of(context).textTheme.displaySmall,
+              "BERBERLER",
+              style: TextStyle(color: ColorManager.primaryVariant, fontSize: 36, fontWeight: FontWeight.bold),
+            ),
+            Container(
+              width: 215,
+              child: Divider(
+                color: ColorManager.primary,
+                thickness: 5,
+              ),
             ),
             SizedBox(
               height: 5,
             ),
+            Icon(
+              //TODO ALARM ICONU BUL
+              Icons.access_alarm,
+              size: 36,
+              color: ColorManager.primaryVariant,
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
-              "Domates",
-              style: Theme.of(context).textTheme.headlineMedium,
+              "Rowleyes",
+              style: TextStyle(
+                color: ColorManager.primaryVariant,
+                fontSize: 16,
+                fontStyle: FontStyle.italic,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:barbers/models/barber_shop_static.dart';
+import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/service_static.dart';
 import 'package:barbers/models/work_time_static.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,7 @@ import 'package:intl/intl.dart';
 class AppController {
   static final instance = AppController._internal();
   AppController._internal();
-
-  late BarberShopStatic barberShop;
+  late BarberShop shop;
 
   //#region lists
   List<ServiceStatic> services = [

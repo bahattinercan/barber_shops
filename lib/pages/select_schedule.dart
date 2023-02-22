@@ -1,19 +1,19 @@
+import 'package:barbers/models/service.dart';
+import 'package:barbers/models/worker.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
 import 'package:barbers/panels/select_schedule/select_time_grid.dart';
-import 'package:barbers/models/barber_static.dart';
-import 'package:barbers/models/service_static.dart';
 import 'package:barbers/utils/app_controller.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/main_colors.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SelectSchedulePage extends StatefulWidget {
-  final BarberStatic? barber;
-  final List<ServiceStatic> selectedServices;
+  final Worker barber;
+  final List<Service> services;
 
-  SelectSchedulePage({Key? key, required this.selectedServices, required this.barber}) : super(key: key);
+  SelectSchedulePage({Key? key, required this.services, required this.barber}) : super(key: key);
 
   @override
   State<SelectSchedulePage> createState() => _SelectSchedulePageState();
@@ -33,8 +33,8 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
     for (var i = 0; i < 31; i++) {
       _dates.add(_now.add(Duration(days: i)));
     }
-    for (var i = 0; i < widget.selectedServices.length; i++) {
-      _totalCost += widget.selectedServices[i].price;
+    for (var i = 0; i < widget.services.length; i++) {
+      _totalCost += double.parse(widget.services[i].price!);
     }
     super.initState();
   }
@@ -66,92 +66,73 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Randevu zamanı seç",
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            color: ColorManager.primary,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_rounded,
+            color: ColorManager.primary,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Expanded(
-                flex: 75,
-                child: Container(
-                  decoration: BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                          flex: 10,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, top: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => Navigator.pop(context),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: MainColors.white, borderRadius: BorderRadius.circular(100)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.arrow_back),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                      Expanded(
-                        flex: 7,
+                      SizedBox(height: 10),
+                      Text(
+                        DateFormat('MMMM yyyy').format(_now).toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: ColorManager.primaryVariant,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        height: 70,
+                        child: SelectDayList(
+                          dates: _dates,
+                          select: selectDay,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Visibility(
+                        visible: _canSelectTime,
                         child: Text(
-                          "Select your schedule",
+                          _selectedDateTime == null
+                              ? ""
+                              : DateFormat('EEEE, MMMM yy').format(_selectedDateTime!).toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            fontSize: 28,
+                            fontSize: 16,
+                            color: ColorManager.primaryVariant,
                           ),
                         ),
                       ),
+                      SizedBox(height: 10),
                       Expanded(
-                        flex: 83,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16, right: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 10),
-                              Text(
-                                DateFormat('MMMM yyyy').format(_now).toString(),
-                                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                              ),
-                              SizedBox(height: 10),
-                              Container(
-                                height: 70,
-                                child: SelectDayList(
-                                  dates: _dates,
-                                  select: selectDay,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Visibility(
-                                visible: _canSelectTime,
-                                child: Text(
-                                  _selectedDateTime == null
-                                      ? ""
-                                      : DateFormat('EEEE, MMMM yy').format(_selectedDateTime!).toString(),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Expanded(
-                                child: Visibility(
-                                  visible: _canSelectTime,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20),
-                                    child: SelectTimeGrid(select: selectTime),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        child: Visibility(
+                          visible: _canSelectTime,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: SelectTimeGrid(select: selectTime),
                           ),
                         ),
                       ),
@@ -159,110 +140,107 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 25,
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 200,
                 child: Visibility(
                   visible: _canBook,
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      top: 10,
-                    ),
-                    decoration:
-                        BoxDecoration(color: MainColors.backgroundColor, borderRadius: BorderRadius.circular(24)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "ORDER AT: ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: MainColors.grey,
-                                  fontWeight: FontWeight.w700,
-                                ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: ColorManager.surface,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              AppController.instance.shop.name! + " Barbershop",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                                color: ColorManager.onSurface,
                               ),
-                              Text(
-                                AppController.instance.barberShop.name + " Barbershop",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 16,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(height: 12.5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 12.5),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.asset(
-                                      "assets/icons/barber_shop.jpg",
-                                      width: 50,
-                                      height: 50,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  Row(
                                     children: [
-                                      Text(
-                                        widget.barber == null ? "Anyone" : widget.barber!.name,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 16,
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.asset(
+                                          "assets/icons/barber_shop.jpg",
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      Text(
-                                        widget.selectedServices[0].name +
-                                            (widget.selectedServices.length > 1
-                                                ? " +${widget.selectedServices.length - 1}"
-                                                : ""),
-                                        style: TextStyle(
-                                          color: MainColors.grey,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      Text(
-                                        _selectedDateTime == null
-                                            ? ""
-                                            : DateFormat("MMM dd\'th\' \'at\' HH:mm", "en_US")
-                                                .format(_selectedDateTime!)
-                                                .toString(),
-                                        style: TextStyle(
-                                          color: MainColors.grey,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            widget.barber.fullname!,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 16,
+                                              color: ColorManager.primaryVariant,
+                                            ),
+                                          ),
+                                          Text(
+                                            widget.services[0].name! +
+                                                (widget.services.length > 1 ? " +${widget.services.length - 1}" : ""),
+                                            style: TextStyle(
+                                              color: ColorManager.onSurface,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          Text(
+                                            _selectedDateTime == null
+                                                ? ""
+                                                : DateFormat("MMM dd\'th\' \'at\' HH:mm", "en_US")
+                                                    .format(_selectedDateTime!)
+                                                    .toString(),
+                                            style: TextStyle(
+                                              color: ColorManager.onSurface,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  Text(
+                                    "₺" + _totalCost.toStringAsFixed(2),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                      color: ColorManager.onSurface,
+                                    ),
+                                  ),
                                 ],
                               ),
-                              Text(
-                                "₺" + _totalCost.toStringAsFixed(2),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 12.5),
-                          Expanded(
-                            child: IconTextButton(
+                            ),
+                            SizedBox(height: 12.5),
+                            IconTextButton(
                               func: bookNow,
                               icon: Icons.timelapse,
                               text: "Select Schedule",
                               borderRadius: BorderRadius.circular(16),
+                              height: 45,
+                              backgroundColor: ColorManager.secondary,
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

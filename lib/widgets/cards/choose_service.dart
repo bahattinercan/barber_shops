@@ -1,13 +1,13 @@
-import 'package:barbers/models/barber_static.dart';
-import 'package:barbers/models/service_static.dart';
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/models/service.dart';
+import 'package:barbers/models/worker.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ChooseServiceCard extends StatefulWidget {
-  BarberStatic? barber;
-  ServiceStatic service;
-  Function selectServiceF;
+  Worker? barber;
+  Service service;
+  Function(Service service, bool isActive) selectServiceF;
   ChooseServiceCard({
     Key? key,
     this.barber,
@@ -33,7 +33,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isActive ? MainColors.active : MainColors.white,
+          color: isActive == false ? ColorManager.surface : ColorManager.secondary,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -41,10 +41,11 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              widget.service.name,
+              widget.service.name!,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
+                color: isActive == false ? ColorManager.onBackground : ColorManager.onPrimary,
               ),
             ),
             Padding(
@@ -53,7 +54,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
                 width: 25,
                 child: Divider(
                   thickness: 2,
-                  color: isActive == false ? MainColors.light_grey : MainColors.black,
+                  color: isActive == false ? ColorManager.primaryVariant : Colors.white54,
                 ),
               ),
             ),
@@ -61,9 +62,9 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 textAlign: TextAlign.center,
-                "₺" + widget.service.price.toStringAsFixed(2),
+                "₺" + double.parse(widget.service.price!).toStringAsFixed(2),
                 style: TextStyle(
-                  color: isActive == false ? MainColors.grey : MainColors.black,
+                  color: isActive == false ? ColorManager.onBackground : ColorManager.onPrimary,
                   fontSize: 16,
                 ),
               ),

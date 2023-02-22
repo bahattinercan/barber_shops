@@ -1,4 +1,4 @@
-import 'package:barbers/utils/main_colors.dart';
+import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -19,14 +19,21 @@ class Dialogs {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        backgroundColor: MainColors.white,
+        backgroundColor: ColorManager.background,
         title: Center(
           child: Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+              color: ColorManager.primaryVariant,
+            ),
           ),
         ),
-        content: Text(content),
+        content: Text(
+          content,
+          style: TextStyle(color: ColorManager.onBackground),
+        ),
         scrollable: scrollable == null ? false : scrollable,
         actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         actions: <Widget>[
@@ -39,7 +46,9 @@ class Dialogs {
                   },
                   child: Text(
                     cancelButtonText,
-                    style: TextStyle(color: MainColors.black),
+                    style: TextStyle(
+                      color: ColorManager.onBackground,
+                    ),
                   ),
                 ),
           TextButton(
@@ -49,7 +58,9 @@ class Dialogs {
             },
             child: Text(
               okButtonText,
-              style: TextStyle(color: MainColors.black),
+              style: TextStyle(
+                color: ColorManager.onBackground,
+              ),
             ),
           ),
         ],
@@ -59,11 +70,12 @@ class Dialogs {
 
   static successDialog({required BuildContext context, Function? okFunction, String? content}) {
     dialog(
-        context: context,
-        title: "Bilgilendirme",
-        content: content == null ? "İşlem gerçekleşti" : content,
-        okButtonText: "Tamam",
-        okFunction: okFunction);
+      context: context,
+      title: "Bilgilendirme",
+      content: content == null ? "İşlem gerçekleşti" : content,
+      okButtonText: "Tamam",
+      okFunction: okFunction,
+    );
   }
 
   static failDialog({required BuildContext context, Function? okFunction, String? content}) {
@@ -72,7 +84,7 @@ class Dialogs {
       title: "Dikkat",
       content: content == null ? "İşlem gerçekleştirilemedi" : content,
       okButtonText: "Tamam",
-      okFunction: okFunction == null ? () {} : okFunction,
+      okFunction: okFunction,
     );
   }
 
@@ -118,7 +130,15 @@ class Dialogs {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Center(child: Text(title)),
+        backgroundColor: ColorManager.background,
+        title: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: ColorManager.primaryVariant,
+            ),
+          ),
+        ),
         content: content,
         actions: actions,
         scrollable: scrollable == null ? false : scrollable,

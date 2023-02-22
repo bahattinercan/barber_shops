@@ -9,7 +9,9 @@ class AppManager {
   static final instance = AppManager._internal();
   AppManager._internal();
   static late User user;
-  DateFormat formatter = DateFormat('dd/MM/yyyy');
+  //TODO custom formattera taşı
+  DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
+
   DateFormat backendFormatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
   static Future bottomSheet(BuildContext context, Widget widget) async {
