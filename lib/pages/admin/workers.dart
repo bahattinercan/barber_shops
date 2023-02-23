@@ -8,6 +8,7 @@ import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/cards/admin/worker.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
@@ -125,15 +126,11 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
   Widget build(BuildContext context) {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("Çalışan")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('çalışan'),
+        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
         actions: [IconButton(onPressed: addWorkerButton, icon: Icon(Icons.add_rounded))],
-      ),
+      ).build(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(

@@ -1,26 +1,34 @@
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class RowTextButton extends StatelessWidget {
+class RowTextButton extends StatefulWidget {
   final String text;
   final IconData iconData;
   final Function()? onPressed;
-  const RowTextButton({
+  Color? iconColor;
+
+  RowTextButton({
     Key? key,
     required this.text,
     required this.iconData,
+    this.iconColor,
     this.onPressed,
   }) : super(key: key);
 
   @override
+  State<RowTextButton> createState() => _RowTextButtonState();
+}
+
+class _RowTextButtonState extends State<RowTextButton> {
+  @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: widget.onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            text,
+            widget.text,
             style: TextStyle(
               fontSize: 18,
               color: ColorManager.onSurface,
@@ -28,8 +36,8 @@ class RowTextButton extends StatelessWidget {
             ),
           ),
           Icon(
-            iconData,
-            color: ColorManager.onSurface,
+            widget.iconData,
+            color: widget.iconColor == null ? ColorManager.onSurface : widget.iconColor,
           ),
         ],
       ),

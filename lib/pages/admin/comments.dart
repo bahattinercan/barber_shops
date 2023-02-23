@@ -4,6 +4,7 @@ import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/comment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
@@ -53,14 +54,10 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
   Widget build(BuildContext context) {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("Yorum")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberPage(shop: widget.shop)),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('yorum'),
+        onPressed: () => Navigator.pop(context),
+      ).build(context),
       body: SafeArea(
         child: Container(
           width: media.size.width,

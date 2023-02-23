@@ -35,7 +35,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                  color: widget.selectedIndex == widget.index ? ColorManager.primaryVariant : ColorManager.surface,
+                  color: widget.selectedIndex == widget.index ? ColorManager.secondary : ColorManager.surface,
                   borderRadius: BorderRadius.circular(8)),
               child: Center(
                   child: Text(

@@ -7,6 +7,7 @@ import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
 import 'package:barbers/widgets/cards/admin/service.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
@@ -107,15 +108,11 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("hizmet")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('hizmet'),
+        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
         actions: [IconButton(onPressed: addItemButton, icon: Icon(Icons.add_rounded))],
-      ),
+      ).build(context),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,

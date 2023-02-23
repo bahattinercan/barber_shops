@@ -5,6 +5,7 @@ import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +43,10 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
   Widget build(BuildContext context) {
     MediaQueryData media = MediaQuery.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("randevu")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('randevu'),
+        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+      ).build(context),
       body: SafeArea(
         child: Container(
           width: media.size.width,

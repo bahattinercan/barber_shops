@@ -9,6 +9,7 @@ import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:country_state_city_picker/country_state_city_picker.dart';
@@ -94,14 +95,10 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("oluştur")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('oluştur'),
+        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+      ).build(context),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(

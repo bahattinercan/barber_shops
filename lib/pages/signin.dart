@@ -127,7 +127,7 @@ class _SignInPageState extends State<SignInPage> {
                     icon: Icons.phone,
                     hintText: "5xx xxx xx xx",
                     labelText: "Tel no",
-                    validator: ValidatorManager.phoneOptionalValidator,
+                    validator: ValidatorManager.phoneValidator,
                     maxLength: 10,
                   ),
                   const SizedBox(

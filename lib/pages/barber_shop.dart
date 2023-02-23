@@ -97,9 +97,9 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           child: GestureDetector(
                             onTap: () => Navigator.pop(context),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                              padding: const EdgeInsets.all(10),
                               child: Icon(
-                                Icons.arrow_back_ios_rounded,
+                                Icons.arrow_back_ios_new_rounded,
                                 color: ColorManager.onSurface,
                               ),
                             ),
@@ -122,127 +122,124 @@ class _BarberShopPageState extends State<BarberShopPage> {
               ),
               Expanded(
                 flex: 45,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      // color: ColorManager.surface,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.shop.name!,
-                            style: TextStyle(
-                              color: ColorManager.onBackground,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 32,
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    // color: ColorManager.surface,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.shop.name!,
+                          style: TextStyle(
+                            color: ColorManager.onBackground,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 32,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.amber,
                             ),
-                          ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              SizedBox(width: 2),
-                              Text(
-                                "${widget.shop.starAverage!}",
-                                style: TextStyle(
-                                  color: ColorManager.onPrimary,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(width: 2),
-                              Text(
-                                "(${widget.shop.comments})",
-                                style: TextStyle(
-                                  color: ColorManager.onPrimary,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Expanded(
-                            child: Text(
-                              widget.shop.description!,
+                            SizedBox(width: 2),
+                            Text(
+                              "${widget.shop.starAverage!}",
                               style: TextStyle(
                                 color: ColorManager.onPrimary,
-                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                          Text(
-                            "Adres: " + widget.shop.location!,
+                            SizedBox(width: 2),
+                            Text(
+                              "(${widget.shop.comments})",
+                              style: TextStyle(
+                                color: ColorManager.onPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Expanded(
+                          child: Text(
+                            widget.shop.description!,
                             style: TextStyle(
                               color: ColorManager.onPrimary,
                               fontSize: 16,
                             ),
                           ),
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 20,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.primaryVariant,
-                                      borderRadius: BorderRadius.circular(16),
+                        ),
+                        Text(
+                          "Adres: " + widget.shop.location!,
+                          style: TextStyle(
+                            color: ColorManager.onPrimary,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 20,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorManager.primaryVariant,
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                                    child: Icon(
+                                      Icons.message,
+                                      color: ColorManager.onSecondary,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                                      child: Icon(
-                                        Icons.message,
-                                        color: ColorManager.onSecondary,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 80,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: GestureDetector(
+                                    onTap: selectBarberShop,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: ColorManager.primaryVariant,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.calendar_month,
+                                              color: ColorManager.onPrimary,
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              "Book now",
+                                              style: TextStyle(
+                                                color: ColorManager.onPrimary,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 80,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 8),
-                                    child: GestureDetector(
-                                      onTap: selectBarberShop,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: ColorManager.primaryVariant,
-                                          borderRadius: BorderRadius.circular(16),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.calendar_month,
-                                                color: ColorManager.onPrimary,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                "Book now",
-                                                style: TextStyle(
-                                                  color: ColorManager.onPrimary,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),

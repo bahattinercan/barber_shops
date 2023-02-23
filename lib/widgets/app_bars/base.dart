@@ -16,9 +16,12 @@ class BaseAppBar extends StatelessWidget {
     return AppBar(
       title: Text(title),
       centerTitle: true,
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new_rounded),
-        onPressed: onPressed,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: IconButton(
+          icon: Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: onPressed,
+        ),
       ),
       actions: actions,
     );

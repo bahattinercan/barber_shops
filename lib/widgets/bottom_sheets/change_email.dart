@@ -70,6 +70,7 @@ class _ChangeEmailBSState extends State<ChangeEmailBS> {
                 icon: Icons.email_rounded,
                 keyboardType: TextInputType.emailAddress,
                 validator: ValidatorManager.emailValidator,
+                maxLength: 50,
               ),
               SizedBox(
                 height: 10,
@@ -80,6 +81,7 @@ class _ChangeEmailBSState extends State<ChangeEmailBS> {
                 icon: Icons.email_outlined,
                 keyboardType: TextInputType.emailAddress,
                 validator: ValidatorManager.emailValidator,
+                maxLength: 50,
               ),
               SizedBox(
                 height: 10,
@@ -90,6 +92,7 @@ class _ChangeEmailBSState extends State<ChangeEmailBS> {
                 icon: Icons.email_outlined,
                 keyboardType: TextInputType.emailAddress,
                 validator: ValidatorManager.emailValidator,
+                maxLength: 50,
               ),
               SizedBox(
                 height: 5,

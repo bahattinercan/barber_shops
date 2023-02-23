@@ -28,6 +28,7 @@ class _SelectTimeGridState extends State<SelectTimeGrid> {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: AppController.instance.workTimes.length,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         mainAxisSpacing: 8,

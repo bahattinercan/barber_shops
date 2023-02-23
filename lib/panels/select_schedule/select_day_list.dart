@@ -30,6 +30,7 @@ class _SelectDayListState extends State<SelectDayList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       itemCount: widget.dates.length,
       itemBuilder: (context, index) {
         return SelectDayItem(

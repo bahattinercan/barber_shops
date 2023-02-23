@@ -50,7 +50,7 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
           color: !widget.available
               ? ColorManager.surface
               : widget.selectedIndex == widget.index
-                  ? ColorManager.primaryVariant
+                  ? ColorManager.secondary
                   : ColorManager.surface,
           borderRadius: BorderRadius.circular(12),
         ),

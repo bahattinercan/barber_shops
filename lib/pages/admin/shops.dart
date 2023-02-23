@@ -5,6 +5,7 @@ import 'package:barbers/pages/home.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
 import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/barber_shop.dart';
 import 'package:flutter/material.dart';
 
@@ -45,14 +46,10 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      appBar: AppBar(
-        title: Text(AppManager.stringToTitle("dükkan")),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => PushManager.pushAndRemoveAll(context, HomePage()),
-        ),
-      ),
+      appBar: BaseAppBar(
+        title: AppManager.stringToTitle('dükkan'),
+        onPressed: () => PushManager.pushAndRemoveAll(context, HomePage()),
+      ).build(context),
       body: SafeArea(
         child: Container(
           width: media.size.width,
