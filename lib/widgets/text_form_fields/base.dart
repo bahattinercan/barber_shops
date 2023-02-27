@@ -13,6 +13,7 @@ class BaseTextFormField extends StatefulWidget {
   final int? maxLength;
   final int? maxLines;
   final List<TextInputFormatter>? inputFormatters;
+  final EdgeInsetsGeometry? margin;
 
   BaseTextFormField({
     Key? key,
@@ -26,6 +27,7 @@ class BaseTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLines = 1,
     this.inputFormatters,
+    this.margin,
   }) : super(key: key);
 
   @override
@@ -35,26 +37,29 @@ class BaseTextFormField extends StatefulWidget {
 class _BaseTextFormFieldState extends State<BaseTextFormField> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: widget.keyboardType,
-      autofocus: widget.autofocus,
-      controller: widget.controller,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        prefixIcon: widget.icon == null ? null : Icon(widget.icon),
-        hintText: widget.hintText,
-        labelText: widget.labelText,
-        hintStyle: TextStyle(
-          color: ColorManager.disableColor,
+    return Container(
+      margin: widget.margin,
+      child: TextFormField(
+        keyboardType: widget.keyboardType,
+        autofocus: widget.autofocus,
+        controller: widget.controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          prefixIcon: widget.icon == null ? null : Icon(widget.icon),
+          hintText: widget.hintText,
+          labelText: widget.labelText,
+          hintStyle: TextStyle(
+            color: ColorManager.disableColor,
+          ),
+          helperStyle: TextStyle(
+            color: ColorManager.onSurface,
+          ),
         ),
-        helperStyle: TextStyle(
-          color: ColorManager.onSurface,
-        ),
+        validator: widget.validator,
+        maxLength: widget.maxLength,
+        maxLines: widget.maxLines,
+        inputFormatters: widget.inputFormatters,
       ),
-      validator: widget.validator,
-      maxLength: widget.maxLength,
-      maxLines: widget.maxLines,
-      inputFormatters: widget.inputFormatters,
     );
   }
 }

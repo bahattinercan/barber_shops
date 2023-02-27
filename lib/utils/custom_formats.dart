@@ -4,8 +4,9 @@ class CustomFormats {
   static DateFormat time = DateFormat('HH:mm dd/MM/yyyy');
   static DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
   static DateFormat backendFormatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
+  static DateFormat dayName = DateFormat('EEEE');
   static DateFormat _weekOfTheDay = DateFormat('EEE');
+
   static String dayOfTheWeek(DateTime dateTime) {
     return _weekOfTheDay.format(dateTime);
   }

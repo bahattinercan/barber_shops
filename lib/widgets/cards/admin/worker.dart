@@ -1,7 +1,9 @@
 import 'package:barbers/models/worker.dart';
+import 'package:barbers/pages/worker/change_work_times.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +50,10 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
     if (widget.removeWorker != null) widget.removeWorker!(widget.worker);
   }
 
+  void changeWorkTimesButton() {
+    PushManager.push(context, ChangeWorkTimesPage(worker: widget.worker, shopId: widget.shopId));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Visibility(
@@ -87,18 +93,30 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                       return [
                         if (widget.canRemoveWorker)
                           const PopupMenuItem<int>(
-                            value: 98,
+                            value: 1,
                             child: Text(
-                              "Çıkart",
+                              "Çalışma Zamanları",
                               style: TextStyle(
                                 color: ColorManager.onSurface,
                               ),
                             ),
                           ),
+                        const PopupMenuItem<int>(
+                          value: 99,
+                          child: Text(
+                            "Çıkart",
+                            style: TextStyle(
+                              color: ColorManager.onSurface,
+                            ),
+                          ),
+                        ),
                       ];
                     }, onSelected: (value) {
                       switch (value) {
-                        case 98:
+                        case 1:
+                          changeWorkTimesButton();
+                          break;
+                        case 99:
                           removeWorkerButton();
                           break;
                         default:

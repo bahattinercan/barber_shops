@@ -1,14 +1,15 @@
+import 'package:barbers/models/selectable_day.dart';
 import 'package:barbers/widgets/cards/select_day.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class SelectDayList extends StatefulWidget {
-  List<DateTime> dates;
+  List<SelectableDay> days;
   void Function(DateTime dateTime) select;
 
   SelectDayList({
     Key? key,
-    required this.dates,
+    required this.days,
     required this.select,
   }) : super(key: key);
 
@@ -31,10 +32,10 @@ class _SelectDayListState extends State<SelectDayList> {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      itemCount: widget.dates.length,
+      itemCount: widget.days.length,
       itemBuilder: (context, index) {
         return SelectDayItem(
-          datetime: widget.dates[index],
+          selectableDay: widget.days[index],
           index: index,
           selectedIndex: _selectedIndex,
           select: select,

@@ -20,8 +20,22 @@ class AppController {
   ];
 
   List<WorkTimeStatic> workTimes = [
+    WorkTimeStatic(available: true, hour: 0, minute: 00),
+    WorkTimeStatic(available: true, hour: 0, minute: 30),
+    WorkTimeStatic(available: true, hour: 1, minute: 00),
+    WorkTimeStatic(available: true, hour: 1, minute: 30),
+    WorkTimeStatic(available: true, hour: 2, minute: 00),
+    WorkTimeStatic(available: true, hour: 2, minute: 30),
+    WorkTimeStatic(available: true, hour: 3, minute: 00),
+    WorkTimeStatic(available: true, hour: 3, minute: 30),
+    WorkTimeStatic(available: true, hour: 4, minute: 00),
+    WorkTimeStatic(available: true, hour: 4, minute: 30),
+    WorkTimeStatic(available: true, hour: 5, minute: 00),
+    WorkTimeStatic(available: true, hour: 5, minute: 30),
+    WorkTimeStatic(available: true, hour: 6, minute: 00),
+    WorkTimeStatic(available: true, hour: 6, minute: 30),
     WorkTimeStatic(available: true, hour: 7, minute: 00),
-    WorkTimeStatic(available: false, hour: 7, minute: 30),
+    WorkTimeStatic(available: true, hour: 7, minute: 30),
     WorkTimeStatic(available: true, hour: 8, minute: 00),
     WorkTimeStatic(available: true, hour: 8, minute: 30),
     WorkTimeStatic(available: true, hour: 9, minute: 00),

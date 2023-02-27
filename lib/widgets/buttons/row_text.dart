@@ -1,6 +1,7 @@
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RowTextButton extends StatefulWidget {
   final String text;
   final IconData iconData;

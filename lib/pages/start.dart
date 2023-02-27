@@ -91,8 +91,7 @@ class _StartPageState extends State<StartPage> {
               height: 5,
             ),
             Icon(
-              //TODO ALARM ICONU BUL
-              Icons.access_alarm,
+              Icons.alarm,
               size: 36,
               color: ColorManager.primaryVariant,
             ),

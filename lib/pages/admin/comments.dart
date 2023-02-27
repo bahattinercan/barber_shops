@@ -1,9 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/comment.dart';
-import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/comment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
