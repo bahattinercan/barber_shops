@@ -1,5 +1,5 @@
 import 'package:barbers/models/user.dart';
-import 'package:barbers/pages/login.dart';
+import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';

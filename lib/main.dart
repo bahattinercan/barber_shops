@@ -1,5 +1,5 @@
 // ignore_for_file: deprecated_member_use
-import 'package:barbers/pages/start.dart';
+import 'package:barbers/pages/general/start.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
 

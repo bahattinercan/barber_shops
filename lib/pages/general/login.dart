@@ -1,6 +1,6 @@
 import 'package:barbers/models/user.dart';
-import 'package:barbers/pages/home.dart';
-import 'package:barbers/pages/signin.dart';
+import 'package:barbers/pages/general/home.dart';
+import 'package:barbers/pages/general/signin.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/dialogs.dart';

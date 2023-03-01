@@ -1,7 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
-import 'package:barbers/pages/appointments.dart';
-import 'package:barbers/pages/profile.dart';
+import 'package:barbers/pages/general/appointments.dart';
+import 'package:barbers/pages/general/profile.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/requester.dart';

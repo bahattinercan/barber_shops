@@ -5,7 +5,7 @@ import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
-import 'package:barbers/pages/select_schedule.dart';
+import 'package:barbers/pages/general/select_schedule.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 

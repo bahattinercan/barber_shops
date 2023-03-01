@@ -3,8 +3,8 @@
 import 'dart:convert';
 
 import 'package:barbers/models/user.dart';
-import 'package:barbers/pages/home.dart';
-import 'package:barbers/pages/login.dart';
+import 'package:barbers/pages/general/home.dart';
+import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/color_manager.dart';

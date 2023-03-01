@@ -7,7 +7,7 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/models/work_time.dart';
 import 'package:barbers/models/work_time_static.dart';
 import 'package:barbers/models/worker.dart';
-import 'package:barbers/pages/home.dart';
+import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
 import 'package:barbers/panels/select_schedule/select_time_grid.dart';
 import 'package:barbers/utils/app_manager.dart';

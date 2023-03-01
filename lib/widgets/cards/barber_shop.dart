@@ -1,5 +1,5 @@
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/barber_shop.dart';
+import 'package:barbers/pages/general/barber_shop.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:flutter/material.dart';
