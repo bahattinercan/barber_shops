@@ -5,8 +5,8 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
@@ -50,7 +50,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
   Future<List<Worker>> get getData async {
     try {
       String datas = "";
-      datas = await HttpReqManager.getReq('/workers/shop/${widget.shop.id}');
+      datas = await Requester.getReq('/workers/shop/${widget.shop.id}');
 
       return workerListFromJson(datas);
     } catch (e) {
@@ -85,8 +85,8 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     try {
       if (!formKey.currentState!.validate()) return;
       // find user
-      final hasEmailRes = await HttpReqManager.getReq("/users/has_email/${text}");
-      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+      final hasEmailRes = await Requester.getReq("/users/has_email/${text}");
+      if (Requester.resultNotifier.value is RequestLoadFailure) {
         Dialogs.failDialog(context: context);
         return;
       }
@@ -96,7 +96,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
       if (workers.any((element) => element.id == userId)) return;
 
       // add to the cafe
-      final workerRes = await HttpReqManager.postReq(
+      final workerRes = await Requester.postReq(
           "/workers",
           workerToJson(Worker(
             userId: userId,
@@ -104,7 +104,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
           )));
 
       // check for the result
-      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+      if (Requester.resultNotifier.value is RequestLoadFailure) {
         Dialogs.failDialog(context: context);
         return;
       }
@@ -128,7 +128,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('çalışan'),
-        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
         actions: [IconButton(onPressed: addWorkerButton, icon: Icon(Icons.add_rounded))],
       ).build(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

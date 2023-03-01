@@ -4,11 +4,14 @@ class BaseAppBar extends StatelessWidget {
   final String title;
   final void Function()? onPressed;
   final List<Widget>? actions;
+  final PreferredSizeWidget? bottom;
+
   const BaseAppBar({
     super.key,
     required this.title,
     this.onPressed,
     this.actions,
+    this.bottom,
   });
 
   @override
@@ -24,6 +27,7 @@ class BaseAppBar extends StatelessWidget {
         ),
       ),
       actions: actions,
+      bottom: bottom,
     );
   }
 }

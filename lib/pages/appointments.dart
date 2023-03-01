@@ -1,7 +1,7 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
   }
 
   Future<List<Appointment>> get data async {
-    final datas = await HttpReqManager.getReq('/appointments/my/${AppManager.user.id}');
+    final datas = await Requester.getReq('/appointments/my/${AppManager.user.id}');
     return appointmentListFromJson(datas);
   }
 

@@ -5,7 +5,7 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,7 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
   }
 
   delete(int id) async {
-    final request = await HttpReqManager.deleteReq("/services/${id}");
+    final request = await Requester.deleteReq("/services/${id}");
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);
@@ -61,7 +61,7 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
   void editName(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/services/data/${widget.service.id}/name",
         jsonEncode({"data": text}),
       );
@@ -100,7 +100,7 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
     try {
       if (!formKey.currentState!.validate()) return;
       final moneyString = text.replaceAll("₺", "");
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/services/data/${widget.service.id}/price",
         jsonEncode({"data": moneyString}),
       );

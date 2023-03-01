@@ -1,6 +1,7 @@
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/choose_service.dart';
 import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -21,7 +22,6 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
   String getAvailableTime() {
     // ignore: unused_local_variable
     DateTime now = DateTime.now();
-    // TODO
     // if (now.compareTo(widget.worker!.availableTime) == 1) {
     //   // past
     //   return "Available";
@@ -36,16 +36,14 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
     return "Not Available";
   }
 
+  onTap() {
+    Pusher.push(context, ChooseServicePage(barber: widget.worker));
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return ChooseServicePage(
-            barber: widget.worker,
-          );
-        },
-      )),
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           color: ColorManager.surface,

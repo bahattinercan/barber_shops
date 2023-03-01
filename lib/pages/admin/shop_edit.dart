@@ -7,8 +7,8 @@ import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/buttons/row_text.dart';
@@ -39,7 +39,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   editName(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/name",
         jsonEncode({"data": text}),
       );
@@ -62,7 +62,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   editDescription(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/description",
         jsonEncode({"data": text}),
       );
@@ -85,7 +85,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   editLocation(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/location",
         jsonEncode({"data": text}),
       );
@@ -114,7 +114,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   editPhone(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/phone",
         jsonEncode({"data": text}),
       );
@@ -137,7 +137,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   editInstagram(GlobalKey<FormState> formKey, String text) async {
     try {
       if (!formKey.currentState!.validate()) return;
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/instagram",
         jsonEncode({"data": text}),
       );
@@ -155,7 +155,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
 
   Future<void> isOpen(bool? value) async {
     try {
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/is_open",
         jsonEncode({"data": value}),
       );
@@ -171,7 +171,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
 
   Future<void> isEmpty(bool? value) async {
     try {
-      bool result = await HttpReqManager.putReq(
+      bool result = await Requester.putReq(
         "/barber_shops/data/${widget.shop.id}/is_empty",
         jsonEncode({"data": value}),
       );
@@ -198,11 +198,11 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
     File imageFile = File(image.path);
     List<int> imageBytes = await imageFile.readAsBytes();
     String base64Image = base64Encode(imageBytes);
-    await HttpReqManager.postReq(
+    await Requester.postReq(
       "/barber_shops/set_image/${widget.shop.id}",
       jsonEncode({"image": base64Image}),
     );
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -214,14 +214,14 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
 
   changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
     if (countryValue == null || stateValue == null || cityValue == null) return;
-    await HttpReqManager.putReq(
+    await Requester.putReq(
         "barber_shops/change_location/${widget.shop.id}",
         barberShopToJson(BarberShop(
           country: countryValue,
           province: stateValue,
           district: cityValue,
         )));
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -240,7 +240,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle("Düzenle"),
-        onPressed: () => PushManager.pushReplacement(context, AdminBarberPage(shop: widget.shop)),
+        onPressed: () => Pusher.pushReplacement(context, AdminBarberPage(shop: widget.shop)),
       ).build(context),
       body: SafeArea(
         child: Padding(
@@ -292,7 +292,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
               RowTextButton(
                 text: "Yorumlar",
                 iconData: Icons.arrow_forward_ios_rounded,
-                onPressed: () => PushManager.push(context, AdminCommentsPage(shop: widget.shop)),
+                onPressed: () => Pusher.push(context, AdminCommentsPage(shop: widget.shop)),
               ),
             ],
           ),

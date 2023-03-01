@@ -2,7 +2,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/appointments.dart';
 import 'package:barbers/pages/admin/services.dart';
 import 'package:barbers/pages/admin/workers.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:flutter/material.dart';
 
@@ -40,17 +40,17 @@ class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
     if (widget.selectedIndex == value) return;
     switch (value) {
       case 0:
-        PushManager.pushReplacement(
+        Pusher.pushReplacement(
             context,
             AdminBarberPage(
               shop: widget.shop,
             ));
         break;
       case 1:
-        PushManager.pushReplacement(context, AdminServicesPage(shop: widget.shop));
+        Pusher.pushReplacement(context, AdminServicesPage(shop: widget.shop));
         break;
       case 2:
-        PushManager.pushReplacement(
+        Pusher.pushReplacement(
             context,
             AdminWorkersPage(
               shop: widget.shop,
@@ -58,7 +58,7 @@ class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
             ));
         break;
       case 3:
-        PushManager.pushReplacement(context, AdminAppointmentsPage(shop: widget.shop));
+        Pusher.pushReplacement(context, AdminAppointmentsPage(shop: widget.shop));
         break;
       default:
     }

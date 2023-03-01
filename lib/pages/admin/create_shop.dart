@@ -6,8 +6,8 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/base.dart';
@@ -69,7 +69,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
       return;
     }
 
-    await HttpReqManager.postReq(
+    await Requester.postReq(
         "/barber_shops",
         barberShopToJson(BarberShop(
           name: _name.text,
@@ -84,11 +84,11 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
           profilePicture: base64Image,
         )));
 
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
-    PushManager.pushAndRemoveAll(context, AdminBarberShopsPage());
+    Pusher.pushAndRemoveAll(context, AdminBarberShopsPage());
     Dialogs.successDialog(context: context);
   }
 
@@ -97,7 +97,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('oluştur'),
-        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
       ).build(context),
       body: SafeArea(
         child: SingleChildScrollView(

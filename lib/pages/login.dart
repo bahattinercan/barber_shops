@@ -4,7 +4,7 @@ import 'package:barbers/pages/signin.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
@@ -28,11 +28,11 @@ class _LoginPageState extends State<LoginPage> {
     try {
       if (!_formKey.currentState!.validate()) return;
 
-      final result = await HttpReqManager.postReq(
+      final result = await Requester.postReq(
         "/users/login",
         userToJson(User(email: _emailTextController.text, password: _passwordTextController.text)),
       );
-      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+      if (Requester.resultNotifier.value is RequestLoadFailure) {
         Dialogs.failDialog(context: context, content: "Hatalı giriş");
         return;
       }
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       // update authority
       AuthorityController.instance.hasAuthority = AppManager.user.authority!;
       // set headers token
-      HttpReqManager.addTokenToHeaders(AppManager.user.accessToken!);
+      Requester.addTokenToHeaders(AppManager.user.accessToken!);
       // storage the token
       SecureStorageController.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
       // push the home page

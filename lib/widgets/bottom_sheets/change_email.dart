@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class _ChangeEmailBSState extends State<ChangeEmailBS> {
         return;
       }
 
-      final result = await HttpReqManager.putReq(
+      final result = await Requester.putReq(
         "/users/change_email/${AppManager.user.id}",
         jsonEncode({
           "email": _oldEmailC.text,

@@ -2,7 +2,7 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
 import 'package:barbers/pages/select_schedule.dart';
@@ -39,7 +39,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   Future<List<Service>> get getData async {
     try {
       String datas = "";
-      datas = await HttpReqManager.getReq('/services/barber_shop/${AppManager.shop.id}');
+      datas = await Requester.getReq('/services/barber_shop/${AppManager.shop.id}');
 
       return serviceListFromJson(datas);
     } catch (e) {
@@ -65,7 +65,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
         builder: (context) {
           return SelectSchedulePage(
             services: selectedServices,
-            barber: widget.barber,
+            worker: widget.barber,
           );
         },
       ));

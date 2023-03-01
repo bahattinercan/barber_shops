@@ -3,7 +3,7 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/buttons/row_text.dart';
@@ -61,7 +61,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
       return;
     }
 
-    await HttpReqManager.postReq(
+    await Requester.postReq(
         "/work_times",
         workTimeToJson(WorkTime(
           barberShopId: widget.shopId,
@@ -79,7 +79,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
           sunday: sunday,
         )));
 
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }

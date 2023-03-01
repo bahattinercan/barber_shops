@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/user.dart';
+import 'package:barbers/models/work_time_static.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,58 @@ class AppManager {
   AppManager._internal();
   static late User user;
   static late BarberShop shop;
+  List<Service> services = [];
+
+  List<WorkTimeStatic> workTimes = [
+    WorkTimeStatic(available: true, hour: 0, minute: 00),
+    WorkTimeStatic(available: true, hour: 0, minute: 30),
+    WorkTimeStatic(available: true, hour: 1, minute: 00),
+    WorkTimeStatic(available: true, hour: 1, minute: 30),
+    WorkTimeStatic(available: true, hour: 2, minute: 00),
+    WorkTimeStatic(available: true, hour: 2, minute: 30),
+    WorkTimeStatic(available: true, hour: 3, minute: 00),
+    WorkTimeStatic(available: true, hour: 3, minute: 30),
+    WorkTimeStatic(available: true, hour: 4, minute: 00),
+    WorkTimeStatic(available: true, hour: 4, minute: 30),
+    WorkTimeStatic(available: true, hour: 5, minute: 00),
+    WorkTimeStatic(available: true, hour: 5, minute: 30),
+    WorkTimeStatic(available: true, hour: 6, minute: 00),
+    WorkTimeStatic(available: true, hour: 6, minute: 30),
+    WorkTimeStatic(available: true, hour: 7, minute: 00),
+    WorkTimeStatic(available: true, hour: 7, minute: 30),
+    WorkTimeStatic(available: true, hour: 8, minute: 00),
+    WorkTimeStatic(available: true, hour: 8, minute: 30),
+    WorkTimeStatic(available: true, hour: 9, minute: 00),
+    WorkTimeStatic(available: true, hour: 9, minute: 30),
+    WorkTimeStatic(available: true, hour: 10, minute: 00),
+    WorkTimeStatic(available: true, hour: 10, minute: 30),
+    WorkTimeStatic(available: true, hour: 11, minute: 00),
+    WorkTimeStatic(available: true, hour: 11, minute: 30),
+    WorkTimeStatic(available: true, hour: 12, minute: 00),
+    WorkTimeStatic(available: true, hour: 12, minute: 30),
+    WorkTimeStatic(available: true, hour: 13, minute: 00),
+    WorkTimeStatic(available: true, hour: 13, minute: 30),
+    WorkTimeStatic(available: true, hour: 14, minute: 00),
+    WorkTimeStatic(available: true, hour: 14, minute: 30),
+    WorkTimeStatic(available: true, hour: 15, minute: 00),
+    WorkTimeStatic(available: true, hour: 15, minute: 30),
+    WorkTimeStatic(available: true, hour: 16, minute: 00),
+    WorkTimeStatic(available: true, hour: 16, minute: 30),
+    WorkTimeStatic(available: true, hour: 17, minute: 00),
+    WorkTimeStatic(available: true, hour: 17, minute: 30),
+    WorkTimeStatic(available: true, hour: 18, minute: 00),
+    WorkTimeStatic(available: true, hour: 18, minute: 30),
+    WorkTimeStatic(available: true, hour: 19, minute: 00),
+    WorkTimeStatic(available: true, hour: 19, minute: 30),
+    WorkTimeStatic(available: true, hour: 20, minute: 00),
+    WorkTimeStatic(available: true, hour: 20, minute: 30),
+    WorkTimeStatic(available: true, hour: 21, minute: 00),
+    WorkTimeStatic(available: true, hour: 21, minute: 30),
+    WorkTimeStatic(available: true, hour: 22, minute: 00),
+    WorkTimeStatic(available: true, hour: 22, minute: 30),
+    WorkTimeStatic(available: true, hour: 23, minute: 00),
+    WorkTimeStatic(available: true, hour: 23, minute: 30),
+  ];
 
   static String stringToTitle(String title) {
     title = title.toUpperCase();

@@ -4,7 +4,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop_edit.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,7 +105,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
-                            onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+                            onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
                             icon: Icon(
                               Icons.arrow_back_ios_new_rounded,
                               color: ColorManager.onSurface,
@@ -124,7 +124,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              onPressed: () => PushManager.pushAndRemoveAll(
+                              onPressed: () => Pusher.pushAndRemoveAll(
                                   context,
                                   AdminShopEditPage(
                                     shop: widget.shop,

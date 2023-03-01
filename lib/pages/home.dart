@@ -4,8 +4,8 @@ import 'package:barbers/pages/appointments.dart';
 import 'package:barbers/pages/profile.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/cards/barber_shop.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<BarberShop>> getData() async {
-    final datas = await HttpReqManager.postReq(
+    final datas = await Requester.postReq(
         '/barber_shops/nearby',
         barberShopToJson(BarberShop(
           country: AppManager.user.country,
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   adminButton() {
-    PushManager.pushAndRemoveAll(context, AdminBarberShopsPage());
+    Pusher.pushAndRemoveAll(context, AdminBarberShopsPage());
   }
 
   @override
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.bookmarks_rounded,
                 color: ColorManager.onBackground,
               ),
-              onPressed: () => PushManager.push(context, AppointmentsPage()),
+              onPressed: () => Pusher.push(context, AppointmentsPage()),
             ),
           ),
           Padding(
@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                   color: ColorManager.primaryVariant,
                   size: 32,
                 ),
-                onPressed: () => PushManager.push(context, ProfilePage()),
+                onPressed: () => Pusher.push(context, ProfilePage()),
               ),
             ),
           ),

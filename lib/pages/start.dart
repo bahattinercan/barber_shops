@@ -8,7 +8,7 @@ import 'package:barbers/pages/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +32,9 @@ class _StartPageState extends State<StartPage> {
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
       return;
     }
-    HttpReqManager.addTokenToHeaders(old_token);
-    final result = await HttpReqManager.postReq("/users/token_login", jsonEncode({"access_token": "$old_token"}));
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    Requester.addTokenToHeaders(old_token);
+    final result = await Requester.postReq("/users/token_login", jsonEncode({"access_token": "$old_token"}));
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
       return;
     }
@@ -43,7 +43,7 @@ class _StartPageState extends State<StartPage> {
     // update authority
     AuthorityController.instance.hasAuthority = AppManager.user.authority!;
     // set headers token
-    HttpReqManager.addTokenToHeaders(AppManager.user.accessToken!);
+    Requester.addTokenToHeaders(AppManager.user.accessToken!);
     // storage the token
     SecureStorageController.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
     // push the home page

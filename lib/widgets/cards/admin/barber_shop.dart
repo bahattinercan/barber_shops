@@ -3,8 +3,8 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
   }
 
   delete(int id) async {
-    final request = await HttpReqManager.deleteReq("/barber_shops/${id}");
+    final request = await Requester.deleteReq("/barber_shops/${id}");
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);
@@ -97,7 +97,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                           case 1:
                             switch (widget.eUser) {
                               case EUser.boss:
-                                PushManager.push(context, AdminBarberPage(shop: widget.shop));
+                                Pusher.push(context, AdminBarberPage(shop: widget.shop));
                                 break;
                               case EUser.worker:
                                 // TODO ADMİN WORKER PAGE

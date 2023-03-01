@@ -1,7 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/comment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
@@ -39,7 +39,7 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
   Future<List<Comment>> get getData async {
     try {
       String datas = "";
-      datas = await HttpReqManager.getReq('/comments/shop/${widget.shop.id}');
+      datas = await Requester.getReq('/comments/shop/${widget.shop.id}');
 
       return commentListFromJson(datas);
     } catch (e) {

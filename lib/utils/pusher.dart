@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PushManager {
-  static final instance = PushManager._internal();
-  PushManager._internal();
+class Pusher {
+  static final instance = Pusher._internal();
+  Pusher._internal();
 
   static push(BuildContext context, Widget page) {
     Navigator.push(context, MaterialPageRoute(

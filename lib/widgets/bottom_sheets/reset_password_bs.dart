@@ -1,6 +1,6 @@
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -26,7 +26,7 @@ class _ResetPasswordBSState extends State<ResetPasswordBS> {
         );
         return;
       }
-      final result = await HttpReqManager.putReq(
+      final result = await Requester.putReq(
         "/users/reset_password/${AppManager.user.id}",
         json.encode({"password": _newPasswordC.text}),
       );

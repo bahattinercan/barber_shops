@@ -2,8 +2,8 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/worker/change_work_times.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -39,8 +39,8 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
   }
 
   removeWorker() async {
-    await HttpReqManager.deleteReq("/workers/${widget.worker.id}");
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    await Requester.deleteReq("/workers/${widget.worker.id}");
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -51,7 +51,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
   }
 
   void changeWorkTimesButton() {
-    PushManager.push(context, ChangeWorkTimesPage(worker: widget.worker, shopId: widget.shopId));
+    Pusher.push(context, ChangeWorkTimesPage(worker: widget.worker, shopId: widget.shopId));
   }
 
   @override

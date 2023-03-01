@@ -3,7 +3,7 @@ import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -62,8 +62,8 @@ class _CommentCardState extends State<CommentCard> {
   }
 
   delete() {
-    HttpReqManager.deleteReq("/comments/${widget.comment.id}");
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    Requester.deleteReq("/comments/${widget.comment.id}");
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }

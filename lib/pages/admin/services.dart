@@ -5,8 +5,8 @@ import 'package:barbers/models/service.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
 import 'package:barbers/widgets/cards/admin/service.dart';
@@ -37,7 +37,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
 
   Future<List<Service>>? getData() async {
     try {
-      final datas = await HttpReqManager.getReq('/services/barber_shop/${widget.shop.id}');
+      final datas = await Requester.getReq('/services/barber_shop/${widget.shop.id}');
       return serviceListFromJson(datas);
     } catch (e) {
       print(e);
@@ -74,7 +74,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
       if (!formKey.currentState!.validate()) return;
 
       final moneyString = text2.replaceAll("₺", "");
-      final result = await HttpReqManager.postReq(
+      final result = await Requester.postReq(
         "/services",
         serviceToJson(Service(
           name: text,
@@ -84,7 +84,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
         )),
       );
 
-      if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+      if (Requester.resultNotifier.value is RequestLoadFailure) {
         Dialogs.failDialog(context: context);
         return;
       }
@@ -110,7 +110,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('hizmet'),
-        onPressed: () => PushManager.pushAndRemoveAll(context, AdminBarberShopsPage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
         actions: [IconButton(onPressed: addItemButton, icon: Icon(Icons.add_rounded))],
       ).build(context),
       body: SafeArea(

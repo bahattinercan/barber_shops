@@ -1,7 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_barber.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class _ChooseBarberPageState extends State<ChooseBarberPage> {
   Future<List<Worker>> get getData async {
     try {
       String datas = "";
-      datas = await HttpReqManager.getReq('/comments/shop/${widget.shop.id}');
+      datas = await Requester.getReq('/workers/shop/${widget.shop.id}');
 
       return workerListFromJson(datas);
     } catch (e) {

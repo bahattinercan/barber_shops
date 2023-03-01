@@ -2,8 +2,8 @@ import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/secure_storage_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/change_email.dart';
@@ -76,14 +76,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
     if (countryValue == null || stateValue == null || cityValue == null) return;
-    await HttpReqManager.putReq(
+    await Requester.putReq(
         "users/change_location/${AppManager.user.id}",
         userToJson(User(
           country: countryValue,
           province: stateValue,
           district: cityValue,
         )));
-    if (HttpReqManager.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.resultNotifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -97,6 +97,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void logout() async {
     await SecureStorageController.writeWithKey(StoreKeyType.access_token, "");
-    PushManager.pushAndRemoveAll(context, LoginPage());
+    Pusher.pushAndRemoveAll(context, LoginPage());
   }
 }

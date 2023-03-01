@@ -3,8 +3,8 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/create_shop.dart';
 import 'package:barbers/pages/home.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/barber_shop.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +26,12 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
   }
 
   Future<List<BarberShop>> getData() async {
-    final datas = await HttpReqManager.getReq('/barber_shops/my/${AppManager.user.id}');
+    final datas = await Requester.getReq('/barber_shops/my/${AppManager.user.id}');
     return barberShopListFromJson(datas);
   }
 
   void _add() {
-    PushManager.pushAndRemoveAll(context, CreateBarberShopPage());
+    Pusher.pushAndRemoveAll(context, CreateBarberShopPage());
   }
 
   @override
@@ -48,7 +48,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('dükkan'),
-        onPressed: () => PushManager.pushAndRemoveAll(context, HomePage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, HomePage()),
       ).build(context),
       body: SafeArea(
         child: Container(

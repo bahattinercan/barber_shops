@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:barbers/models/appointment.dart';
 import 'package:barbers/models/selectable_day.dart';
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/work_time.dart';
+import 'package:barbers/models/work_time_static.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/home.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
@@ -11,18 +14,18 @@ import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
-import 'package:barbers/utils/push_manager.dart';
+import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SelectSchedulePage extends StatefulWidget {
-  final Worker barber;
+  final Worker worker;
   final List<Service> services;
 
-  SelectSchedulePage({Key? key, required this.services, required this.barber}) : super(key: key);
+  SelectSchedulePage({Key? key, required this.services, required this.worker}) : super(key: key);
 
   @override
   State<SelectSchedulePage> createState() => _SelectSchedulePageState();
@@ -37,8 +40,20 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   bool _canBook = false;
   WorkTime? _workTime = null;
 
+  List<WorkTimeStatic> _workTimes = AppManager.instance.workTimes;
+  List<WorkTimeStatic> _availableTimes = [];
+  late TimeOfDay startTime;
+  late TimeOfDay endTime;
+  late TimeOfDay breakStart;
+  late TimeOfDay breakEnd;
+
   @override
   void initState() {
+    setup();
+    super.initState();
+  }
+
+  void setup() {
     data.then((workTime) {
       if (workTime == null) {
         Dialogs.failDialog(
@@ -92,12 +107,83 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
         _workTime = workTime;
       });
     });
-    super.initState();
+  }
+
+  Future<void> setupTimeGrid() async {
+    print("marul");
+    try {
+      setState(() {
+        _availableTimes = [];
+      });
+
+      if (_selectedDateTime == null || _workTime == null) return;
+      DateTime dayStart = _selectedDateTime!;
+      DateTime dayEnd = _selectedDateTime!.add(Duration(
+        hours: 23,
+        minutes: 59,
+      ));
+
+      final result = await Requester.postReq(
+        "/appointments/taken_times/${AppManager.shop.id}/${widget.worker.id}",
+        jsonEncode(
+          {
+            "start_time": dayStart.toIso8601String(),
+            "end_time": dayEnd.toIso8601String(),
+          },
+        ),
+      );
+      // taken appointment times
+      List<Appointment> takenTimes = appointmentListFromJson(result);
+
+      startTime = _workTime!.startTimeOfDay!;
+      endTime = _workTime!.endTimeOfDay!;
+      breakStart = _workTime!.breakStartTimeOfDay!;
+      breakEnd = _workTime!.breakEndTimeOfDay!;
+      for (var i = 0; i < _workTimes.length; i++) {
+        WorkTimeStatic workTime = _workTimes[i];
+        DateTime workDateTime = _selectedDateTime!.add(Duration(hours: workTime.hour, minutes: workTime.minute));
+
+        // şu anki saatten sonraysa
+        bool lateFromNow = _now.compareTo(workDateTime) == -1;
+
+        // başlangıç saatinden sonraysa
+        bool lateFromStart =
+            workTime.hour > startTime.hour || (workTime.hour == startTime.hour && workTime.minute >= startTime.minute);
+        // bitiş saatinden önceyse
+        bool earlyFromEnd =
+            workTime.hour < endTime.hour || (workTime.hour == endTime.hour && workTime.minute <= endTime.minute);
+        // molada değilse
+        bool notInBreak = (workTime.hour < breakStart.hour ||
+                (workTime.hour == breakStart.hour && workTime.minute <= breakStart.minute)) ||
+            (workTime.hour > breakEnd.hour || (workTime.hour == breakEnd.hour && workTime.minute >= breakEnd.minute));
+
+        workTime.available = true;
+        if (!lateFromNow) {
+          workTime.available = false;
+        } else {
+          // eğer randevu alınmamışsa randevu alınabilsin
+          for (var i = 0; i < takenTimes.length; i++) {
+            if (takenTimes[i].time!.compareTo(workDateTime) == 0) {
+              workTime.available = false;
+            }
+          }
+        }
+
+        if (lateFromStart && earlyFromEnd && notInBreak) {
+          // add to the list
+          setState(() {
+            _availableTimes.add(workTime);
+          });
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<WorkTime?> get data async {
     try {
-      final data = await HttpReqManager.getReq("/work_times/barber/${widget.barber.id}/${AppManager.shop.id}");
+      final data = await Requester.getReq("/work_times/barber/${widget.worker.id}/${AppManager.shop.id}");
       return workTimeFromJson(data);
     } catch (e) {
       print(e);
@@ -108,8 +194,15 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   void selectDay(DateTime dateTime) {
     setState(() {
       _canSelectTime = true;
-      _selectedDateTime = dateTime;
+      _selectedDateTime = dateTime.subtract(Duration(
+        hours: dateTime.hour,
+        minutes: dateTime.minute,
+        seconds: dateTime.second,
+        milliseconds: dateTime.millisecond,
+        microseconds: dateTime.microsecond,
+      ));
     });
+    setupTimeGrid();
   }
 
   void selectTime(int hour, int minute) {
@@ -117,17 +210,35 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
       hours: _selectedDateTime!.hour,
       minutes: _selectedDateTime!.minute,
     ));
-
     setState(() {
       _canBook = true;
       _selectedDateTime = _selectedDateTime!.add(Duration(hours: hour, minutes: minute));
     });
   }
 
-  void bookNow() {
-    print("BOOK NOW");
-    PushManager.pushAndRemoveAll(context, HomePage());
-    Dialogs.successDialog(context: context);
+  Future<void> bookNow() async {
+    final List<int> serviceIds = widget.services.map((service) => service.id!).toList();
+    await Requester.postReq(
+      "/appointments",
+      appointmentToJson(
+        Appointment(
+          price: "$_totalCost",
+          userId: AppManager.user.id,
+          barberShopId: AppManager.shop.id,
+          services: serviceIds,
+          time: _selectedDateTime,
+          workerId: widget.worker.id,
+          workerUid: widget.worker.userId,
+        ),
+      ),
+    );
+    if (Requester.resultNotifier.value is RequestLoadSuccess) {
+      print(_selectedDateTime!.toIso8601String());
+      Pusher.pushAndRemoveAll(context, HomePage());
+      Dialogs.successDialog(context: context);
+    } else {
+      Dialogs.failDialog(context: context);
+    }
   }
 
   @override
@@ -194,6 +305,9 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                               child: SelectTimeGrid(
                                 select: selectTime,
                                 workTime: _workTime!,
+                                dateTime: _selectedDateTime,
+                                workerId: widget.worker.id!,
+                                availableTimes: _availableTimes,
                               ),
                             ),
                           ),
@@ -247,7 +361,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                widget.barber.fullname!,
+                                                widget.worker.fullname!,
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 16,

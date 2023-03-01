@@ -2,7 +2,7 @@ import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/login.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
@@ -34,7 +34,7 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
 
-    await HttpReqManager.postReq(
+    await Requester.postReq(
       "/users/sign_in",
       userToJson(
         User(
@@ -48,7 +48,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
-    if (HttpReqManager.resultNotifier.value is RequestLoadSuccess) {
+    if (Requester.resultNotifier.value is RequestLoadSuccess) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
   }

@@ -3,7 +3,7 @@ import 'package:barbers/models/appointment.dart';
 import 'package:barbers/utils/color_manager.dart';
 import 'package:barbers/utils/custom_formats.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/http_req_manager.dart';
+import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +27,7 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
   }
 
   delete(int id) async {
-    final request = await HttpReqManager.deleteReq("/appointments/${id}");
+    final request = await Requester.deleteReq("/appointments/${id}");
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);

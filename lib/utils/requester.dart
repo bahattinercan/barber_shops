@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
-class HttpReqManager {
+class Requester {
   static final resultNotifier = ValueNotifier<RequestState>(RequestInitial());
-  static final _urlPrefix = '93f8-78-176-89-213.eu.ngrok.io';
+  static final _urlPrefix = 'b02d-78-176-89-213.eu.ngrok.io';
 
   static Map<String, String> _headers = {
     "Access-Control-Allow-Origin": "*",
