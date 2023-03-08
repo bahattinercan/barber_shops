@@ -3,7 +3,6 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/create_shop.dart';
 import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/barber_shop.dart';
@@ -17,17 +16,18 @@ class AdminBarberShopsPage extends StatefulWidget {
 }
 
 class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
-  late Future<List<BarberShop>> shops;
+  late List<BarberShop> shops;
+  bool dataLoaded = false;
 
   @override
   initState() {
-    shops = getData();
+    BarberShop.getUserShop(userId: AppManager.user.id!).then((value) {
+      setState(() {
+        shops = value;
+        dataLoaded = true;
+      });
+    });
     super.initState();
-  }
-
-  Future<List<BarberShop>> getData() async {
-    final datas = await Requester.getReq('/barber_shops/my/${AppManager.user.id}');
-    return barberShopListFromJson(datas);
   }
 
   void _add() {
@@ -53,28 +53,18 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
       body: SafeArea(
         child: Container(
           width: media.size.width,
-          child: Column(children: [
-            Expanded(
-              child: FutureBuilder(
-                future: shops,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return snapshot.data == null
-                        ? Container()
-                        : ListView.builder(
-                            itemBuilder: (context, index) => AdminBarberShopCard(
-                              snapshot.data![index],
-                              EUser.boss,
-                            ),
-                            itemCount: snapshot.data!.length,
-                          );
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
-          ]),
+          height: media.size.height,
+          child: !dataLoaded
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemBuilder: (context, index) => AdminBarberShopCard(
+                    shops[index],
+                    EUser.boss,
+                  ),
+                  itemCount: shops.length,
+                ),
         ),
       ),
     );

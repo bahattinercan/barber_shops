@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'package:barbers/pages/general/start.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,23 +18,23 @@ class MyApp extends StatelessWidget {
       title: 'Berberim',
       theme: ThemeData(
           colorScheme: ColorScheme(
-            primary: ColorManager.primary,
-            primaryVariant: ColorManager.primaryVariant,
-            secondary: ColorManager.secondary,
-            secondaryVariant: ColorManager.secondaryVariant,
-            background: ColorManager.background,
-            surface: ColorManager.onSurface,
-            onBackground: ColorManager.onBackground,
-            onSurface: ColorManager.onSurface,
-            onPrimary: ColorManager.onPrimary,
-            onSecondary: ColorManager.onSecondary,
+            primary: Colorer.primary,
+            primaryVariant: Colorer.primaryVariant,
+            secondary: Colorer.secondary,
+            secondaryVariant: Colorer.secondaryVariant,
+            background: Colorer.background,
+            surface: Colorer.onSurface,
+            onBackground: Colorer.onBackground,
+            onSurface: Colorer.onSurface,
+            onPrimary: Colorer.onPrimary,
+            onSecondary: Colorer.onSecondary,
             brightness: Brightness.dark,
             error: Colors.red,
             onError: Colors.white,
           ),
-          primaryColor: ColorManager.primary,
-          primarySwatch: ColorManager.getMatColor(ColorManager.primary),
-          accentColor: ColorManager.getMatColor(ColorManager.secondary),
+          primaryColor: Colorer.primary,
+          primarySwatch: Colorer.getMatColor(Colorer.primary),
+          accentColor: Colorer.getMatColor(Colorer.secondary),
           // WIDGETS
           appBarTheme: AppBarTheme(
             elevation: 0,
@@ -42,21 +42,21 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.black,
             toolbarHeight: 75,
             iconTheme: IconThemeData(
-              color: ColorManager.onBackground,
+              color: Colorer.onBackground,
             ),
             titleTextStyle: TextStyle(
-              color: ColorManager.onBackground,
+              color: Colorer.onBackground,
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
           ),
-          scaffoldBackgroundColor: ColorManager.background,
+          scaffoldBackgroundColor: Colorer.background,
           cardTheme: CardTheme(
-            color: ColorManager.surface,
+            color: Colorer.surface,
             elevation: 0,
           ),
           popupMenuTheme: PopupMenuThemeData(
-            color: ColorManager.surface,
+            color: Colorer.surface,
           ),
           // BUTTONS
           elevatedButtonTheme: ElevatedButtonThemeData(
@@ -64,30 +64,30 @@ class MyApp extends StatelessWidget {
               foregroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.disabled)) {
-                    return ColorManager.primary;
+                    return Colorer.primary;
                   }
-                  return ColorManager.onSecondary;
+                  return Colorer.onSecondary;
                 },
               ),
               backgroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.disabled)) {
-                    return ColorManager.surface;
+                    return Colorer.surface;
                   }
-                  return ColorManager.secondary;
+                  return Colorer.secondary;
                 },
               ),
             ),
           ),
           // NAV BARS
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: ColorManager.surface,
-            unselectedItemColor: ColorManager.onBackground,
-            selectedItemColor: ColorManager.primaryVariant,
+            backgroundColor: Colorer.surface,
+            unselectedItemColor: Colorer.onBackground,
+            selectedItemColor: Colorer.primaryVariant,
           ),
           // BOTTOM SHEET
           bottomSheetTheme: BottomSheetThemeData(
-            backgroundColor: ColorManager.background,
+            backgroundColor: Colorer.background,
           ),
           dropdownMenuTheme: DropdownMenuThemeData(
             menuStyle: MenuStyle(),
@@ -96,14 +96,14 @@ class MyApp extends StatelessWidget {
             thumbColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.disabled)) {
-                  return ColorManager.surface;
+                  return Colorer.surface;
                 }
-                return ColorManager.onSurface;
+                return Colorer.onSurface;
               },
             ),
           ),
           timePickerTheme: TimePickerThemeData(
-            backgroundColor: ColorManager.background,
+            backgroundColor: Colorer.background,
           )),
       home: StartPage(),
     );

@@ -2,7 +2,10 @@
 //
 //     final appointment = appointmentFromJson(jsonString);
 
+import 'dart:async';
 import 'dart:convert';
+
+import 'package:barbers/utils/requester.dart';
 
 List<Appointment> appointmentListFromJson(String str) =>
     List<Appointment>.from(json.decode(str).map((x) => Appointment.fromJson(x)));
@@ -40,6 +43,8 @@ class Appointment {
   String? customerPhone;
   String? barberName;
 
+  static String table = "appointments";
+
   factory Appointment.fromJson(Map<String, dynamic> json) => Appointment(
         id: json["id"],
         price: json["price"],
@@ -67,4 +72,102 @@ class Appointment {
         "customer_phone": customerPhone,
         "barber_name": barberName,
       };
+
+  //#region requests
+
+  static Future<Appointment?> create({
+    required String price,
+    required int userId,
+    required int barberShopId,
+    required List<int> services,
+    required DateTime time,
+    required int workerId,
+    required int workerUid,
+  }) async {
+    final result = await Requester.postReq(
+        "/$table",
+        appointmentToJson(Appointment(
+          price: price,
+          userId: userId,
+          barberShopId: barberShopId,
+          services: services,
+          time: time,
+          workerId: workerId,
+          workerUid: workerUid,
+        )));
+    if (Requester.isSuccess)
+      return appointmentFromJson(result);
+    else
+      return null;
+  }
+
+  static Future<List<Appointment>> getAll() async {
+    final result = await Requester.getReq("/$table");
+    if (Requester.isSuccess)
+      return appointmentListFromJson(result);
+    else
+      return [];
+  }
+
+  static Future<List<Appointment>> getShops({required int shopId}) async {
+    final result = await Requester.getReq("/$table/shop/$shopId");
+    if (Requester.isSuccess)
+      return appointmentListFromJson(result);
+    else
+      return [];
+  }
+
+  static Future<List<Appointment>> getUserAppointments({required int userId}) async {
+    final result = await Requester.getReq("/$table/my/$userId");
+    if (Requester.isSuccess)
+      return appointmentListFromJson(result);
+    else
+      return [];
+  }
+
+  static Future<List<Appointment>> getTakenTimes({
+    required int shopId,
+    required int workerId,
+    required DateTime startTime,
+    required DateTime endTime,
+  }) async {
+    final result = await Requester.postReq(
+      "/$table/taken_times/$shopId/$workerId",
+      jsonEncode({"start_time": startTime.toIso8601String(), "end_time": endTime.toIso8601String()}),
+    );
+    if (Requester.isSuccess)
+      return appointmentListFromJson(result);
+    else
+      return [];
+  }
+
+  static Future<Appointment?> get({required int id}) async {
+    final result = await Requester.getReq("/$table/$id");
+    if (Requester.isSuccess)
+      return appointmentFromJson(result);
+    else
+      return null;
+  }
+
+  static Future<Appointment?> getData({required int id, required String column}) async {
+    final result = await Requester.getReq("/$table/data/$id/$column");
+    if (Requester.isSuccess)
+      return appointmentFromJson(result);
+    else
+      return null;
+  }
+
+  static Future<bool> setData({required int id, required String column, required dynamic data}) async {
+    final result = await Requester.putReq(
+      "/$table/data/$id/$column",
+      jsonEncode({"data": data}),
+    );
+    return result;
+  }
+
+  static Future<bool> delete({required int id}) async {
+    final result = await Requester.deleteReq("/$table/$id");
+    return result;
+  }
+  //#endregion
 }

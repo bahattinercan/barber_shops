@@ -4,7 +4,7 @@ enum StoreKeyType {
   access_token,
 }
 
-class SecureStorageController {
+class SecureStorager {
   static const _storage = FlutterSecureStorage();
 
   static Future write(String key, String value) async => await _storage.write(key: key, value: value);

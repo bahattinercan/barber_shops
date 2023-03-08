@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/user.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
@@ -35,7 +33,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
 
   @override
   initState() {
-    getData.then((value) {
+    Worker.getShops(shopId: widget.shop.id!).then((value) {
       setState(() {
         workers = value;
       });
@@ -45,18 +43,6 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
 
   updateCafe(BarberShop shop) {
     widget.shop = shop;
-  }
-
-  Future<List<Worker>> get getData async {
-    try {
-      String datas = "";
-      datas = await Requester.getReq('/workers/shop/${widget.shop.id}');
-
-      return workerListFromJson(datas);
-    } catch (e) {
-      print(e);
-      return [];
-    }
   }
 
   void UpdateWorker(Worker worker) {
@@ -82,44 +68,26 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
   }
 
   addWorker(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      // find user
-      final hasEmailRes = await Requester.getReq("/users/has_email/${text}");
-      if (Requester.resultNotifier.value is RequestLoadFailure) {
-        Dialogs.failDialog(context: context);
-        return;
-      }
-      int userId = jsonDecode(hasEmailRes)["id"];
-
-      // check if this user is already added
-      if (workers.any((element) => element.id == userId)) return;
-
-      // add to the cafe
-      final workerRes = await Requester.postReq(
-          "/workers",
-          workerToJson(Worker(
-            userId: userId,
-            barberShopId: widget.shop.id,
-          )));
-
-      // check for the result
-      if (Requester.resultNotifier.value is RequestLoadFailure) {
-        Dialogs.failDialog(context: context);
-        return;
-      }
-      Worker newWorker = workerFromJson(workerRes);
-      // add to the list
-      setState(() {
-        workers.add(newWorker);
-      });
-
-      Navigator.pop(context);
-      Dialogs.successDialog(context: context);
-    } catch (e) {
+    if (!formKey.currentState!.validate()) return;
+    // find user
+    final userId = await User.hasEmail(email: text);
+    if (userId == null) {
       Dialogs.failDialog(context: context);
-      print(e);
+      return;
     }
+    // check if this user is already added
+    if (workers.any((element) => element.id == userId)) return;
+    // add to the cafe
+    final worker = await Worker.create(userId: userId, shopId: widget.shop.id!);
+    // check for the result
+    if (worker == null) {
+      Dialogs.failDialog(context: context);
+      return;
+    }
+    // add to the list
+    setState(() => workers.add(worker));
+    Navigator.pop(context);
+    Dialogs.successDialog(context: context);
   }
 
   @override

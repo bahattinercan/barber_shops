@@ -1,7 +1,7 @@
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/custom_formats.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class _CommentCardState extends State<CommentCard> {
 
   delete() {
     Requester.deleteReq("/comments/${widget.comment.id}");
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.notifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -135,7 +135,7 @@ class _CommentCardState extends State<CommentCard> {
                                 widget.comment.fullname!,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  color: ColorManager.onSurface,
+                                  color: Colorer.onSurface,
                                 ),
                               ),
                               SizedBox(
@@ -161,16 +161,16 @@ class _CommentCardState extends State<CommentCard> {
                                   child: Icon(
                                     Icons.delete_rounded,
                                     size: 16,
-                                    color: ColorManager.secondary,
+                                    color: Colorer.secondary,
                                   ),
                                 ),
                               ),
                               SizedBox(width: 2),
                               Text(
-                                CustomFormats.dateFormatter.format(widget.comment.time!),
+                                Formatter.dateFormatter.format(widget.comment.time!),
                                 style: TextStyle(
                                   fontSize: 11,
-                                  color: ColorManager.onSurface,
+                                  color: Colorer.onSurface,
                                 ),
                               ),
                             ],

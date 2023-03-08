@@ -1,7 +1,7 @@
 import 'package:barbers/models/work_time.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
@@ -60,26 +60,22 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
       Dialogs.failDialog(context: context, content: "Mola Saatlerini kontrol edin");
       return;
     }
-
-    await Requester.postReq(
-        "/work_times",
-        workTimeToJson(WorkTime(
-          barberShopId: widget.shopId,
-          workerId: widget.worker.id,
-          startTime: _startS,
-          endTime: _endS,
-          breakStart: _breakStartS,
-          breakEnd: _breakEndS,
-          monday: monday,
-          tuesday: tuesday,
-          wednesday: wednesday,
-          thursday: thursday,
-          friday: friday,
-          saturday: saturday,
-          sunday: sunday,
-        )));
-
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    WorkTime? res = await WorkTime.create(
+      shopId: widget.shopId,
+      workerId: widget.worker.id!,
+      startTime: _startS,
+      endTime: _endS,
+      breakStart: _breakStartS,
+      breakEnd: _breakEndS,
+      monday: monday,
+      tuesday: tuesday,
+      wednesday: wednesday,
+      thursday: thursday,
+      friday: friday,
+      saturday: saturday,
+      sunday: sunday,
+    );
+    if (res == null) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -154,7 +150,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                       child: Text(
                         "Çalışma Günleri",
                         style: TextStyle(
-                          color: ColorManager.onBackground,
+                          color: Colorer.onBackground,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
@@ -164,7 +160,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Pazartesi ",
                     iconData: Icons.circle,
-                    iconColor: monday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: monday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         monday = !monday;
@@ -174,7 +170,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Salı ",
                     iconData: Icons.circle,
-                    iconColor: tuesday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: tuesday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         tuesday = !tuesday;
@@ -184,7 +180,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Çarşamba ",
                     iconData: Icons.circle,
-                    iconColor: wednesday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: wednesday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         wednesday = !wednesday;
@@ -194,7 +190,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Perşembe ",
                     iconData: Icons.circle,
-                    iconColor: thursday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: thursday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         thursday = !thursday;
@@ -204,7 +200,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Cuma ",
                     iconData: Icons.circle,
-                    iconColor: friday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: friday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         friday = !friday;
@@ -214,7 +210,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Cumartesi ",
                     iconData: Icons.circle,
-                    iconColor: saturday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: saturday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         saturday = !saturday;
@@ -224,7 +220,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                   RowTextButton(
                     text: "Pazar ",
                     iconData: Icons.circle,
-                    iconColor: sunday ? ColorManager.onBackground : ColorManager.surface,
+                    iconColor: sunday ? Colorer.onBackground : Colorer.surface,
                     onPressed: () {
                       setState(() {
                         sunday = !sunday;

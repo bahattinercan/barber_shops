@@ -1,11 +1,10 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class WorkerCafeBottomNB extends StatefulWidget {
-  BarberShop shop;
+  final BarberShop shop;
   final int selectedIndex;
-  WorkerCafeBottomNB({
+  const WorkerCafeBottomNB({
     super.key,
     required this.selectedIndex,
     required this.shop,

@@ -1,4 +1,4 @@
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 class BasePopupMenuButton extends StatelessWidget {
@@ -15,7 +15,7 @@ class BasePopupMenuButton extends StatelessWidget {
     return PopupMenuButton(
       icon: Icon(
         Icons.more_vert,
-        color: ColorManager.primaryVariant,
+        color: Colorer.primaryVariant,
       ),
       itemBuilder: itemBuilder,
       onSelected: onSelected,

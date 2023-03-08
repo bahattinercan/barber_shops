@@ -1,7 +1,7 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/general/barber_shop.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -45,7 +45,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
           width: double.infinity,
           height: 250,
           decoration: BoxDecoration(
-            color: ColorManager.surface,
+            color: Colorer.surface,
             borderRadius: BorderRadius.circular(24),
           ),
           child: Stack(
@@ -86,7 +86,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                     Text(
                       widget.shop.name!,
                       style: TextStyle(
-                        color: ColorManager.onPrimary,
+                        color: Colorer.onPrimary,
                         fontSize: 28,
                         fontWeight: FontWeight.w500,
                       ),
@@ -94,7 +94,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                     Text(
                       widget.shop.description!,
                       style: TextStyle(
-                        color: ColorManager.onPrimary,
+                        color: Colorer.onPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
                       ),
@@ -109,7 +109,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                         Text(
                           "${widget.shop.starAverage}",
                           style: TextStyle(
-                            color: ColorManager.onPrimary,
+                            color: Colorer.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -117,7 +117,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                         Text(
                           "(${widget.shop.comments})",
                           style: TextStyle(
-                            color: ColorManager.onPrimary,
+                            color: Colorer.onPrimary,
                           ),
                         ),
                       ],

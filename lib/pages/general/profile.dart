@@ -2,9 +2,8 @@ import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
-import 'package:barbers/utils/secure_storage_manager.dart';
+import 'package:barbers/utils/secure_storager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/change_email.dart';
 import 'package:barbers/widgets/bottom_sheets/change_location.dart';
@@ -41,11 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
               RowTextButton(
                 text: "Konum Seç",
                 iconData: Icons.arrow_forward_ios_rounded,
-                onPressed: () => AppManager.bottomSheet(
-                    context,
-                    ChangeLocationBS(
-                      submit: changeLocation,
-                    )),
+                onPressed: () => AppManager.bottomSheet(context, ChangeLocationBS(submit: changeLocation)),
               ),
               RowTextButton(
                 text: "Tel No Değiştir",
@@ -76,14 +71,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
     if (countryValue == null || stateValue == null || cityValue == null) return;
-    await Requester.putReq(
-        "users/change_location/${AppManager.user.id}",
-        userToJson(User(
-          country: countryValue,
-          province: stateValue,
-          district: cityValue,
-        )));
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    final res = await User.changeLocation(
+      id: AppManager.user.id!,
+      country: countryValue,
+      province: stateValue,
+      district: cityValue,
+    );
+    if (res) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -96,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void logout() async {
-    await SecureStorageController.writeWithKey(StoreKeyType.access_token, "");
+    await SecureStorager.writeWithKey(StoreKeyType.access_token, "");
     Pusher.pushAndRemoveAll(context, LoginPage());
   }
 }

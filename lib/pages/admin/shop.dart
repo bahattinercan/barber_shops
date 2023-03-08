@@ -3,16 +3,15 @@ import 'dart:io';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop_edit.dart';
 import 'package:barbers/pages/admin/shops.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// ignore: must_be_immutable
 class AdminBarberPage extends StatefulWidget {
-  BarberShop shop;
-  AdminBarberPage({
+  final BarberShop shop;
+  const AdminBarberPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
@@ -50,7 +49,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                   width: double.infinity,
                   height: 250,
                   decoration: BoxDecoration(
-                    color: ColorManager.surface,
+                    color: Colorer.surface,
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Stack(
@@ -101,14 +100,14 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                         padding: const EdgeInsets.only(left: 8, top: 8),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: ColorManager.surface,
+                            color: Colorer.surface,
                             shape: BoxShape.circle,
                           ),
                           child: IconButton(
                             onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
                             icon: Icon(
                               Icons.arrow_back_ios_new_rounded,
-                              color: ColorManager.onSurface,
+                              color: Colorer.onSurface,
                             ),
                           ),
                         ),
@@ -120,7 +119,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                           padding: const EdgeInsets.only(right: 8, top: 8),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: ColorManager.surface,
+                              color: Colorer.surface,
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
@@ -131,7 +130,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                                   )),
                               icon: Icon(
                                 Icons.edit_document,
-                                color: ColorManager.onSurface,
+                                color: Colorer.onSurface,
                               ),
                             ),
                           ),
@@ -143,7 +142,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                           padding: const EdgeInsets.only(top: 18),
                           child: Text(
                             (isOpenVisual ? "OPEN" : "CLOSE") + " NOW",
-                            style: TextStyle(color: ColorManager.primary, fontWeight: FontWeight.w700),
+                            style: TextStyle(color: Colorer.primary, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
@@ -176,7 +175,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                                   Text(
                                     "${widget.shop.starAverage!}",
                                     style: TextStyle(
-                                      color: ColorManager.onPrimary,
+                                      color: Colorer.onPrimary,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -184,7 +183,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                                   Text(
                                     "(${widget.shop.comments})",
                                     style: TextStyle(
-                                      color: ColorManager.onPrimary,
+                                      color: Colorer.onPrimary,
                                     ),
                                   ),
                                 ],
@@ -207,7 +206,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                       Text(
                         widget.shop.name!,
                         style: TextStyle(
-                          color: ColorManager.onBackground,
+                          color: Colorer.onBackground,
                           fontWeight: FontWeight.w700,
                           fontSize: 32,
                         ),
@@ -218,7 +217,7 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                       Text(
                         widget.shop.description!,
                         style: TextStyle(
-                          color: ColorManager.onPrimary,
+                          color: Colorer.onPrimary,
                           fontSize: 16,
                         ),
                       ),
@@ -228,14 +227,14 @@ class _AdminBarberPageState extends State<AdminBarberPage> {
                       Text(
                         "Adres: " + widget.shop.location!,
                         style: TextStyle(
-                          color: ColorManager.onPrimary,
+                          color: Colorer.onPrimary,
                           fontSize: 16,
                         ),
                       ),
                       Text(
                         "Tel no: " + widget.shop.phone!,
                         style: TextStyle(
-                          color: ColorManager.onPrimary,
+                          color: Colorer.onPrimary,
                           fontSize: 16,
                         ),
                       ),

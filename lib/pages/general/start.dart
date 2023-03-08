@@ -1,15 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:convert';
-
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/requester.dart';
-import 'package:barbers/utils/secure_storage_manager.dart';
+import 'package:barbers/utils/secure_storager.dart';
 import 'package:flutter/material.dart';
 
 class StartPage extends StatefulWidget {
@@ -27,27 +26,26 @@ class _StartPageState extends State<StartPage> {
   }
 
   Future<void> tokenLogin() async {
-    final old_token = await SecureStorageController.readWithKey(StoreKeyType.access_token);
+    final old_token = await SecureStorager.readWithKey(StoreKeyType.access_token);
     if (old_token == null || old_token == "") {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+      Pusher.pushAndRemoveAll(context, LoginPage());
       return;
     }
     Requester.addTokenToHeaders(old_token);
-    final result = await Requester.postReq("/users/token_login", jsonEncode({"access_token": "$old_token"}));
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+    final result = await User.tokenLogin(token: old_token);
+    if (result == null) {
+      Pusher.pushAndRemoveAll(context, LoginPage());
       return;
     }
     // set user data
-    AppManager.user = userFromJson(result);
+    AppManager.user = result;
     // update authority
-    AuthorityController.instance.hasAuthority = AppManager.user.authority!;
+    Authorization.hasAuthority = AppManager.user.authority!;
     // set headers token
     Requester.addTokenToHeaders(AppManager.user.accessToken!);
     // storage the token
-    SecureStorageController.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
-    // push the home page
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
+    SecureStorager.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
+    Pusher.pushAndRemoveAll(context, HomePage());
   }
 
   @override
@@ -72,18 +70,18 @@ class _StartPageState extends State<StartPage> {
             Container(
               width: 215,
               child: Divider(
-                color: ColorManager.primary,
+                color: Colorer.primary,
                 thickness: 5,
               ),
             ),
             Text(
               "BERBERLER",
-              style: TextStyle(color: ColorManager.primaryVariant, fontSize: 36, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Colorer.primaryVariant, fontSize: 36, fontWeight: FontWeight.bold),
             ),
             Container(
               width: 215,
               child: Divider(
-                color: ColorManager.primary,
+                color: Colorer.primary,
                 thickness: 5,
               ),
             ),
@@ -93,7 +91,7 @@ class _StartPageState extends State<StartPage> {
             Icon(
               Icons.alarm,
               size: 36,
-              color: ColorManager.primaryVariant,
+              color: Colorer.primaryVariant,
             ),
             SizedBox(
               height: 10,
@@ -101,7 +99,7 @@ class _StartPageState extends State<StartPage> {
             Text(
               "Rowleyes",
               style: TextStyle(
-                color: ColorManager.primaryVariant,
+                color: Colorer.primaryVariant,
                 fontSize: 16,
                 fontStyle: FontStyle.italic,
               ),

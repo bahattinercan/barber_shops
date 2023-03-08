@@ -1,4 +1,4 @@
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,10 +49,10 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
           hintText: widget.hintText,
           labelText: widget.labelText,
           hintStyle: TextStyle(
-            color: ColorManager.disableColor,
+            color: Colorer.disableColor,
           ),
           helperStyle: TextStyle(
-            color: ColorManager.onSurface,
+            color: Colorer.onSurface,
           ),
         ),
         validator: widget.validator,

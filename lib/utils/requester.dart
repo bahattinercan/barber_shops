@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 class Requester {
-  static final resultNotifier = ValueNotifier<RequestState>(RequestInitial());
-  static final _urlPrefix = 'b02d-78-176-89-213.eu.ngrok.io';
+  static final notifier = ValueNotifier<RequestState>(RequestInitial());
+  static final _urlPrefix = '87a5-78-176-89-213.eu.ngrok.io';
 
   static Map<String, String> _headers = {
     "Access-Control-Allow-Origin": "*",
@@ -18,7 +18,7 @@ class Requester {
 
   static Future<String> getReq(String target) async {
     try {
-      resultNotifier.value = RequestLoadInProgress();
+      notifier.value = RequestLoadInProgress();
       final url = Uri.https('$_urlPrefix', '$target');
       Response response = await get(url, headers: _headers);
       _handleResponse(response);
@@ -31,7 +31,7 @@ class Requester {
 
   static Future<String> postReq(String target, String json) async {
     try {
-      resultNotifier.value = RequestLoadInProgress();
+      notifier.value = RequestLoadInProgress();
       final url = Uri.https('$_urlPrefix', '$target');
       final response = await post(url, headers: _headers, body: json);
       _handleResponse(response);
@@ -44,7 +44,7 @@ class Requester {
 
   static Future<bool> putReq(String target, String? json) async {
     try {
-      resultNotifier.value = RequestLoadInProgress();
+      notifier.value = RequestLoadInProgress();
       final url = Uri.https('$_urlPrefix', '$target');
       final response = await put(url, headers: _headers, body: json);
       _handleResponse(response);
@@ -57,7 +57,7 @@ class Requester {
 
   static Future<void> patchReq(String target, String json) async {
     try {
-      resultNotifier.value = RequestLoadInProgress();
+      notifier.value = RequestLoadInProgress();
       final url = Uri.https('$_urlPrefix', '$target');
       final response = await patch(url, headers: _headers, body: json);
       _handleResponse(response);
@@ -68,7 +68,7 @@ class Requester {
 
   static Future<bool> deleteReq(String target) async {
     try {
-      resultNotifier.value = RequestLoadInProgress();
+      notifier.value = RequestLoadInProgress();
       final url = Uri.https('$_urlPrefix', '$target');
       final response = await delete(url, headers: _headers);
       _handleResponse(response);
@@ -82,10 +82,17 @@ class Requester {
 
   static void _handleResponse(Response response) {
     if (response.statusCode >= 400) {
-      resultNotifier.value = RequestLoadFailure();
+      notifier.value = RequestLoadFailure();
     } else {
-      resultNotifier.value = RequestLoadSuccess(response.body);
+      notifier.value = RequestLoadSuccess(response.body);
     }
+  }
+
+  static bool get isSuccess {
+    if (Requester.notifier.value is RequestLoadSuccess)
+      return true;
+    else
+      return false;
   }
 }
 

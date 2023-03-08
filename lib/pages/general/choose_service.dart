@@ -1,8 +1,7 @@
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
 import 'package:barbers/pages/general/select_schedule.dart';
@@ -23,29 +22,18 @@ class ChooseServicePage extends StatefulWidget {
 
 class _ChooseServicePageState extends State<ChooseServicePage> {
   List<Service> selectedServices = [];
-
   List<Service> services = [];
+  bool dataLoaded = false;
 
   @override
   initState() {
-    getData.then((value) {
+    Service.getShops(shopId: AppManager.shop.id!).then((value) {
       setState(() {
         services = value;
+        dataLoaded = true;
       });
     });
     super.initState();
-  }
-
-  Future<List<Service>> get getData async {
-    try {
-      String datas = "";
-      datas = await Requester.getReq('/services/barber_shop/${AppManager.shop.id}');
-
-      return serviceListFromJson(datas);
-    } catch (e) {
-      print(e);
-      return [];
-    }
   }
 
   void selectService(Service service, bool isActive) {
@@ -57,21 +45,16 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   }
 
   void selectSchedule(BuildContext context) {
-    try {
-      if (selectedServices.length == 0) {
-        return;
-      }
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) {
-          return SelectSchedulePage(
-            services: selectedServices,
-            worker: widget.barber,
-          );
-        },
-      ));
-    } catch (e) {
-      print(e);
-    }
+    if (selectedServices.length == 0) return;
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) {
+        return SelectSchedulePage(
+          services: selectedServices,
+          worker: widget.barber,
+        );
+      },
+    ));
   }
 
   @override
@@ -89,22 +72,26 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: GridView.builder(
-                    itemCount: services.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 1.65,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return ChooseServiceCard(
-                        barber: widget.barber,
-                        service: services[index],
-                        selectServiceF: selectService,
-                      );
-                    },
-                  ),
+                  child: !dataLoaded
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          itemCount: services.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1.65,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                          ),
+                          itemBuilder: (context, index) {
+                            return ChooseServiceCard(
+                              barber: widget.barber,
+                              service: services[index],
+                              selectServiceF: selectService,
+                            );
+                          },
+                        ),
                 ),
               ),
               Container(
@@ -114,7 +101,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
                   icon: Icons.timelapse,
                   text: "Select Schedule",
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  backgroundColor: ColorManager.secondary,
+                  backgroundColor: Colorer.secondary,
                 ),
               ),
             ],

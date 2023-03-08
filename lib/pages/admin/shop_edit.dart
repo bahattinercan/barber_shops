@@ -5,9 +5,8 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/comments.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
@@ -37,22 +36,17 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   editName(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/name",
-        jsonEncode({"data": text}),
-      );
-      if (result) {
-        setState(() => widget.shop.name = text);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    if (!formKey.currentState!.validate()) return;
+
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "name", data: text);
+    if (result) {
+      Dialogs.failDialog(context: context);
+      return;
     }
+
+    setState(() => widget.shop.name = text);
+    Navigator.pop(context);
+    Dialogs.successDialog(context: context);
   }
 
   editDescriptionButton() {
@@ -60,22 +54,17 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   editDescription(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/description",
-        jsonEncode({"data": text}),
-      );
-      if (result) {
-        setState(() => widget.shop.description = text);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    if (!formKey.currentState!.validate()) return;
+
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "description", data: text);
+    if (result) {
+      Dialogs.failDialog(context: context);
+      return;
     }
+
+    setState(() => widget.shop.description = text);
+    Navigator.pop(context);
+    Dialogs.successDialog(context: context);
   }
 
   editLocationButton() {
@@ -83,21 +72,14 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   editLocation(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/location",
-        jsonEncode({"data": text}),
-      );
-      if (result) {
-        setState(() => widget.shop.location = text);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    if (!formKey.currentState!.validate()) return;
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "location", data: text);
+    if (result) {
+      setState(() => widget.shop.location = text);
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } else {
+      Dialogs.failDialog(context: context);
     }
   }
 
@@ -112,21 +94,14 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   editPhone(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/phone",
-        jsonEncode({"data": text}),
-      );
-      if (result) {
-        setState(() => widget.shop.phone = text);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    if (!formKey.currentState!.validate()) return;
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "shop", data: text);
+    if (result) {
+      setState(() => widget.shop.phone = text);
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } else {
+      Dialogs.failDialog(context: context);
     }
   }
 
@@ -135,53 +110,33 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   editInstagram(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/instagram",
-        jsonEncode({"data": text}),
-      );
-      if (result) {
-        setState(() => widget.shop.instagram = text);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    if (!formKey.currentState!.validate()) return;
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "instagram", data: text);
+
+    if (result) {
+      setState(() => widget.shop.instagram = text);
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } else {
+      Dialogs.failDialog(context: context);
     }
   }
 
   Future<void> isOpen(bool? value) async {
-    try {
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/is_open",
-        jsonEncode({"data": value}),
-      );
-      if (result) {
-        setState(() => widget.shop.isOpen = value);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "is_open", data: value);
+    if (result) {
+      setState(() => widget.shop.isOpen = value);
+    } else {
+      Dialogs.failDialog(context: context);
     }
   }
 
   Future<void> isEmpty(bool? value) async {
-    try {
-      bool result = await Requester.putReq(
-        "/barber_shops/data/${widget.shop.id}/is_empty",
-        jsonEncode({"data": value}),
-      );
-      if (result) {
-        setState(() => widget.shop.isEmpty = value);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      print(e);
+    bool result = await BarberShop.setData(id: widget.shop.id!, column: "is_empty", data: value);
+    if (result) {
+      setState(() => widget.shop.isEmpty = value);
+    } else {
+      Dialogs.failDialog(context: context);
     }
   }
 
@@ -198,15 +153,11 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
     File imageFile = File(image.path);
     List<int> imageBytes = await imageFile.readAsBytes();
     String base64Image = base64Encode(imageBytes);
-    await Requester.postReq(
-      "/barber_shops/set_image/${widget.shop.id}",
-      jsonEncode({"image": base64Image}),
-    );
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    bool result = await BarberShop.setImageReq(id: widget.shop.id!, base64Image: base64Image);
+    if (!result) {
       Dialogs.failDialog(context: context);
       return;
     }
-
     setState(() {
       widget.shop.setImage(base64Image);
     });
@@ -214,14 +165,10 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
 
   changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
     if (countryValue == null || stateValue == null || cityValue == null) return;
-    await Requester.putReq(
-        "barber_shops/change_location/${widget.shop.id}",
-        barberShopToJson(BarberShop(
-          country: countryValue,
-          province: stateValue,
-          district: cityValue,
-        )));
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    bool result = await BarberShop.changeLocation(
+        id: widget.shop.id!, country: countryValue, province: stateValue, district: cityValue);
+
+    if (!result) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -281,13 +228,13 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
                 text: "Dükkanı aç/kapa",
                 iconData: Icons.circle,
                 onPressed: () => isOpen(!widget.shop.isOpen!),
-                iconColor: widget.shop.isOpen == false ? ColorManager.onSurface : ColorManager.surface,
+                iconColor: widget.shop.isOpen == false ? Colorer.onSurface : Colorer.surface,
               ),
               RowTextButton(
                 text: "Dükkan boş/dolu",
                 iconData: Icons.circle,
                 onPressed: () => isEmpty(!widget.shop.isEmpty!),
-                iconColor: widget.shop.isEmpty == false ? ColorManager.onSurface : ColorManager.surface,
+                iconColor: widget.shop.isEmpty == false ? Colorer.onSurface : Colorer.surface,
               ),
               RowTextButton(
                 text: "Yorumlar",

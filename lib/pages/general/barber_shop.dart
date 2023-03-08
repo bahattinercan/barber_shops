@@ -1,13 +1,13 @@
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/general/choose_barber.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class BarberShopPage extends StatefulWidget {
   final BarberShop shop;
-  BarberShopPage({
+  const BarberShopPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
@@ -53,7 +53,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                   width: double.infinity,
                   height: 250,
                   decoration: BoxDecoration(
-                    color: ColorManager.surface,
+                    color: Colorer.surface,
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Stack(
@@ -91,7 +91,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                         padding: const EdgeInsets.only(left: 8, top: 8),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: ColorManager.surface,
+                            color: Colorer.surface,
                             shape: BoxShape.circle,
                           ),
                           child: GestureDetector(
@@ -100,7 +100,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                               padding: const EdgeInsets.all(10),
                               child: Icon(
                                 Icons.arrow_back_ios_new_rounded,
-                                color: ColorManager.onSurface,
+                                color: Colorer.onSurface,
                               ),
                             ),
                           ),
@@ -112,7 +112,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           padding: const EdgeInsets.only(top: 18),
                           child: Text(
                             (isOpen ? "OPEN" : "CLOSE") + " NOW",
-                            style: TextStyle(color: ColorManager.primary, fontWeight: FontWeight.w700),
+                            style: TextStyle(color: Colorer.primary, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
@@ -136,7 +136,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                         Text(
                           widget.shop.name!,
                           style: TextStyle(
-                            color: ColorManager.onBackground,
+                            color: Colorer.onBackground,
                             fontWeight: FontWeight.w700,
                             fontSize: 32,
                           ),
@@ -151,7 +151,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                             Text(
                               "${widget.shop.starAverage!}",
                               style: TextStyle(
-                                color: ColorManager.onPrimary,
+                                color: Colorer.onPrimary,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -159,7 +159,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                             Text(
                               "(${widget.shop.comments})",
                               style: TextStyle(
-                                color: ColorManager.onPrimary,
+                                color: Colorer.onPrimary,
                               ),
                             ),
                           ],
@@ -169,7 +169,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           child: Text(
                             widget.shop.description!,
                             style: TextStyle(
-                              color: ColorManager.onPrimary,
+                              color: Colorer.onPrimary,
                               fontSize: 16,
                             ),
                           ),
@@ -177,7 +177,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                         Text(
                           "Adres: " + widget.shop.location!,
                           style: TextStyle(
-                            color: ColorManager.onPrimary,
+                            color: Colorer.onPrimary,
                             fontSize: 16,
                           ),
                         ),
@@ -188,14 +188,14 @@ class _BarberShopPageState extends State<BarberShopPage> {
                                 flex: 20,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: ColorManager.primaryVariant,
+                                    color: Colorer.primaryVariant,
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                                     child: Icon(
                                       Icons.message,
-                                      color: ColorManager.onSecondary,
+                                      color: Colorer.onSecondary,
                                     ),
                                   ),
                                 ),
@@ -208,7 +208,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
                                     onTap: selectBarberShop,
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: ColorManager.primaryVariant,
+                                        color: Colorer.primaryVariant,
                                         borderRadius: BorderRadius.circular(16),
                                       ),
                                       child: Padding(
@@ -218,13 +218,13 @@ class _BarberShopPageState extends State<BarberShopPage> {
                                           children: [
                                             Icon(
                                               Icons.calendar_month,
-                                              color: ColorManager.onPrimary,
+                                              color: Colorer.onPrimary,
                                             ),
                                             SizedBox(width: 5),
                                             Text(
                                               "Book now",
                                               style: TextStyle(
-                                                color: ColorManager.onPrimary,
+                                                color: Colorer.onPrimary,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                               ),

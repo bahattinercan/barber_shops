@@ -4,8 +4,9 @@ import 'package:barbers/pages/general/signin.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/requester.dart';
-import 'package:barbers/utils/secure_storage_manager.dart';
+import 'package:barbers/utils/secure_storager.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
@@ -21,34 +22,25 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
 
   Future<void> _loginButton() async {
-    try {
-      if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
 
-      final result = await Requester.postReq(
-        "/users/login",
-        userToJson(User(email: _emailTextController.text, password: _passwordTextController.text)),
-      );
-      if (Requester.resultNotifier.value is RequestLoadFailure) {
-        Dialogs.failDialog(context: context, content: "Hatalı giriş");
-        return;
-      }
-      // set user data
-      AppManager.user = userFromJson(result);
-      // update authority
-      AuthorityController.instance.hasAuthority = AppManager.user.authority!;
-      // set headers token
-      Requester.addTokenToHeaders(AppManager.user.accessToken!);
-      // storage the token
-      SecureStorageController.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
-      // push the home page
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => HomePage()), (route) => false);
-    } catch (e) {
-      print(e);
+    User? user = await User.login(email: _email.text, password: _password.text);
+    if (user == null) {
+      Dialogs.failDialog(context: context, content: "Hatalı giriş");
+      return;
     }
+    // update authority
+    Authorization.hasAuthority = AppManager.user.authority!;
+    // set headers token
+    Requester.addTokenToHeaders(AppManager.user.accessToken!);
+    // storage the token
+    SecureStorager.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
+    // push the home page
+    Pusher.pushAndRemoveAll(context, HomePage());
   }
 
   void _didYouForgetPassword() {
@@ -107,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 25),
                   BaseTextFormField(
-                    controller: _emailTextController,
+                    controller: _email,
                     autofocus: true,
                     keyboardType: TextInputType.emailAddress,
                     icon: Icons.email_rounded,
@@ -119,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                   PasswordTextFormField(
-                    controller: _passwordTextController,
+                    controller: _password,
                     icon: Icons.lock_rounded,
                     labelText: "şifre *",
                   ),

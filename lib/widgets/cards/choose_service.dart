@@ -1,6 +1,6 @@
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -33,7 +33,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isActive == false ? ColorManager.surface : ColorManager.secondary,
+          color: isActive == false ? Colorer.surface : Colorer.secondary,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -45,7 +45,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
-                color: isActive == false ? ColorManager.onBackground : ColorManager.onPrimary,
+                color: isActive == false ? Colorer.onBackground : Colorer.onPrimary,
               ),
             ),
             Padding(
@@ -54,7 +54,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
                 width: 25,
                 child: Divider(
                   thickness: 2,
-                  color: isActive == false ? ColorManager.primaryVariant : Colors.white54,
+                  color: isActive == false ? Colorer.primaryVariant : Colors.white54,
                 ),
               ),
             ),
@@ -64,7 +64,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
                 textAlign: TextAlign.center,
                 "₺" + double.parse(widget.service.price!).toStringAsFixed(2),
                 style: TextStyle(
-                  color: isActive == false ? ColorManager.onBackground : ColorManager.onPrimary,
+                  color: isActive == false ? Colorer.onBackground : Colorer.onPrimary,
                   fontSize: 16,
                 ),
               ),

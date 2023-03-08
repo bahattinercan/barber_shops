@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class CustomFormats {
+class Formatter {
   static DateFormat time = DateFormat('HH:mm dd/MM/yyyy');
   static DateFormat dateFormatter = DateFormat('dd/MM/yyyy');
   static DateFormat backendFormatter = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");

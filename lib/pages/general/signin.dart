@@ -1,8 +1,8 @@
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/login.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
@@ -33,28 +33,22 @@ class _SignInPageState extends State<SignInPage> {
       Dialogs.failDialog(context: context, content: "Konum bilgilerinizi kontrol edin");
       return;
     }
-
-    await Requester.postReq(
-      "/users/sign_in",
-      userToJson(
-        User(
-          email: _emailC.text,
-          password: _passwordC.text,
-          fullname: "${_nameC.text} ${_surnameC.text}",
-          phoneNo: _telC.text,
-          country: countryValue,
-          province: stateValue,
-          district: cityValue,
-        ),
-      ),
+    bool res = await User.signin(
+      email: _emailC.text,
+      password: _passwordC.text,
+      fullname: "${_nameC.text} ${_surnameC.text}",
+      phone: _telC.text,
+      country: countryValue!,
+      province: stateValue!,
+      district: cityValue!,
     );
-    if (Requester.resultNotifier.value is RequestLoadSuccess) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    if (res) {
+      Pusher.pushReplacement(context, LoginPage());
     }
   }
 
   void _loginButton() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
+    Pusher.pushReplacement(context, LoginPage());
   }
 
   @override
@@ -152,10 +146,10 @@ class _SignInPageState extends State<SignInPage> {
                       else
                         cityValue = value;
                     },
-                    dropdownColor: ColorManager.surface,
-                    iconColor: ColorManager.onBackground,
+                    dropdownColor: Colorer.surface,
+                    iconColor: Colorer.onBackground,
                     style: TextStyle(
-                      color: ColorManager.onBackground,
+                      color: Colorer.onBackground,
                     ),
                   ),
                   Row(

@@ -1,7 +1,7 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -54,7 +54,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24),
               ),
-              color: ColorManager.surface,
+              color: Colorer.surface,
               elevation: 2.5,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -64,7 +64,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                     horizontalTitleGap: 4,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
-                      color: ColorManager.primaryVariant,
+                      color: Colorer.primaryVariant,
                       onPressed: () {},
                       icon: Icon(Icons.bookmark),
                     ),
@@ -72,7 +72,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                       widget.shop.name!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: ColorManager.onSurface,
+                        color: Colorer.onSurface,
                       ),
                     ),
                     trailing: BasePopupMenuButton(
@@ -82,13 +82,13 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                               value: 1,
                               child: Text(
                                 "Düzenle",
-                                style: TextStyle(color: ColorManager.onSurface),
+                                style: TextStyle(color: Colorer.onSurface),
                               )),
                           const PopupMenuItem<int>(
                               value: 99,
                               child: Text(
                                 "Sil",
-                                style: TextStyle(color: ColorManager.onSurface),
+                                style: TextStyle(color: Colorer.onSurface),
                               )),
                         ];
                       },
@@ -119,7 +119,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                     subtitle: Text(
                       widget.shop.location!,
                       style: TextStyle(
-                        color: ColorManager.onSurface,
+                        color: Colorer.onSurface,
                       ),
                     ),
                   ),

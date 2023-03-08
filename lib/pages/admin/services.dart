@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/service.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
@@ -27,22 +24,18 @@ class AdminServicesPage extends StatefulWidget {
 }
 
 class _AdminServicesPageState extends State<AdminServicesPage> {
-  late Future<List<Service>>? services;
+  List<Service> services = [];
+  bool dataLoaded = false;
 
   @override
   initState() {
-    services = getData();
+    Service.getShops(shopId: widget.shop.id!).then((value) {
+      setState(() {
+        services = value;
+        dataLoaded = true;
+      });
+    });
     super.initState();
-  }
-
-  Future<List<Service>>? getData() async {
-    try {
-      final datas = await Requester.getReq('/services/barber_shop/${widget.shop.id}');
-      return serviceListFromJson(datas);
-    } catch (e) {
-      print(e);
-      return [];
-    }
   }
 
   void addItemButton() {
@@ -70,38 +63,28 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   }
 
   addItem(GlobalKey<FormState> formKey, String text, String text2) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
+    if (!formKey.currentState!.validate()) return;
 
-      final moneyString = text2.replaceAll("₺", "");
-      final result = await Requester.postReq(
-        "/services",
-        serviceToJson(Service(
-          name: text,
-          price: moneyString,
-          userId: AppManager.user.id,
-          barberShopId: widget.shop.id,
-        )),
-      );
+    final moneyString = text2.replaceAll("₺", "");
 
-      if (Requester.resultNotifier.value is RequestLoadFailure) {
-        Dialogs.failDialog(context: context);
-        return;
-      }
-
-      Service newItem = serviceFromJson(result);
-      addItemToList(newItem);
-      Navigator.pop(context);
-      Dialogs.successDialog(context: context);
-    } catch (e) {
-      print(e);
+    Service? newService = await Service.create(
+      name: text,
+      price: moneyString,
+      userId: AppManager.user.id!,
+      shopId: widget.shop.id!,
+    );
+    if (newService == null) {
+      Dialogs.failDialog(context: context);
+      return;
     }
+    addList(newService);
+    Navigator.pop(context);
+    Dialogs.successDialog(context: context);
   }
 
-  addItemToList(Service service) async {
-    (await services)!.add(service);
+  addList(Service service) async {
     setState(() {
-      services;
+      services.add(service);
     });
   }
 
@@ -116,25 +99,15 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          child: Column(children: [
-            Expanded(
-              child: FutureBuilder(
-                future: services,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return snapshot.data == null
-                        ? Container()
-                        : ListView.builder(
-                            itemBuilder: (context, index) => AdminServiceCard(snapshot.data![index]),
-                            itemCount: snapshot.data!.length,
-                          );
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
-          ]),
+          height: MediaQuery.of(context).size.height,
+          child: !dataLoaded
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemBuilder: (context, index) => AdminServiceCard(services[index]),
+                  itemCount: services.length,
+                ),
         ),
       ),
       bottomNavigationBar: AdminBarberShopBottomNB(

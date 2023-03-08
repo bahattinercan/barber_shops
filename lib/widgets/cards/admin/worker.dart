@@ -1,6 +1,6 @@
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/worker/change_work_times.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -31,7 +31,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
   bool isActive = true;
 
   Color get iconColor {
-    return ColorManager.primaryVariant;
+    return Colorer.primaryVariant;
   }
 
   removeWorkerButton() async {
@@ -40,7 +40,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
 
   removeWorker() async {
     await Requester.deleteReq("/workers/${widget.worker.id}");
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    if (Requester.notifier.value is RequestLoadFailure) {
       Dialogs.failDialog(context: context);
       return;
     }
@@ -86,7 +86,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                       widget.worker.fullname!,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: ColorManager.onSurface,
+                        color: Colorer.onSurface,
                       ),
                     ),
                     trailing: BasePopupMenuButton(itemBuilder: (context) {
@@ -97,7 +97,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                             child: Text(
                               "Çalışma Zamanları",
                               style: TextStyle(
-                                color: ColorManager.onSurface,
+                                color: Colorer.onSurface,
                               ),
                             ),
                           ),
@@ -106,7 +106,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                           child: Text(
                             "Çıkart",
                             style: TextStyle(
-                              color: ColorManager.onSurface,
+                              color: Colorer.onSurface,
                             ),
                           ),
                         ),
@@ -125,7 +125,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                     subtitle: Text(
                       "Tel : " + widget.worker.phoneNo!,
                       style: TextStyle(
-                        color: ColorManager.onSurface,
+                        color: Colorer.onSurface,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

@@ -6,11 +6,10 @@ import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class AdminBarberShopBottomNB extends StatefulWidget {
-  BarberShop shop;
+  final BarberShop shop;
   final int selectedIndex;
-  AdminBarberShopBottomNB({
+  const AdminBarberShopBottomNB({
     super.key,
     required this.selectedIndex,
     required this.shop,

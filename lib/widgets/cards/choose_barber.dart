@@ -1,6 +1,6 @@
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/general/choose_service.dart';
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +46,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: ColorManager.surface,
+          color: Colorer.surface,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
@@ -57,7 +57,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
                 ? Icon(
                     Icons.shuffle_rounded,
                     size: 100,
-                    color: ColorManager.onSurface,
+                    color: Colorer.onSurface,
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(16),
@@ -74,7 +74,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
-                color: ColorManager.primaryVariant,
+                color: Colorer.primaryVariant,
               ),
             ),
             SizedBox(height: 10),
@@ -84,7 +84,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
                 textAlign: TextAlign.center,
                 widget.isAny ? "Will be selected base on service" : getAvailableTime(),
                 style: TextStyle(
-                  color: ColorManager.onSurface,
+                  color: Colorer.onSurface,
                 ),
               ),
             ),

@@ -4,8 +4,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/requester.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
@@ -35,19 +34,9 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
   }
 
   Future<void> setup() async {
-    appointments = await data;
-    workers = await workerData;
+    appointments = await Appointment.getShops(shopId: widget.shop.id!);
+    workers = await Worker.getShops(shopId: widget.shop.id!);
     if (workers.length >= 1) _sort(workers[0]);
-  }
-
-  Future<List<Worker>> get workerData async {
-    final datas = await Requester.getReq('/workers/shop/${widget.shop.id}');
-    return workerListFromJson(datas);
-  }
-
-  Future<List<Appointment>> get data async {
-    final datas = await Requester.getReq('/appointments/shop/${widget.shop.id}');
-    return appointmentListFromJson(datas);
   }
 
   void tabBarOnTap(int index) {
@@ -71,7 +60,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
           onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
           bottom: TabBar(
             tabs: workers.map((worker) => Tab(text: worker.fullname)).toList(),
-            labelColor: ColorManager.onBackground,
+            labelColor: Colorer.onBackground,
             onTap: tabBarOnTap,
             isScrollable: true,
           ),

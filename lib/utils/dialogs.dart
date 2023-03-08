@@ -1,4 +1,4 @@
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -19,20 +19,20 @@ class Dialogs {
       context: context,
       builder: (BuildContext context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        backgroundColor: ColorManager.background,
+        backgroundColor: Colorer.background,
         title: Center(
           child: Text(
             title,
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18,
-              color: ColorManager.primaryVariant,
+              color: Colorer.primaryVariant,
             ),
           ),
         ),
         content: Text(
           content,
-          style: TextStyle(color: ColorManager.onBackground),
+          style: TextStyle(color: Colorer.onBackground),
         ),
         scrollable: scrollable == null ? false : scrollable,
         actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -47,7 +47,7 @@ class Dialogs {
                   child: Text(
                     cancelButtonText,
                     style: TextStyle(
-                      color: ColorManager.onBackground,
+                      color: Colorer.onBackground,
                     ),
                   ),
                 ),
@@ -59,7 +59,7 @@ class Dialogs {
             child: Text(
               okButtonText,
               style: TextStyle(
-                color: ColorManager.onBackground,
+                color: Colorer.onBackground,
               ),
             ),
           ),
@@ -130,12 +130,12 @@ class Dialogs {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        backgroundColor: ColorManager.background,
+        backgroundColor: Colorer.background,
         title: Center(
           child: Text(
             title,
             style: TextStyle(
-              color: ColorManager.primaryVariant,
+              color: Colorer.primaryVariant,
             ),
           ),
         ),

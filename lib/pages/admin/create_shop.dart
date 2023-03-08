@@ -6,7 +6,6 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
@@ -69,22 +68,19 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
       return;
     }
 
-    await Requester.postReq(
-        "/barber_shops",
-        barberShopToJson(BarberShop(
-          name: _name.text,
-          description: _desc.text,
-          location: _address.text,
-          phone: _phone.text,
-          bossId: AppManager.user.id,
-          instagram: _insta.text,
-          country: countryValue,
-          province: stateValue,
-          district: cityValue,
-          profilePicture: base64Image,
-        )));
-
-    if (Requester.resultNotifier.value is RequestLoadFailure) {
+    BarberShop? newShop = await BarberShop.create(
+      name: _name.text,
+      description: _desc.text,
+      location: _address.text,
+      phone: _phone.text,
+      bossId: AppManager.user.id!,
+      instagram: _insta.text,
+      country: countryValue!,
+      province: stateValue!,
+      district: cityValue!,
+      profilePictureBase64: base64Image!,
+    );
+    if (newShop == null) {
       Dialogs.failDialog(context: context);
       return;
     }

@@ -1,10 +1,10 @@
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class RowTextButton extends StatefulWidget {
   final String text;
-  final IconData iconData;
+  final IconData? iconData;
   final Function()? onPressed;
   Color? iconColor;
 
@@ -32,13 +32,13 @@ class _RowTextButtonState extends State<RowTextButton> {
             widget.text,
             style: TextStyle(
               fontSize: 18,
-              color: ColorManager.onSurface,
+              color: Colorer.onSurface,
               fontWeight: FontWeight.w500,
             ),
           ),
           Icon(
-            widget.iconData,
-            color: widget.iconColor == null ? ColorManager.onSurface : widget.iconColor,
+            widget.iconData == null ? Icons.arrow_forward_ios_rounded : widget.iconData,
+            color: widget.iconColor == null ? Colorer.onSurface : widget.iconColor,
           ),
         ],
       ),

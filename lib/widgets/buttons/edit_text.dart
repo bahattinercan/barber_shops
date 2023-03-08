@@ -1,4 +1,4 @@
-import 'package:barbers/utils/color_manager.dart';
+import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 class EditTextButton extends StatefulWidget {
@@ -31,7 +31,7 @@ class _EditTextButtonState extends State<EditTextButton> {
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
-                  color: ColorManager.onBackground,
+                  color: Colorer.onBackground,
                 ),
               ),
               SizedBox(width: 2.5),
@@ -39,7 +39,7 @@ class _EditTextButtonState extends State<EditTextButton> {
                 onTap: widget.onTap,
                 child: Icon(
                   Icons.edit,
-                  color: ColorManager.onBackground,
+                  color: Colorer.onBackground,
                 ),
               ),
             ],
@@ -48,7 +48,7 @@ class _EditTextButtonState extends State<EditTextButton> {
           Text(widget.text,
               style: TextStyle(
                 fontSize: 16,
-                color: ColorManager.onPrimary,
+                color: Colorer.onPrimary,
               )),
         ],
       ),

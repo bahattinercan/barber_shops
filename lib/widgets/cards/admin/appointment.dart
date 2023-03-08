@@ -1,7 +1,7 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/custom_formats.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
@@ -63,13 +63,13 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                     horizontalTitleGap: 4,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
-                      color: ColorManager.primaryVariant,
+                      color: Colorer.primaryVariant,
                       onPressed: () {},
                       icon: Icon(Icons.bookmark_rounded),
                     ),
                     title: Text(
                       "Müşteri: " + widget.appointment.customerName!,
-                      style: TextStyle(fontWeight: FontWeight.w700, color: ColorManager.onSurface),
+                      style: TextStyle(fontWeight: FontWeight.w700, color: Colorer.onSurface),
                     ),
                     trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
@@ -78,7 +78,7 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                             child: Text(
                               "Sil",
                               style: TextStyle(
-                                color: ColorManager.onSurface,
+                                color: Colorer.onSurface,
                               ),
                             )),
                       ];
@@ -96,8 +96,8 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                           "\nBerber:" +
                           widget.appointment.barberName! +
                           "\nTarih:" +
-                          CustomFormats.time.format(widget.appointment.time!),
-                      style: TextStyle(fontWeight: FontWeight.w500, color: ColorManager.onSurface),
+                          Formatter.time.format(widget.appointment.time!),
+                      style: TextStyle(fontWeight: FontWeight.w500, color: Colorer.onSurface),
                     ),
                     isThreeLine: true,
                   ),

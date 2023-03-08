@@ -58,7 +58,7 @@ class _SelectTimeGridState extends State<SelectTimeGrid> {
                 minute: workTime.minute,
                 index: index,
                 selectedIndex: _selectedIndex,
-                selectF: select,
+                select: select,
                 available: workTime.available,
               );
             },

@@ -1,16 +1,15 @@
 import 'package:barbers/models/selectable_day.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/custom_formats.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class SelectDayItem extends StatefulWidget {
-  SelectableDay selectableDay;
-  int selectedIndex;
-  int index;
-  Function(int index, DateTime day) select;
+  final SelectableDay selectableDay;
+  final int selectedIndex;
+  final int index;
+  final Function(int index, DateTime day) select;
 
-  SelectDayItem({
+  const SelectDayItem({
     Key? key,
     required this.selectableDay,
     required this.selectedIndex,
@@ -39,10 +38,10 @@ class _SelectDayItemState extends State<SelectDayItem> {
                 height: 40,
                 decoration: BoxDecoration(
                     color: !widget.selectableDay.isActive
-                        ? ColorManager.surface
+                        ? Colorer.surface
                         : widget.selectedIndex == widget.index
-                            ? ColorManager.secondary
-                            : ColorManager.surface,
+                            ? Colorer.secondary
+                            : Colorer.surface,
                     borderRadius: BorderRadius.circular(8)),
                 child: Center(
                     child: Text(
@@ -51,10 +50,10 @@ class _SelectDayItemState extends State<SelectDayItem> {
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
                     color: !widget.selectableDay.isActive
-                        ? ColorManager.secondary
+                        ? Colorer.secondary
                         : widget.selectedIndex == widget.index
-                            ? ColorManager.onPrimary
-                            : ColorManager.onBackground,
+                            ? Colorer.onPrimary
+                            : Colorer.onBackground,
                   ),
                 )),
               ),
@@ -63,14 +62,14 @@ class _SelectDayItemState extends State<SelectDayItem> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    CustomFormats.dayOfTheWeek(widget.selectableDay.dateTime),
+                    Formatter.dayOfTheWeek(widget.selectableDay.dateTime),
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: !widget.selectableDay.isActive
-                          ? ColorManager.secondary
+                          ? Colorer.secondary
                           : widget.selectedIndex == widget.index
-                              ? ColorManager.onPrimary
-                              : ColorManager.onBackground,
+                              ? Colorer.onPrimary
+                              : Colorer.onBackground,
                     ),
                   ),
                 ],

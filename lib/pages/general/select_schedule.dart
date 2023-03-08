@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:barbers/models/appointment.dart';
 import 'package:barbers/models/selectable_day.dart';
@@ -11,8 +10,8 @@ import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/panels/select_schedule/select_day_list.dart';
 import 'package:barbers/panels/select_schedule/select_time_grid.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/custom_formats.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -34,6 +33,7 @@ class SelectSchedulePage extends StatefulWidget {
 class _SelectSchedulePageState extends State<SelectSchedulePage> {
   DateTime _now = DateTime.now();
   List<SelectableDay> _dates = [];
+  bool dataLoaded = false;
   DateTime? _selectedDateTime;
   double _totalCost = 0;
   bool _canSelectTime = false;
@@ -54,21 +54,23 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
   }
 
   void setup() {
-    data.then((workTime) {
+    WorkTime.getBarber(
+      workerId: widget.worker.id!,
+      shopId: AppManager.shop.id!,
+    ).then((workTime) {
       if (workTime == null) {
         Dialogs.failDialog(
-            context: context,
-            content: "Şu anda bu berber'den randevu alamazsınız!",
-            okFunction: () {
-              Navigator.pop(context);
-            });
+          context: context,
+          content: "Şu anda bu berber'den randevu alamazsınız!",
+          okFunction: () => Navigator.pop(context),
+        );
         return;
       }
       for (var i = 0; i < 31; i++) {
         DateTime dateTime = _now.add(Duration(days: i));
         bool isActive = false;
 
-        String day = CustomFormats.dayName.format(dateTime).toLowerCase();
+        String day = Formatter.dayName.format(dateTime).toLowerCase();
         switch (day) {
           case "monday":
             if (workTime.monday!) isActive = true;
@@ -105,89 +107,70 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
       }
       setState(() {
         _workTime = workTime;
+        dataLoaded = true;
       });
     });
   }
 
   Future<void> setupTimeGrid() async {
-    print("marul");
-    try {
-      setState(() {
-        _availableTimes = [];
-      });
+    setState(() {
+      _availableTimes = [];
+    });
 
-      if (_selectedDateTime == null || _workTime == null) return;
-      DateTime dayStart = _selectedDateTime!;
-      DateTime dayEnd = _selectedDateTime!.add(Duration(
-        hours: 23,
-        minutes: 59,
-      ));
+    if (_selectedDateTime == null || _workTime == null) return;
+    DateTime dayStart = _selectedDateTime!;
+    DateTime dayEnd = _selectedDateTime!.add(Duration(
+      hours: 23,
+      minutes: 59,
+    ));
 
-      final result = await Requester.postReq(
-        "/appointments/taken_times/${AppManager.shop.id}/${widget.worker.id}",
-        jsonEncode(
-          {
-            "start_time": dayStart.toIso8601String(),
-            "end_time": dayEnd.toIso8601String(),
-          },
-        ),
-      );
-      // taken appointment times
-      List<Appointment> takenTimes = appointmentListFromJson(result);
+    final takenTimes = await Appointment.getTakenTimes(
+      shopId: AppManager.shop.id!,
+      workerId: widget.worker.id!,
+      startTime: dayStart,
+      endTime: dayEnd,
+    );
 
-      startTime = _workTime!.startTimeOfDay!;
-      endTime = _workTime!.endTimeOfDay!;
-      breakStart = _workTime!.breakStartTimeOfDay!;
-      breakEnd = _workTime!.breakEndTimeOfDay!;
-      for (var i = 0; i < _workTimes.length; i++) {
-        WorkTimeStatic workTime = _workTimes[i];
-        DateTime workDateTime = _selectedDateTime!.add(Duration(hours: workTime.hour, minutes: workTime.minute));
+    startTime = _workTime!.startTimeOfDay!;
+    endTime = _workTime!.endTimeOfDay!;
+    breakStart = _workTime!.breakStartTimeOfDay!;
+    breakEnd = _workTime!.breakEndTimeOfDay!;
+    for (var i = 0; i < _workTimes.length; i++) {
+      WorkTimeStatic workTime = _workTimes[i];
+      DateTime workDateTime = _selectedDateTime!.add(Duration(hours: workTime.hour, minutes: workTime.minute));
 
-        // şu anki saatten sonraysa
-        bool lateFromNow = _now.compareTo(workDateTime) == -1;
+      // şu anki saatten sonraysa
+      bool lateFromNow = _now.compareTo(workDateTime) == -1;
 
-        // başlangıç saatinden sonraysa
-        bool lateFromStart =
-            workTime.hour > startTime.hour || (workTime.hour == startTime.hour && workTime.minute >= startTime.minute);
-        // bitiş saatinden önceyse
-        bool earlyFromEnd =
-            workTime.hour < endTime.hour || (workTime.hour == endTime.hour && workTime.minute <= endTime.minute);
-        // molada değilse
-        bool notInBreak = (workTime.hour < breakStart.hour ||
-                (workTime.hour == breakStart.hour && workTime.minute <= breakStart.minute)) ||
-            (workTime.hour > breakEnd.hour || (workTime.hour == breakEnd.hour && workTime.minute >= breakEnd.minute));
+      // başlangıç saatinden sonraysa
+      bool lateFromStart =
+          workTime.hour > startTime.hour || (workTime.hour == startTime.hour && workTime.minute >= startTime.minute);
+      // bitiş saatinden önceyse
+      bool earlyFromEnd =
+          workTime.hour < endTime.hour || (workTime.hour == endTime.hour && workTime.minute <= endTime.minute);
+      // molada değilse
+      bool notInBreak = (workTime.hour < breakStart.hour ||
+              (workTime.hour == breakStart.hour && workTime.minute <= breakStart.minute)) ||
+          (workTime.hour > breakEnd.hour || (workTime.hour == breakEnd.hour && workTime.minute >= breakEnd.minute));
 
-        workTime.available = true;
-        if (!lateFromNow) {
-          workTime.available = false;
-        } else {
-          // eğer randevu alınmamışsa randevu alınabilsin
-          for (var i = 0; i < takenTimes.length; i++) {
-            if (takenTimes[i].time!.compareTo(workDateTime) == 0) {
-              workTime.available = false;
-            }
+      workTime.available = true;
+      if (!lateFromNow) {
+        workTime.available = false;
+      } else {
+        // eğer randevu alınmamışsa randevu alınabilsin
+        for (var i = 0; i < takenTimes.length; i++) {
+          if (takenTimes[i].time!.compareTo(workDateTime) == 0) {
+            workTime.available = false;
           }
         }
-
-        if (lateFromStart && earlyFromEnd && notInBreak) {
-          // add to the list
-          setState(() {
-            _availableTimes.add(workTime);
-          });
-        }
       }
-    } catch (e) {
-      print(e);
-    }
-  }
 
-  Future<WorkTime?> get data async {
-    try {
-      final data = await Requester.getReq("/work_times/barber/${widget.worker.id}/${AppManager.shop.id}");
-      return workTimeFromJson(data);
-    } catch (e) {
-      print(e);
-      return null;
+      if (lateFromStart && earlyFromEnd && notInBreak && workTime.available) {
+        // add to the list
+        setState(() {
+          _availableTimes.add(workTime);
+        });
+      }
     }
   }
 
@@ -232,7 +215,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
         ),
       ),
     );
-    if (Requester.resultNotifier.value is RequestLoadSuccess) {
+    if (Requester.notifier.value is RequestLoadSuccess) {
       print(_selectedDateTime!.toIso8601String());
       Pusher.pushAndRemoveAll(context, HomePage());
       Dialogs.successDialog(context: context);
@@ -249,7 +232,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(
-        child: _workTime == null
+        child: !dataLoaded
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -267,7 +250,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
-                              color: ColorManager.primaryVariant,
+                              color: Colorer.primaryVariant,
                             ),
                           ),
                         ),
@@ -291,7 +274,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
-                                color: ColorManager.primaryVariant,
+                                color: Colorer.primaryVariant,
                               ),
                             ),
                           ),
@@ -323,7 +306,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: ColorManager.surface,
+                            color: Colorer.surface,
                             borderRadius: BorderRadius.circular(24),
                           ),
                           child: Padding(
@@ -335,7 +318,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
-                                    color: ColorManager.onSurface,
+                                    color: Colorer.onSurface,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -365,7 +348,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 16,
-                                                  color: ColorManager.primaryVariant,
+                                                  color: Colorer.primaryVariant,
                                                 ),
                                               ),
                                               Text(
@@ -374,7 +357,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                         ? " +${widget.services.length - 1}"
                                                         : ""),
                                                 style: TextStyle(
-                                                  color: ColorManager.onSurface,
+                                                  color: Colorer.onSurface,
                                                   fontWeight: FontWeight.w700,
                                                 ),
                                               ),
@@ -385,7 +368,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                         .format(_selectedDateTime!)
                                                         .toString(),
                                                 style: TextStyle(
-                                                  color: ColorManager.onSurface,
+                                                  color: Colorer.onSurface,
                                                   fontWeight: FontWeight.w700,
                                                 ),
                                               ),
@@ -398,7 +381,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 16,
-                                          color: ColorManager.onSurface,
+                                          color: Colorer.onSurface,
                                         ),
                                       ),
                                     ],
@@ -411,7 +394,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                   text: "Select Schedule",
                                   borderRadius: BorderRadius.circular(16),
                                   height: 45,
-                                  backgroundColor: ColorManager.secondary,
+                                  backgroundColor: Colorer.secondary,
                                 ),
                               ],
                             ),

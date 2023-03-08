@@ -1,5 +1,5 @@
-import 'package:barbers/utils/color_manager.dart';
-import 'package:barbers/utils/custom_formats.dart';
+import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/utils/formatter.dart';
 import 'package:flutter/material.dart';
 
 class SelectTimeCard extends StatefulWidget {
@@ -8,15 +8,15 @@ class SelectTimeCard extends StatefulWidget {
   final int index;
   final int selectedIndex;
   final bool available;
-  Function(int index, int hour, int minute) selectF;
+  final Function(int index, int hour, int minute) select;
 
-  SelectTimeCard({
+  const SelectTimeCard({
     Key? key,
     required this.hour,
     required this.minute,
     required this.index,
     required this.selectedIndex,
-    required this.selectF,
+    required this.select,
     required this.available,
   }) : super(key: key);
 
@@ -30,14 +30,14 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
 
   void select() {
     if (!widget.available) return;
-    widget.selectF(widget.index, widget.hour, widget.minute);
+    widget.select(widget.index, widget.hour, widget.minute);
   }
 
   @override
   void initState() {
     super.initState();
-    hourText = CustomFormats.intTo2Letter(widget.hour);
-    minuteText = CustomFormats.intTo2Letter(widget.minute);
+    hourText = Formatter.intTo2Letter(widget.hour);
+    minuteText = Formatter.intTo2Letter(widget.minute);
   }
 
   @override
@@ -47,10 +47,10 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
       child: Container(
         decoration: BoxDecoration(
           color: !widget.available
-              ? ColorManager.surface
+              ? Colorer.surface
               : widget.selectedIndex == widget.index
-                  ? ColorManager.secondary
-                  : ColorManager.surface,
+                  ? Colorer.secondary
+                  : Colorer.surface,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -60,10 +60,10 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
             Icon(
               Icons.timelapse,
               color: !widget.available
-                  ? ColorManager.secondary
+                  ? Colorer.secondary
                   : widget.selectedIndex == widget.index
-                      ? ColorManager.onPrimary
-                      : ColorManager.onSurface,
+                      ? Colorer.onPrimary
+                      : Colorer.onSurface,
             ),
             Text(
               " $hourText.$minuteText",
@@ -71,10 +71,10 @@ class _SelectTimeCardState extends State<SelectTimeCard> {
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: !widget.available
-                    ? ColorManager.secondary
+                    ? Colorer.secondary
                     : widget.selectedIndex == widget.index
-                        ? ColorManager.onPrimary
-                        : ColorManager.onSurface,
+                        ? Colorer.onPrimary
+                        : Colorer.onSurface,
               ),
             ),
           ],

@@ -1,7 +1,6 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/appointment.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +16,17 @@ class AppointmentsPage extends StatefulWidget {
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
   List<Appointment> appointments = [];
+  bool dataLoaded = false;
 
   @override
   initState() {
-    data.then((value) {
+    Appointment.getUserAppointments(userId: AppManager.user.id!).then((value) {
       setState(() {
         appointments = value;
+        dataLoaded = true;
       });
     });
     super.initState();
-  }
-
-  Future<List<Appointment>> get data async {
-    final datas = await Requester.getReq('/appointments/my/${AppManager.user.id}');
-    return appointmentListFromJson(datas);
   }
 
   @override
@@ -45,13 +41,17 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
         child: Container(
           width: media.size.width,
           height: media.size.height,
-          child: ListView.builder(
-            itemBuilder: (context, index) => AdminAppointmentCard(
-              appointments[index],
-              EUser.normal,
-            ),
-            itemCount: appointments.length,
-          ),
+          child: !dataLoaded
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemBuilder: (context, index) => AdminAppointmentCard(
+                    appointments[index],
+                    EUser.normal,
+                  ),
+                  itemCount: appointments.length,
+                ),
         ),
       ),
     );
