@@ -13,7 +13,7 @@ class IconTextButton extends StatelessWidget {
   final double? width, height;
   final BorderRadius? borderRadius;
 
-  IconTextButton({
+  const IconTextButton({
     super.key,
     required this.func,
     required this.icon,
@@ -38,19 +38,19 @@ class IconTextButton extends StatelessWidget {
         margin: margin,
         padding: padding,
         decoration: BoxDecoration(
-          color: backgroundColor == null ? Colorer.secondary : backgroundColor,
-          borderRadius: borderRadius == null ? BorderRadius.circular(16) : borderRadius,
+          color: backgroundColor ?? Colorer.secondary,
+          borderRadius: borderRadius ?? BorderRadius.circular(16),
         ),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(
             icon,
-            color: iconColor == null ? Colorer.onSecondary : iconColor,
+            color: iconColor ?? Colorer.onSecondary,
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Text(
             text,
             style: TextStyle(
-              color: textColor == null ? Colorer.onSecondary : textColor,
+              color: textColor ?? Colorer.onSecondary,
               fontWeight: FontWeight.w700,
             ),
           ),

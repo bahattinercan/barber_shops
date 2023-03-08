@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 class BarberShopCard extends StatefulWidget {
   final BarberShop shop;
-  BarberShopCard({
+  const BarberShopCard({
     Key? key,
     required this.shop,
   }) : super(key: key);
@@ -17,7 +17,7 @@ class BarberShopCard extends StatefulWidget {
 }
 
 class _BarberShopCardState extends State<BarberShopCard> {
-  Uint8List? imageData = null;
+  Uint8List? imageData;
 
   @override
   void initState() {
@@ -85,7 +85,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                   children: [
                     Text(
                       widget.shop.name!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colorer.onPrimary,
                         fontSize: 28,
                         fontWeight: FontWeight.w500,
@@ -93,7 +93,7 @@ class _BarberShopCardState extends State<BarberShopCard> {
                     ),
                     Text(
                       widget.shop.description!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colorer.onPrimary,
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -101,22 +101,22 @@ class _BarberShopCardState extends State<BarberShopCard> {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
-                        SizedBox(width: 2),
+                        const SizedBox(width: 2),
                         Text(
                           "${widget.shop.starAverage}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colorer.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: 2),
+                        const SizedBox(width: 2),
                         Text(
                           "(${widget.shop.comments})",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colorer.onPrimary,
                           ),
                         ),

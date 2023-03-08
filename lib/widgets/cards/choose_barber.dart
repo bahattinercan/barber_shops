@@ -54,7 +54,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             widget.isAny
-                ? Icon(
+                ? const Icon(
                     Icons.shuffle_rounded,
                     size: 100,
                     color: Colorer.onSurface,
@@ -68,22 +68,22 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
                       height: 100,
                     ),
                   ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Text(
               widget.isAny ? "Any barber" : widget.worker.fullname!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 18,
                 color: Colorer.primaryVariant,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 textAlign: TextAlign.center,
                 widget.isAny ? "Will be selected base on service" : getAvailableTime(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colorer.onSurface,
                 ),
               ),

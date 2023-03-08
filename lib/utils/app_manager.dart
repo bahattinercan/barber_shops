@@ -70,7 +70,7 @@ class AppManager {
     String spacedWord = "";
 
     for (int i = 0; i < title.length; i++) {
-      spacedWord += title[i] + " ";
+      spacedWord += "${title[i]} ";
     }
     return spacedWord;
   }
@@ -102,7 +102,7 @@ class AppManager {
   String bytesToHex(List<int> bytes) {
     var result = StringBuffer();
     for (var byte in bytes) {
-      result.write('${byte.toRadixString(16).padLeft(2, '0')}');
+      result.write(byte.toRadixString(16).padLeft(2, '0'));
     }
     return result.toString();
   }

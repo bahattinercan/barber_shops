@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:barbers/models/appointment.dart';
@@ -24,23 +26,23 @@ class SelectSchedulePage extends StatefulWidget {
   final Worker worker;
   final List<Service> services;
 
-  SelectSchedulePage({Key? key, required this.services, required this.worker}) : super(key: key);
+  const SelectSchedulePage({Key? key, required this.services, required this.worker}) : super(key: key);
 
   @override
   State<SelectSchedulePage> createState() => _SelectSchedulePageState();
 }
 
 class _SelectSchedulePageState extends State<SelectSchedulePage> {
-  DateTime _now = DateTime.now();
-  List<SelectableDay> _dates = [];
+  final DateTime _now = DateTime.now();
+  final List<SelectableDay> _dates = [];
   bool dataLoaded = false;
   DateTime? _selectedDateTime;
   double _totalCost = 0;
   bool _canSelectTime = false;
   bool _canBook = false;
-  WorkTime? _workTime = null;
+  WorkTime? _workTime;
 
-  List<WorkTimeStatic> _workTimes = AppManager.instance.workTimes;
+  final List<WorkTimeStatic> _workTimes = AppManager.instance.workTimes;
   List<WorkTimeStatic> _availableTimes = [];
   late TimeOfDay startTime;
   late TimeOfDay endTime;
@@ -98,7 +100,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
         // gün için eğer o gün tatil değilse
 
         setState(() {
-          _dates.add(new SelectableDay(dateTime: dateTime, isActive: isActive));
+          _dates.add(SelectableDay(dateTime: dateTime, isActive: isActive));
         });
       }
       // toplam fiyat
@@ -119,7 +121,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
 
     if (_selectedDateTime == null || _workTime == null) return;
     DateTime dayStart = _selectedDateTime!;
-    DateTime dayEnd = _selectedDateTime!.add(Duration(
+    DateTime dayEnd = _selectedDateTime!.add(const Duration(
       hours: 23,
       minutes: 59,
     ));
@@ -216,8 +218,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
       ),
     );
     if (Requester.notifier.value is RequestLoadSuccess) {
-      print(_selectedDateTime!.toIso8601String());
-      Pusher.pushAndRemoveAll(context, HomePage());
+      Pusher.pushAndRemoveAll(context, const HomePage());
       Dialogs.successDialog(context: context);
     } else {
       Dialogs.failDialog(context: context);
@@ -233,7 +234,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
       ).build(context),
       body: SafeArea(
         child: !dataLoaded
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
@@ -242,27 +243,27 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             DateFormat('MMMM yyyy').format(_now).toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
                               color: Colorer.primaryVariant,
                             ),
                           ),
                         ),
-                        SizedBox(height: 10),
-                        Container(
+                        const SizedBox(height: 10),
+                        SizedBox(
                           height: 70,
                           child: SelectDayList(
                             days: _dates,
                             select: selectDay,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Visibility(
                           visible: _canSelectTime,
                           child: Padding(
@@ -271,7 +272,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                               _selectedDateTime == null
                                   ? ""
                                   : DateFormat('EEEE, MMMM yy').format(_selectedDateTime!).toString(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                                 color: Colorer.primaryVariant,
@@ -279,7 +280,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Expanded(
                           child: Visibility(
                             visible: _canSelectTime,
@@ -298,7 +299,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 200,
                     child: Visibility(
                       visible: _canBook,
@@ -314,15 +315,15 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                             child: Column(
                               children: [
                                 Text(
-                                  AppManager.shop.name! + " Barbershop",
-                                  style: TextStyle(
+                                  "${AppManager.shop.name!} Barbershop",
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
                                     color: Colorer.onSurface,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 12.5),
+                                const SizedBox(height: 12.5),
                                 Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -338,14 +339,14 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                               fit: BoxFit.cover,
                                             ),
                                           ),
-                                          SizedBox(width: 10),
+                                          const SizedBox(width: 10),
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Text(
                                                 widget.worker.fullname!,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 16,
                                                   color: Colorer.primaryVariant,
@@ -356,7 +357,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                                     (widget.services.length > 1
                                                         ? " +${widget.services.length - 1}"
                                                         : ""),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colorer.onSurface,
                                                   fontWeight: FontWeight.w700,
                                                 ),
@@ -364,10 +365,10 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                               Text(
                                                 _selectedDateTime == null
                                                     ? ""
-                                                    : DateFormat("MMM dd\'th\' \'at\' HH:mm", "en_US")
+                                                    : DateFormat("MMM dd'th' 'at' HH:mm", "en_US")
                                                         .format(_selectedDateTime!)
                                                         .toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colorer.onSurface,
                                                   fontWeight: FontWeight.w700,
                                                 ),
@@ -377,8 +378,8 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                         ],
                                       ),
                                       Text(
-                                        "₺" + _totalCost.toStringAsFixed(2),
-                                        style: TextStyle(
+                                        "₺${_totalCost.toStringAsFixed(2)}",
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.w700,
                                           fontSize: 16,
                                           color: Colorer.onSurface,
@@ -387,7 +388,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 12.5),
+                                const SizedBox(height: 12.5),
                                 IconTextButton(
                                   func: bookNow,
                                   icon: Icons.timelapse,
@@ -403,7 +404,7 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   )
                 ],

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
@@ -58,7 +60,7 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
                 icon: Icons.lock_rounded,
                 labelText: "eski şifre *",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               PasswordTextFormField(
@@ -66,7 +68,7 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
                 icon: Icons.lock_outline,
                 labelText: "şifre *",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               PasswordTextFormField(
@@ -74,17 +76,17 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
                 icon: Icons.lock_outline,
                 labelText: "tekrar şifre *",
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
-              Container(
+              SizedBox(
                 width: 175,
                 child: ElevatedButton(
                   onPressed: () => _submitData(context),
                   child: const Text("Değiştir"),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               )
             ],

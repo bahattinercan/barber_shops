@@ -9,7 +9,7 @@ class PasswordTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
 
-  PasswordTextFormField({
+  const PasswordTextFormField({
     Key? key,
     this.autofocus = false,
     required this.controller,
@@ -41,7 +41,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       autofocus: widget.autofocus,
       controller: widget.controller,
       decoration: InputDecoration(
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
         prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         labelText: widget.labelText,

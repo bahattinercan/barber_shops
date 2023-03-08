@@ -38,11 +38,11 @@ class _AppointmentsPageState extends State<AppointmentsPage> {
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: media.size.width,
           height: media.size.height,
           child: !dataLoaded
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(

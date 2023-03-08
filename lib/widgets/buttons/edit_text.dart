@@ -5,7 +5,7 @@ class EditTextButton extends StatefulWidget {
   final String text;
   final String label;
   final void Function()? onTap;
-  EditTextButton({
+  const EditTextButton({
     Key? key,
     required this.label,
     required this.text,
@@ -28,25 +28,25 @@ class _EditTextButtonState extends State<EditTextButton> {
             children: [
               Text(
                 widget.label,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
                   color: Colorer.onBackground,
                 ),
               ),
-              SizedBox(width: 2.5),
+              const SizedBox(width: 2.5),
               GestureDetector(
                 onTap: widget.onTap,
-                child: Icon(
+                child: const Icon(
                   Icons.edit,
                   color: Colorer.onBackground,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 2.5),
+          const SizedBox(height: 2.5),
           Text(widget.text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colorer.onPrimary,
               )),

@@ -25,8 +25,8 @@ class SelectTimeCard extends StatefulWidget {
 }
 
 class _SelectTimeCardState extends State<SelectTimeCard> {
-  late final hourText;
-  late final minuteText;
+  late String hourText;
+  late String minuteText;
 
   void select() {
     if (!widget.available) return;

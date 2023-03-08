@@ -9,7 +9,7 @@ class SelectTimeGrid extends StatefulWidget {
   final DateTime? dateTime;
   final int workerId;
   final List<WorkTimeStatic> availableTimes;
-  SelectTimeGrid({
+  const SelectTimeGrid({
     Key? key,
     required this.select,
     required this.workTime,
@@ -40,11 +40,11 @@ class _SelectTimeGridState extends State<SelectTimeGrid> {
   @override
   Widget build(BuildContext context) {
     return widget.availableTimes == []
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : GridView.builder(
             itemCount: widget.availableTimes.length,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,

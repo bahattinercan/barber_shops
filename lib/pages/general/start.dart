@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
 
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/home.dart';
@@ -26,15 +26,15 @@ class _StartPageState extends State<StartPage> {
   }
 
   Future<void> tokenLogin() async {
-    final old_token = await SecureStorager.readWithKey(StoreKeyType.access_token);
-    if (old_token == null || old_token == "") {
-      Pusher.pushAndRemoveAll(context, LoginPage());
+    final oldToken = await SecureStorager.readWithKey(StoreKeyType.accessToken);
+    if (oldToken == null || oldToken == "") {
+      Pusher.pushAndRemoveAll(context, const LoginPage());
       return;
     }
-    Requester.addTokenToHeaders(old_token);
-    final result = await User.tokenLogin(token: old_token);
+    Requester.addTokenToHeaders(oldToken);
+    final result = await User.tokenLogin(token: oldToken);
     if (result == null) {
-      Pusher.pushAndRemoveAll(context, LoginPage());
+      Pusher.pushAndRemoveAll(context, const LoginPage());
       return;
     }
     // set user data
@@ -44,8 +44,8 @@ class _StartPageState extends State<StartPage> {
     // set headers token
     Requester.addTokenToHeaders(AppManager.user.accessToken!);
     // storage the token
-    SecureStorager.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
-    Pusher.pushAndRemoveAll(context, HomePage());
+    SecureStorager.writeWithKey(StoreKeyType.accessToken, AppManager.user.accessToken!);
+    Pusher.pushAndRemoveAll(context, const HomePage());
   }
 
   @override
@@ -64,39 +64,39 @@ class _StartPageState extends State<StartPage> {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Container(
+            const SizedBox(
               width: 215,
               child: Divider(
                 color: Colorer.primary,
                 thickness: 5,
               ),
             ),
-            Text(
+            const Text(
               "BERBERLER",
               style: TextStyle(color: Colorer.primaryVariant, fontSize: 36, fontWeight: FontWeight.bold),
             ),
-            Container(
+            const SizedBox(
               width: 215,
               child: Divider(
                 color: Colorer.primary,
                 thickness: 5,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
-            Icon(
+            const Icon(
               Icons.alarm,
               size: 36,
               color: Colorer.primaryVariant,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               "Rowleyes",
               style: TextStyle(
                 color: Colorer.primaryVariant,

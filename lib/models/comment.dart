@@ -74,10 +74,11 @@ class Comment {
           barberShopId: shopId,
           stars: stars,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Comment?> update({
@@ -96,52 +97,58 @@ class Comment {
           barberShopId: shopId,
           stars: stars,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<Comment>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Comment>> getShops({required int shopId}) async {
     final result = await Requester.getReq("/$table/shop/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Comment>> getUsers({required int userId}) async {
     final result = await Requester.getReq("/$table/user/$userId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<double?> getStarAverage({required int shopId}) async {
     final result = await Requester.getReq("/$table/shop/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return jsonDecode(result)["average"];
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Comment?> get({
     required int id,
   }) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Comment?> getData({
@@ -149,10 +156,11 @@ class Comment {
     required String column,
   }) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return commentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

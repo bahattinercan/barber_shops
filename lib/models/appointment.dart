@@ -95,34 +95,38 @@ class Appointment {
           workerId: workerId,
           workerUid: workerUid,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<Appointment>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Appointment>> getShops({required int shopId}) async {
     final result = await Requester.getReq("/$table/shop/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Appointment>> getUserAppointments({required int userId}) async {
     final result = await Requester.getReq("/$table/my/$userId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Appointment>> getTakenTimes({
@@ -135,26 +139,29 @@ class Appointment {
       "/$table/taken_times/$shopId/$workerId",
       jsonEncode({"start_time": startTime.toIso8601String(), "end_time": endTime.toIso8601String()}),
     );
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<Appointment?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Appointment?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return appointmentFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({required int id, required String column, required dynamic data}) async {

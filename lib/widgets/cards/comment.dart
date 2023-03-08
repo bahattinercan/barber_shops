@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/comment.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,6 +12,7 @@ class CommentCard extends StatefulWidget {
   final Comment comment;
   final Function(Comment comment)? removeComment;
   const CommentCard({
+    super.key,
     required this.comment,
     this.removeComment,
   });
@@ -46,10 +48,11 @@ class _CommentCardState extends State<CommentCard> {
   }
 
   get canDelete {
-    if (AppManager.user.id == widget.comment.userId)
+    if (AppManager.user.id == widget.comment.userId) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   deleteButton() {
@@ -76,7 +79,7 @@ class _CommentCardState extends State<CommentCard> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: isVisible,
-      child: Container(
+      child: SizedBox(
         height: getHeight(),
         child: Card(
           shape: RoundedRectangleBorder(
@@ -94,7 +97,7 @@ class _CommentCardState extends State<CommentCard> {
                       padding: const EdgeInsets.only(
                         top: 4,
                       ),
-                      child: Container(
+                      child: SizedBox(
                         width: 50,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(100),
@@ -116,7 +119,7 @@ class _CommentCardState extends State<CommentCard> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Expanded(
@@ -130,22 +133,22 @@ class _CommentCardState extends State<CommentCard> {
                             children: [
                               Text(
                                 widget.comment.fullname!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w700,
                                   color: Colorer.onSurface,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 2,
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                                 size: 18,
                               ),
                               Text(
                                 widget.comment.stars!.toString(),
-                                style: TextStyle(color: Colors.amber),
+                                style: const TextStyle(color: Colors.amber),
                               )
                             ],
                           ),
@@ -155,17 +158,17 @@ class _CommentCardState extends State<CommentCard> {
                                 visible: canDelete,
                                 child: GestureDetector(
                                   onTap: deleteButton,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.delete_rounded,
                                     size: 16,
                                     color: Colorer.secondary,
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 2),
+                              const SizedBox(width: 2),
                               Text(
                                 Formatter.dateFormatter.format(widget.comment.time!),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 11,
                                   color: Colorer.onSurface,
                                 ),

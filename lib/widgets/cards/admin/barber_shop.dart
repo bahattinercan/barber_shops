@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop.dart';
@@ -61,15 +63,15 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                   ListTile(
                     minLeadingWidth: 12,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
                       color: Colorer.primaryVariant,
                       onPressed: () {},
-                      icon: Icon(Icons.bookmark),
+                      icon: const Icon(Icons.bookmark),
                     ),
                     title: Text(
                       widget.shop.name!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colorer.onSurface,
                       ),
@@ -117,7 +119,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                     ),
                     subtitle: Text(
                       widget.shop.location!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colorer.onSurface,
                       ),
                     ),

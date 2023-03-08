@@ -139,42 +139,47 @@ class WorkTime {
           saturday: saturday,
           sunday: sunday,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workTimeFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<WorkTime>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workTimeListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<WorkTime?> getBarber({required int workerId, required int shopId}) async {
     final result = await Requester.getReq("/$table/$workerId/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workTimeFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<WorkTime?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workTimeFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<WorkTime?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workTimeFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

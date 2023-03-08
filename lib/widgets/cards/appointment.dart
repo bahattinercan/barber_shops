@@ -1,10 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
-import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -62,15 +62,15 @@ class _AppointmentCardState extends State<AppointmentCard> {
                     minLeadingWidth: 12,
                     minVerticalPadding: 6,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                     leading: IconButton(
                       color: Colorer.primaryVariant,
                       onPressed: () {},
-                      icon: Icon(Icons.bookmark_rounded),
+                      icon: const Icon(Icons.bookmark_rounded),
                     ),
                     title: Text(
-                      "Müşteri: " + widget.appointment.customerName!,
-                      style: TextStyle(fontWeight: FontWeight.w700, color: Colorer.onSurface),
+                      "Müşteri: ${widget.appointment.customerName!}",
+                      style: const TextStyle(fontWeight: FontWeight.w700, color: Colorer.onSurface),
                     ),
                     trailing: BasePopupMenuButton(itemBuilder: (context) {
                       return [
@@ -92,13 +92,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
                       }
                     }),
                     subtitle: Text(
-                      "Tel: " +
-                          widget.appointment.customerPhone! +
-                          "\nBerber: " +
-                          widget.appointment.barberName! +
-                          "\nTarih: " +
-                          Formatter.time.format(widget.appointment.time!),
-                      style: TextStyle(fontWeight: FontWeight.w500, color: Colorer.onSurface),
+                      "Tel: ${widget.appointment.customerPhone!}\nBerber: ${widget.appointment.barberName!}\nTarih: ${Formatter.time.format(widget.appointment.time!)}",
+                      style: const TextStyle(fontWeight: FontWeight.w500, color: Colorer.onSurface),
                     ),
                     isThreeLine: true,
                   ),

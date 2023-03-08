@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -145,9 +147,9 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
   }
 
   pickImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
     File imageFile = File(image.path);

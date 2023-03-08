@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/colorer.dart';
@@ -43,12 +45,12 @@ class _SignInPageState extends State<SignInPage> {
       district: cityValue!,
     );
     if (res) {
-      Pusher.pushReplacement(context, LoginPage());
+      Pusher.pushReplacement(context, const LoginPage());
     }
   }
 
   void _loginButton() {
-    Pusher.pushReplacement(context, LoginPage());
+    Pusher.pushReplacement(context, const LoginPage());
   }
 
   @override
@@ -76,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   BaseTextFormField(
                     controller: _nameC,
                     icon: Icons.person,
@@ -129,26 +131,29 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   SelectState(
                     onCountryChanged: (value) {
-                      if (value == "Ülke Seç")
+                      if (value == "Ülke Seç") {
                         countryValue = null;
-                      else
+                      } else {
                         countryValue = value;
+                      }
                     },
                     onStateChanged: (value) {
-                      if (value == "Şehir Seç")
+                      if (value == "Şehir Seç") {
                         stateValue = null;
-                      else
+                      } else {
                         stateValue = value;
+                      }
                     },
                     onCityChanged: (value) {
-                      if (value == "İlçe Seç")
+                      if (value == "İlçe Seç") {
                         cityValue = null;
-                      else
+                      } else {
                         cityValue = value;
+                      }
                     },
                     dropdownColor: Colorer.surface,
                     iconColor: Colorer.onBackground,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colorer.onBackground,
                     ),
                   ),

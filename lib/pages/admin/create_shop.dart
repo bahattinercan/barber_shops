@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -25,11 +27,11 @@ class CreateBarberShopPage extends StatefulWidget {
 class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
   Uint8List? imageMemoryData;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _name = TextEditingController();
-  TextEditingController _desc = TextEditingController();
-  TextEditingController _address = TextEditingController();
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _insta = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _desc = TextEditingController();
+  final TextEditingController _address = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
+  final TextEditingController _insta = TextEditingController();
 
   String? countryValue;
   String? stateValue;
@@ -41,9 +43,9 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
   }
 
   pickImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
 
-    final image = await _picker.pickImage(source: ImageSource.gallery);
+    final image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) return;
 
     File imageFile = File(image.path);
@@ -84,7 +86,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
       Dialogs.failDialog(context: context);
       return;
     }
-    Pusher.pushAndRemoveAll(context, AdminBarberShopsPage());
+    Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage());
     Dialogs.successDialog(context: context);
   }
 
@@ -93,7 +95,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('oluştur'),
-        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
       ).build(context),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -102,10 +104,10 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 150,
                     height: 150,
                     child: Stack(
@@ -129,14 +131,14 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                         GestureDetector(
                           onTap: changeImage,
                           child: Container(
-                            alignment: Alignment(.9, -.9),
-                            child: Icon(Icons.edit),
+                            alignment: const Alignment(.9, -.9),
+                            child: const Icon(Icons.edit),
                           ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   BaseTextFormField(
@@ -144,14 +146,14 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                     labelText: "isim",
                     maxLength: 60,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   BaseTextFormField(
                     controller: _desc,
                     labelText: "açıklama",
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   BaseTextFormField(
@@ -159,7 +161,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                     labelText: "adres",
                     icon: Icons.location_on,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   BaseTextFormField(
@@ -170,7 +172,7 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                     icon: Icons.phone_rounded,
                     validator: ValidatorManager.phoneValidator,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   BaseTextFormField(
@@ -178,34 +180,37 @@ class _CreateBarberShopPageState extends State<CreateBarberShopPage> {
                     labelText: "instagram",
                     icon: Icons.camera,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   SelectState(
                     onCountryChanged: (value) {
-                      if (value == "Ülke Seç")
+                      if (value == "Ülke Seç") {
                         countryValue = null;
-                      else
+                      } else {
                         countryValue = value;
+                      }
                     },
                     onStateChanged: (value) {
-                      if (value == "Şehir Seç")
+                      if (value == "Şehir Seç") {
                         stateValue = null;
-                      else
+                      } else {
                         stateValue = value;
+                      }
                     },
                     onCityChanged: (value) {
-                      if (value == "İlçe Seç")
+                      if (value == "İlçe Seç") {
                         cityValue = null;
-                      else
+                      } else {
                         cityValue = value;
+                      }
                     },
                   ),
                   BaseButton(
                     text: "Gönder",
                     onPressed: _submit,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],

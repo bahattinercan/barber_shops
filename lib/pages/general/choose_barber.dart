@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class ChooseBarberPage extends StatefulWidget {
   final BarberShop shop;
-  ChooseBarberPage({
+  const ChooseBarberPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
@@ -41,34 +41,32 @@ class _ChooseBarberPageState extends State<ChooseBarberPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                    child: !dataLoaded
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
-                        : GridView.builder(
-                            itemCount: workers.length,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: .83,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 8,
-                            ),
-                            itemBuilder: (context, index) {
-                              return ChooseBarberCard(
-                                worker: workers[index],
-                              );
-                            },
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                  child: !dataLoaded
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          itemCount: workers.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: .83,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
                           ),
-                  ),
+                          itemBuilder: (context, index) {
+                            return ChooseBarberCard(
+                              worker: workers[index],
+                            );
+                          },
+                        ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

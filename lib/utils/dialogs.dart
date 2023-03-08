@@ -23,7 +23,7 @@ class Dialogs {
         title: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 18,
               color: Colorer.primaryVariant,
@@ -32,10 +32,10 @@ class Dialogs {
         ),
         content: Text(
           content,
-          style: TextStyle(color: Colorer.onBackground),
+          style: const TextStyle(color: Colorer.onBackground),
         ),
-        scrollable: scrollable == null ? false : scrollable,
-        actionsPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        scrollable: scrollable ?? false,
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         actions: <Widget>[
           cancelButtonText == null
               ? Container()
@@ -46,7 +46,7 @@ class Dialogs {
                   },
                   child: Text(
                     cancelButtonText,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colorer.onBackground,
                     ),
                   ),
@@ -58,7 +58,7 @@ class Dialogs {
             },
             child: Text(
               okButtonText,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colorer.onBackground,
               ),
             ),
@@ -72,7 +72,7 @@ class Dialogs {
     dialog(
       context: context,
       title: "Bilgilendirme",
-      content: content == null ? "İşlem gerçekleşti" : content,
+      content: content ?? "İşlem gerçekleşti",
       okButtonText: "Tamam",
       okFunction: okFunction,
     );
@@ -82,7 +82,7 @@ class Dialogs {
     dialog(
       context: context,
       title: "Dikkat",
-      content: content == null ? "İşlem gerçekleştirilemedi" : content,
+      content: content ?? "İşlem gerçekleştirilemedi",
       okButtonText: "Tamam",
       okFunction: okFunction,
     );
@@ -113,8 +113,8 @@ class Dialogs {
       context: context,
       title: title,
       content: content,
-      okButtonText: okBText == null ? "Evet" : okBText,
-      cancelButtonText: cancelBText == null ? "Hayır" : cancelBText,
+      okButtonText: okBText ?? "Evet",
+      cancelButtonText: cancelBText ?? "Hayır",
       okFunction: okF,
       cancelFunction: cancelF,
     );
@@ -134,14 +134,14 @@ class Dialogs {
         title: Center(
           child: Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colorer.primaryVariant,
             ),
           ),
         ),
         content: content,
         actions: actions,
-        scrollable: scrollable == null ? false : scrollable,
+        scrollable: scrollable ?? false,
       ),
     );
   }

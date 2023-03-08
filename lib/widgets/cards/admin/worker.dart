@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/worker/change_work_times.dart';
 import 'package:barbers/utils/colorer.dart';
@@ -73,7 +75,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                   ListTile(
                     minLeadingWidth: 12,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
                     leading: IconButton(
                       onPressed: () {},
                       icon: Icon(
@@ -83,7 +85,7 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                     ),
                     title: Text(
                       widget.worker.fullname!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Colorer.onSurface,
                       ),
@@ -122,8 +124,8 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
                       }
                     }),
                     subtitle: Text(
-                      "Tel : " + widget.worker.phoneNo!,
-                      style: TextStyle(
+                      "Tel : ${widget.worker.phoneNo!}",
+                      style: const TextStyle(
                         color: Colorer.onSurface,
                         fontWeight: FontWeight.w500,
                       ),

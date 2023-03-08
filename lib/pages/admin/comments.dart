@@ -44,7 +44,7 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
         onPressed: () => Navigator.pop(context),
       ).build(context),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: media.size.width,
           child: Column(children: [
             Expanded(

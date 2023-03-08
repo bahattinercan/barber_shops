@@ -30,15 +30,15 @@ class _RowTextButtonState extends State<RowTextButton> {
         children: [
           Text(
             widget.text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               color: Colorer.onSurface,
               fontWeight: FontWeight.w500,
             ),
           ),
           Icon(
-            widget.iconData == null ? Icons.arrow_forward_ios_rounded : widget.iconData,
-            color: widget.iconColor == null ? Colorer.onSurface : widget.iconColor,
+            widget.iconData ?? Icons.arrow_forward_ios_rounded,
+            color: widget.iconColor ?? Colorer.onSurface,
           ),
         ],
       ),

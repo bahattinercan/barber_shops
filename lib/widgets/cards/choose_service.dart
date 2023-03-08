@@ -50,7 +50,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Container(
+              child: SizedBox(
                 width: 25,
                 child: Divider(
                   thickness: 2,
@@ -62,7 +62,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 textAlign: TextAlign.center,
-                "₺" + double.parse(widget.service.price!).toStringAsFixed(2),
+                "₺${double.parse(widget.service.price!).toStringAsFixed(2)}",
                 style: TextStyle(
                   color: isActive == false ? Colorer.onBackground : Colorer.onPrimary,
                   fontSize: 16,

@@ -39,35 +39,38 @@ class _ChangeLocationBSState extends State<ChangeLocationBS> {
           children: [
             SelectState(
               onCountryChanged: (value) {
-                if (value == "Ülke Seç")
+                if (value == "Ülke Seç") {
                   countryValue = null;
-                else
+                } else {
                   countryValue = value;
+                }
               },
               onStateChanged: (value) {
-                if (value == "Şehir Seç")
+                if (value == "Şehir Seç") {
                   stateValue = null;
-                else
+                } else {
                   stateValue = value;
+                }
               },
               onCityChanged: (value) {
-                if (value == "İlçe Seç")
+                if (value == "İlçe Seç") {
                   cityValue = null;
-                else
+                } else {
                   cityValue = value;
+                }
               },
               dropdownColor: Colorer.surface,
               iconColor: Colorer.onBackground,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colorer.onBackground,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             BaseButton(
               text: "Gönder",
               onPressed: () => widget.submit(countryValue, stateValue, cityValue),
             ),
-            SizedBox(
+            const SizedBox(
               height: 2.5,
             )
           ],

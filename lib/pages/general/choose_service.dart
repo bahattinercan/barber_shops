@@ -45,7 +45,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
   }
 
   void selectSchedule(BuildContext context) {
-    if (selectedServices.length == 0) return;
+    if (selectedServices.isEmpty) return;
 
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) {
@@ -73,12 +73,12 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16),
                   child: !dataLoaded
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : GridView.builder(
                           itemCount: services.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 1.65,
                             crossAxisSpacing: 8,
@@ -94,13 +94,13 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
                         ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 75,
                 child: IconTextButton(
                   func: () => selectSchedule(context),
                   icon: Icons.timelapse,
                   text: "Select Schedule",
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   backgroundColor: Colorer.secondary,
                 ),
               ),

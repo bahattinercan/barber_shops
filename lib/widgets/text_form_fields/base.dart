@@ -15,7 +15,7 @@ class BaseTextFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final EdgeInsetsGeometry? margin;
 
-  BaseTextFormField({
+  const BaseTextFormField({
     Key? key,
     this.autofocus = false,
     required this.controller,
@@ -44,14 +44,14 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         autofocus: widget.autofocus,
         controller: widget.controller,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           prefixIcon: widget.icon == null ? null : Icon(widget.icon),
           hintText: widget.hintText,
           labelText: widget.labelText,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colorer.disableColor,
           ),
-          helperStyle: TextStyle(
+          helperStyle: const TextStyle(
             color: Colorer.onSurface,
           ),
         ),

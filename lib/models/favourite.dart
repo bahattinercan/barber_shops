@@ -48,42 +48,47 @@ class Favourite {
       "/$table",
       favouriteToJson(Favourite(userId: userId, barberShopId: shopId)),
     );
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return favouriteFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<Favourite>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return favouriteListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Favourite>> getUserFavs({required int userId}) async {
     final result = await Requester.getReq("/$table/my/$userId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return favouriteListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<Favourite?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return favouriteFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Favourite?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return favouriteFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

@@ -20,7 +20,7 @@ class _WorkerCafeBottomNBState extends State<WorkerCafeBottomNB> {
     return BottomNavigationBar(
       currentIndex: widget.selectedIndex,
       onTap: (value) => onTap(value, context),
-      items: [
+      items: const [
         BottomNavigationBarItem(icon: Icon(Icons.coffee), label: "Kafe"),
         BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menü"),
         // BottomNavigationBarItem(icon: Icon(Icons.people), label: "Çalışanlar"),

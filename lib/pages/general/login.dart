@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/pages/general/signin.dart';
@@ -38,9 +40,9 @@ class _LoginPageState extends State<LoginPage> {
     // set headers token
     Requester.addTokenToHeaders(AppManager.user.accessToken!);
     // storage the token
-    SecureStorager.writeWithKey(StoreKeyType.access_token, AppManager.user.accessToken!);
+    SecureStorager.writeWithKey(StoreKeyType.accessToken, AppManager.user.accessToken!);
     // push the home page
-    Pusher.pushAndRemoveAll(context, HomePage());
+    Pusher.pushAndRemoveAll(context, const HomePage());
   }
 
   void _didYouForgetPassword() {
@@ -55,13 +57,13 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.of(context).pop();
                 //AppController.instance.bottomSheet(context, ForgetPasswordPhoneBS());
               },
-              child: Text("Telefon")),
+              child: const Text("Telefon")),
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 //AppController.instance.bottomSheet(context, ForgetPasswordEmailBS());
               },
-              child: Text("Email")),
+              child: const Text("Email")),
         ],
       ),
     );
@@ -97,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   BaseTextFormField(
                     controller: _email,
                     autofocus: true,
@@ -123,12 +125,12 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextButton(
                           onPressed: (() {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignInPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()));
                           }),
                           child: const Text(
                             "Yeni kullanıcı? Kullanıcı oluştur",
                           )),
-                      Container(
+                      SizedBox(
                         width: 100,
                         child: ElevatedButton(
                           onPressed: _loginButton,
@@ -137,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(

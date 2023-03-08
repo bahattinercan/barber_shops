@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/work_time.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
@@ -128,23 +130,23 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RowTextButton(
-                    text: "Başlangıç zamanı: ${_startS}",
+                    text: "Başlangıç zamanı: $_startS",
                     iconData: Icons.timelapse,
                     onPressed: _selectStart,
                   ),
-                  RowTextButton(text: "Bitiş zamanı: ${_endS}", iconData: Icons.timelapse, onPressed: _selectEnd),
+                  RowTextButton(text: "Bitiş zamanı: $_endS", iconData: Icons.timelapse, onPressed: _selectEnd),
                   RowTextButton(
-                    text: "Mola başlangıç zamanı: ${_breakStartS}",
+                    text: "Mola başlangıç zamanı: $_breakStartS",
                     iconData: Icons.timelapse,
                     onPressed: _selectBreakStart,
                   ),
                   RowTextButton(
-                    text: "Mola bitiş zamanı: ${_breakEndS}",
+                    text: "Mola bitiş zamanı: $_breakEndS",
                     iconData: Icons.timelapse,
                     onPressed: _selectBreakEnd,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     child: Center(
                       child: Text(
                         "Çalışma Günleri",
@@ -226,7 +228,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Center(
@@ -235,7 +237,7 @@ class _ChangeWorkTimesPageState extends State<ChangeWorkTimesPage> {
                       onPressed: () => _submit(),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                 ],

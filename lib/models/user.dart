@@ -136,26 +136,29 @@ class User {
           province: province,
           district: district,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   static Future<User?> login({required String email, required String password}) async {
     final result = await Requester.postReq("/$table/login", userToJson(User(email: email, password: password)));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return userFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<User?> tokenLogin({required String token}) async {
     final result = await Requester.postReq("/$table/token_login", userToJson(User(accessToken: token)));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return userFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> logout({required String token}) async {
@@ -166,10 +169,11 @@ class User {
 
   static Future<List<User>> getUsers({required List<int> ids}) async {
     final result = await Requester.postReq("/$table/with_ids", jsonEncode({ids}));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return userListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<bool> checkAuthority({required bool authority, required int id}) async {
@@ -243,26 +247,29 @@ class User {
 
   static Future<int?> hasEmail({required String email}) async {
     final result = await Requester.getReq("/$table/has_email/$email");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return jsonDecode(result)["id"];
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<int?> hasPhone({required String phone}) async {
     final result = await Requester.getReq("/$table/has_phone/$phone");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return jsonDecode(result)["id"];
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<User?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return userFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

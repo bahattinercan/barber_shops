@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/login.dart';
 import 'package:barbers/utils/app_manager.dart';
@@ -35,7 +37,7 @@ class _ProfilePageState extends State<ProfilePage> {
               RowTextButton(
                 text: "Yeni Şifre",
                 iconData: Icons.arrow_forward_ios_rounded,
-                onPressed: () => AppManager.bottomSheet(context, ChangePasswordBS()),
+                onPressed: () => AppManager.bottomSheet(context, const ChangePasswordBS()),
               ),
               RowTextButton(
                 text: "Konum Seç",
@@ -45,12 +47,12 @@ class _ProfilePageState extends State<ProfilePage> {
               RowTextButton(
                 text: "Tel No Değiştir",
                 iconData: Icons.arrow_forward_ios_rounded,
-                onPressed: () => AppManager.bottomSheet(context, ChangeTelBS()),
+                onPressed: () => AppManager.bottomSheet(context, const ChangeTelBS()),
               ),
               RowTextButton(
                 text: "Email Değiştir",
                 iconData: Icons.arrow_forward_ios_rounded,
-                onPressed: () => AppManager.bottomSheet(context, ChangeEmailBS()),
+                onPressed: () => AppManager.bottomSheet(context, const ChangeEmailBS()),
               ),
               RowTextButton(
                 text: "Ayarlar",
@@ -90,7 +92,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void logout() async {
-    await SecureStorager.writeWithKey(StoreKeyType.access_token, "");
-    Pusher.pushAndRemoveAll(context, LoginPage());
+    await SecureStorager.writeWithKey(StoreKeyType.accessToken, "");
+    Pusher.pushAndRemoveAll(context, const LoginPage());
   }
 }

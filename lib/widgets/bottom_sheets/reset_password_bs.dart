@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
@@ -55,7 +57,7 @@ class _ResetPasswordBSState extends State<ResetPasswordBS> {
                 labelText: "şifre *",
                 hintText: '*******',
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               PasswordTextFormField(
                 controller: _newPass2,
                 icon: Icons.lock_outline,
@@ -66,7 +68,7 @@ class _ResetPasswordBSState extends State<ResetPasswordBS> {
                 onPressed: () => _submitData(context),
                 child: const Text("Onayla"),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               )
             ],

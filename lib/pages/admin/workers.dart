@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/user.dart';
 import 'package:barbers/models/worker.dart';
@@ -45,7 +47,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     widget.shop = shop;
   }
 
-  void UpdateWorker(Worker worker) {
+  void updateWorker(Worker worker) {
     setState(() {
       worker;
     });
@@ -96,12 +98,12 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('çalışan'),
-        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        actions: [IconButton(onPressed: addWorkerButton, icon: Icon(Icons.add_rounded))],
+        onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
+        actions: [IconButton(onPressed: addWorkerButton, icon: const Icon(Icons.add_rounded))],
       ).build(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: media.size.width,
           child: Column(children: [
             Expanded(

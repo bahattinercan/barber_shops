@@ -57,26 +57,29 @@ class Worker {
       "/$table",
       workerToJson(Worker(userId: userId, barberShopId: shopId)),
     );
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerFromJson(res);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<Worker>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Worker>> getJobs({required int userId}) async {
     final result = await Requester.getReq("/$table/jobs/$userId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<int>> getShopIds({required int userId}) async {
@@ -84,32 +87,36 @@ class Worker {
     if (Requester.isSuccess) {
       List<Worker> workers = workerListFromJson(result);
       return List<int>.from(workers.map((x) => x.barberShopId));
-    } else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Worker>> getShops({required int shopId}) async {
     final result = await Requester.getReq("/$table/shop/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<Worker?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Worker?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return workerFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

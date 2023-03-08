@@ -36,7 +36,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
   Future<void> setup() async {
     appointments = await Appointment.getShops(shopId: widget.shop.id!);
     workers = await Worker.getShops(shopId: widget.shop.id!);
-    if (workers.length >= 1) _sort(workers[0]);
+    if (workers.isNotEmpty) _sort(workers[0]);
   }
 
   void tabBarOnTap(int index) {
@@ -57,7 +57,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
       child: Scaffold(
         appBar: BaseAppBar(
           title: AppManager.stringToTitle('randevu'),
-          onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
+          onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
           bottom: TabBar(
             tabs: workers.map((worker) => Tab(text: worker.fullname)).toList(),
             labelColor: Colorer.onBackground,
@@ -66,7 +66,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
           ),
         ).build(context),
         body: SafeArea(
-          child: Container(
+          child: SizedBox(
             width: media.size.width,
             child: ListView.builder(
               itemBuilder: (context, index) => AdminAppointmentCard(

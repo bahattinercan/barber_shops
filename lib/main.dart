@@ -4,11 +4,11 @@ import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Berberim',
       theme: ThemeData(
-          colorScheme: ColorScheme(
+          colorScheme: const ColorScheme(
             primary: Colorer.primary,
             primaryVariant: Colorer.primaryVariant,
             secondary: Colorer.secondary,
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colorer.getMatColor(Colorer.primary),
           accentColor: Colorer.getMatColor(Colorer.secondary),
           // WIDGETS
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             elevation: 0,
             backgroundColor: Colors.transparent,
             foregroundColor: Colors.black,
@@ -51,11 +51,11 @@ class MyApp extends StatelessWidget {
             ),
           ),
           scaffoldBackgroundColor: Colorer.background,
-          cardTheme: CardTheme(
+          cardTheme: const CardTheme(
             color: Colorer.surface,
             elevation: 0,
           ),
-          popupMenuTheme: PopupMenuThemeData(
+          popupMenuTheme: const PopupMenuThemeData(
             color: Colorer.surface,
           ),
           // BUTTONS
@@ -80,16 +80,16 @@ class MyApp extends StatelessWidget {
             ),
           ),
           // NAV BARS
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Colorer.surface,
             unselectedItemColor: Colorer.onBackground,
             selectedItemColor: Colorer.primaryVariant,
           ),
           // BOTTOM SHEET
-          bottomSheetTheme: BottomSheetThemeData(
+          bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colorer.background,
           ),
-          dropdownMenuTheme: DropdownMenuThemeData(
+          dropdownMenuTheme: const DropdownMenuThemeData(
             menuStyle: MenuStyle(),
           ),
           scrollbarTheme: ScrollbarThemeData(
@@ -102,10 +102,10 @@ class MyApp extends StatelessWidget {
               },
             ),
           ),
-          timePickerTheme: TimePickerThemeData(
+          timePickerTheme: const TimePickerThemeData(
             backgroundColor: Colorer.background,
           )),
-      home: StartPage(),
+      home: const StartPage(),
     );
   }
 }

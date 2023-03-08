@@ -26,7 +26,7 @@ class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
       type: BottomNavigationBarType.fixed,
       currentIndex: widget.selectedIndex,
       onTap: (value) => onTap(value, context),
-      items: [
+      items: const [
         BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Dükkan"),
         BottomNavigationBarItem(icon: Icon(Icons.design_services), label: "Hizmetler"),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: "Çalışanlar"),

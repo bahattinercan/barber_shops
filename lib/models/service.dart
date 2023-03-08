@@ -67,42 +67,47 @@ class Service {
           userId: userId,
           barberShopId: shopId,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return serviceFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<Service>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return serviceListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<Service>> getShops({required int shopId}) async {
     final result = await Requester.getReq("/$table/barber_shop/$shopId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return serviceListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<Service?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return serviceFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<Service?> getData({required int id, required String column}) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return serviceFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setImageReq({

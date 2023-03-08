@@ -42,14 +42,14 @@ class _WorkerBarberShopsPageState extends State<WorkerBarberShopsPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('dükkan'),
-        onPressed: () => Pusher.pushAndRemoveAll(context, HomePage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, const HomePage()),
       ).build(context),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: media.size.width,
           height: media.size.height,
           child: !dataLoaded
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(

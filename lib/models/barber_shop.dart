@@ -137,42 +137,47 @@ class BarberShop {
           district: district,
           profilePicture: profilePictureBase64,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<List<BarberShop>> getAll() async {
     final result = await Requester.getReq("/$table");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<BarberShop>> getUserShops({required int userId}) async {
     final result = await Requester.getReq("/$table/my/$userId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<BarberShop>> getWorkers({required int workerId}) async {
     final result = await Requester.getReq("/$table/worker/$workerId");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<BarberShop>> getShops({required List<int> ids}) async {
     final result = await Requester.postReq("/$table/ids", jsonEncode({ids}));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<BarberShop>> getPopulars({
@@ -187,10 +192,11 @@ class BarberShop {
           province: province,
           district: district,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<List<BarberShop>> getNearby({
@@ -205,18 +211,20 @@ class BarberShop {
           province: province,
           district: district,
         )));
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopListFromJson(result);
-    else
+    } else {
       return [];
+    }
   }
 
   static Future<BarberShop?> get({required int id}) async {
     final result = await Requester.getReq("/$table/$id");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<BarberShop?> getData({
@@ -224,10 +232,11 @@ class BarberShop {
     required String column,
   }) async {
     final result = await Requester.getReq("/$table/data/$id/$column");
-    if (Requester.isSuccess)
+    if (Requester.isSuccess) {
       return barberShopFromJson(result);
-    else
+    } else {
       return null;
+    }
   }
 
   static Future<bool> setData({

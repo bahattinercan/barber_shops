@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/models/service.dart';
 import 'package:barbers/pages/admin/shops.dart';
@@ -93,15 +95,15 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('hizmet'),
-        onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
-        actions: [IconButton(onPressed: addItemButton, icon: Icon(Icons.add_rounded))],
+        onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
+        actions: [IconButton(onPressed: addItemButton, icon: const Icon(Icons.add_rounded))],
       ).build(context),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: !dataLoaded
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(

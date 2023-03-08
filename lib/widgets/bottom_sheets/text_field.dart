@@ -88,7 +88,7 @@ class _TextFieldBSState extends State<TextFieldBS> {
               BaseTextFormField(
                 autofocus: true,
                 keyboardType: widget.keyboardType,
-                icon: widget.icon != null ? widget.icon : null,
+                icon: widget.icon,
                 hintText: widget.hintText != null ? widget.hintText! : "",
                 labelText: widget.labelText != null ? widget.labelText! : "",
                 controller: _controller,
@@ -97,15 +97,15 @@ class _TextFieldBSState extends State<TextFieldBS> {
                 maxLength: widget.maxLength,
                 inputFormatters: widget.inputFormatters,
               ),
-              SizedBox(height: 5),
-              Container(
+              const SizedBox(height: 5),
+              SizedBox(
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () => widget.submit(_formKey, _controller.text),
                   child: Text(widget.buttonText),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 2.5,
               )
             ],

@@ -25,7 +25,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.only(right: 8),
       child: AbsorbPointer(
         absorbing: !widget.selectableDay.isActive,
         child: GestureDetector(
@@ -57,7 +57,7 @@ class _SelectDayItemState extends State<SelectDayItem> {
                   ),
                 )),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

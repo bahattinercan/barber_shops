@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -8,6 +10,7 @@ import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -24,7 +27,7 @@ class AdminServiceCard extends StatefulWidget {
 
 class _AdminServiceCardState extends State<AdminServiceCard> {
   bool isActive = true;
-  Uint8List? imageData = null;
+  Uint8List? imageData;
   late File imageFile;
   @override
   initState() {
@@ -73,7 +76,9 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
         Dialogs.failDialog(context: context);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       Dialogs.failDialog(context: context);
     }
   }
@@ -112,7 +117,9 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
         Dialogs.failDialog(context: context);
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       Dialogs.failDialog(context: context);
     }
   }
@@ -143,9 +150,9 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
                   ListTile(
                     minLeadingWidth: 12,
                     horizontalTitleGap: 4,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4),
-                    leading: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+                    leading: const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.design_services,
                         color: Colorer.primaryVariant,
@@ -153,14 +160,14 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
                     ),
                     title: Text(
                       widget.service.name!,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Colorer.onSurface,
                       ),
                     ),
                     subtitle: Text(
-                      widget.service.price! + " ₺",
-                      style: TextStyle(
+                      "${widget.service.price!} ₺",
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colorer.onSurface,
                       ),

@@ -47,16 +47,16 @@ class _HomePageState extends State<HomePage> {
             children: [
               BaseButton(
                 text: "Müdür",
-                onPressed: () => Pusher.pushAndRemoveAll(context, AdminBarberShopsPage()),
+                onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
               ),
               BaseButton(
                 text: "Çalışan",
-                onPressed: () => Pusher.pushAndRemoveAll(context, WorkerBarberShopsPage()),
+                onPressed: () => Pusher.pushAndRemoveAll(context, const WorkerBarberShopsPage()),
               ),
             ],
           ));
     } else {
-      Pusher.pushAndRemoveAll(context, WorkerBarberShopsPage());
+      Pusher.pushAndRemoveAll(context, const WorkerBarberShopsPage());
     }
   }
 
@@ -67,40 +67,38 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Şuanki konum",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colorer.onBackground),
             ),
             Text(
               '${AppManager.user.provinceToString()}, ${AppManager.user.districtToString()}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colorer.onBackground),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colorer.onBackground),
             ),
           ],
         ),
         actions: [
-          Container(
-            child: IconButton(
-              icon: Icon(
-                Icons.bookmarks_rounded,
-                color: Colorer.onBackground,
-              ),
-              onPressed: () => Pusher.push(context, AppointmentsPage()),
+          IconButton(
+            icon: const Icon(
+              Icons.bookmarks_rounded,
+              color: Colorer.onBackground,
             ),
+            onPressed: () => Pusher.push(context, const AppointmentsPage()),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colorer.onBackground,
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.person_rounded,
                   color: Colorer.primaryVariant,
                   size: 32,
                 ),
-                onPressed: () => Pusher.push(context, ProfilePage()),
+                onPressed: () => Pusher.push(context, const ProfilePage()),
               ),
             ),
           ),
@@ -110,22 +108,22 @@ class _HomePageState extends State<HomePage> {
           ? null
           : FloatingActionButton(
               onPressed: adminButton,
-              child: Icon(
+              child: const Icon(
                 Icons.admin_panel_settings_rounded,
                 size: 36,
               ),
             ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: !dataLoaded
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   itemCount: _shops.length,
                   itemBuilder: (context, index) {
                     return BarberShopCard(

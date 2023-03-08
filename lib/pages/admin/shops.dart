@@ -31,7 +31,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
   }
 
   void _add() {
-    Pusher.pushAndRemoveAll(context, CreateBarberShopPage());
+    Pusher.pushAndRemoveAll(context, const CreateBarberShopPage());
   }
 
   @override
@@ -40,7 +40,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: _add,
-        child: Icon(
+        child: const Icon(
           Icons.add_rounded,
           size: 36,
         ),
@@ -48,14 +48,14 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('dükkan'),
-        onPressed: () => Pusher.pushAndRemoveAll(context, HomePage()),
+        onPressed: () => Pusher.pushAndRemoveAll(context, const HomePage()),
       ).build(context),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: media.size.width,
           height: media.size.height,
           child: !dataLoaded
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(
