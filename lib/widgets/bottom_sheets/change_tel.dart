@@ -1,7 +1,6 @@
-import 'dart:convert';
+import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
@@ -15,28 +14,26 @@ class ChangeTelBS extends StatefulWidget {
 
 class _ChangeTelBSState extends State<ChangeTelBS> {
   final _formKey = GlobalKey<FormState>();
-  final _oldPhoneC = TextEditingController();
-  final _newPhoneC = TextEditingController();
-  final _newPhone2C = TextEditingController();
+  final _oldPhone = TextEditingController();
+  final _newPhone = TextEditingController();
+  final _newPhone2 = TextEditingController();
 
   Future<void> _submitData(BuildContext context) async {
-    try {
-      if (!_formKey.currentState!.validate()) return;
-      if (_newPhone2C.text != _newPhoneC.text) return;
+    if (!_formKey.currentState!.validate()) return;
+    if (_newPhone2.text != _newPhone.text) {
+      Dialogs.failDialog(context: context, content: "Yeni telefonlar eşleşmiyor");
+      return;
+    }
 
-      final uid = AppManager.user.id;
-
-      final result = await Requester.putReq(
-        "/users/change_phone_no/$uid",
-        jsonEncode({"oldPhoneNo": _oldPhoneC.text, "phoneNo": _newPhoneC.text}),
-      );
-      if (result) {
-        Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      } else {
-        Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      }
-    } catch (e) {
-      print(e);
+    final result = await User.changePhone(
+      id: AppManager.user.id!,
+      phone: _oldPhone.text,
+      oldPhone: _newPhone.text,
+    );
+    if (result) {
+      Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
+    } else {
+      Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
     }
   }
 
@@ -58,7 +55,7 @@ class _ChangeTelBSState extends State<ChangeTelBS> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               BaseTextFormField(
-                controller: _oldPhoneC,
+                controller: _oldPhone,
                 icon: Icons.phone_rounded,
                 labelText: "eski tel no *",
                 hintText: "5xx xxx xxxx",
@@ -70,7 +67,7 @@ class _ChangeTelBSState extends State<ChangeTelBS> {
                 height: 10,
               ),
               BaseTextFormField(
-                controller: _newPhoneC,
+                controller: _newPhone,
                 icon: Icons.phone_outlined,
                 labelText: "yeni tel no *",
                 hintText: "5xx xxx xxxx",
@@ -82,7 +79,7 @@ class _ChangeTelBSState extends State<ChangeTelBS> {
                 height: 10,
               ),
               BaseTextFormField(
-                controller: _newPhone2C,
+                controller: _newPhone2,
                 icon: Icons.phone_outlined,
                 labelText: "tekrar tel no *",
                 hintText: "5xx xxx xxxx",

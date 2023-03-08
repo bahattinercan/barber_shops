@@ -79,6 +79,15 @@ class Worker {
       return [];
   }
 
+  static Future<List<int>> getShopIds({required int userId}) async {
+    final result = await Requester.getReq("/$table/shopIds/$userId");
+    if (Requester.isSuccess) {
+      List<Worker> workers = workerListFromJson(result);
+      return List<int>.from(workers.map((x) => x.barberShopId));
+    } else
+      return [];
+  }
+
   static Future<List<Worker>> getShops({required int shopId}) async {
     final result = await Requester.getReq("/$table/shop/$shopId");
     if (Requester.isSuccess)

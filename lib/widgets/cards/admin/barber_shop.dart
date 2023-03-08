@@ -3,7 +3,6 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
   }
 
   delete(int id) async {
-    final request = await Requester.deleteReq("/barber_shops/${id}");
+    final request = await BarberShop.delete(id: id);
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);

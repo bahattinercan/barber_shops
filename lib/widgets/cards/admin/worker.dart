@@ -2,7 +2,6 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/worker/change_work_times.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/buttons/base_popup_menu.dart';
 import 'package:flutter/material.dart';
@@ -39,8 +38,8 @@ class _AdminWorkerCardState extends State<AdminWorkerCard> {
   }
 
   removeWorker() async {
-    await Requester.deleteReq("/workers/${widget.worker.id}");
-    if (Requester.notifier.value is RequestLoadFailure) {
+    bool res = await Worker.delete(id: widget.worker.id!);
+    if (!res) {
       Dialogs.failDialog(context: context);
       return;
     }

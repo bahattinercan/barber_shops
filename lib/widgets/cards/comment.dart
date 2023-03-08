@@ -61,17 +61,14 @@ class _CommentCardState extends State<CommentCard> {
     );
   }
 
-  delete() {
-    Requester.deleteReq("/comments/${widget.comment.id}");
-    if (Requester.notifier.value is RequestLoadFailure) {
+  delete() async {
+    bool res = await Comment.delete(id: widget.comment.id!);
+    if (!res) {
       Dialogs.failDialog(context: context);
       return;
     }
-
     if (widget.removeComment != null) widget.removeComment!(widget.comment);
-    setState(() {
-      isVisible = false;
-    });
+    setState(() => isVisible = false);
     Dialogs.successDialog(context: context);
   }
 

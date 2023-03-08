@@ -4,7 +4,6 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/general/home.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/pusher.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/admin/barber_shop.dart';
 import 'package:flutter/material.dart';
@@ -22,29 +21,19 @@ class _WorkerBarberShopsPageState extends State<WorkerBarberShopsPage> {
 
   @override
   initState() {
-    data.then((value) {
-      setState(() {
-        shops = value;
-        dataLoaded = true;
-      });
-    });
+    setup();
     super.initState();
   }
 
-  Future<List<BarberShop>> get data async {
-    // TODO değiştir
-    final datas = await Requester.getReq('/barber_shops/my/${AppManager.user.id}');
-    return barberShopListFromJson(datas);
-  }
-
-  Future<List<Worker>> get workerData async {
-    try {
-      final datas = await Requester.getReq('/workers/jobs/${AppManager.user.id}');
-      return workerListFromJson(datas);
-    } catch (e) {
-      print(e);
-      return [];
-    }
+  Future<void> setup() async {
+    List<int> shopIds = [];
+    await Worker.getShopIds(userId: AppManager.user.id!).then((value) {
+      shopIds = value;
+    });
+    await BarberShop.getShops(ids: shopIds).then((value) {
+      setState(() => shops = value);
+    });
+    setState(() => dataLoaded = true);
   }
 
   @override

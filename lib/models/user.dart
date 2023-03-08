@@ -217,6 +217,18 @@ class User {
     return res;
   }
 
+  static Future<bool> changePhone({
+    required int id,
+    required String phone,
+    required String oldPhone,
+  }) async {
+    final res = await Requester.putReq(
+      "/$table/phone/$id",
+      jsonEncode({"phoneNo": phone, "oldPhoneNo": oldPhone}),
+    );
+    return res;
+  }
+
   static Future<bool> resetPassword({
     required int id,
     required String password,

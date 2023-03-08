@@ -3,7 +3,6 @@ import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/buttons/row_text.dart';

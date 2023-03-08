@@ -1,9 +1,8 @@
+import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 class ResetPasswordBS extends StatefulWidget {
   const ResetPasswordBS({super.key});
@@ -14,30 +13,22 @@ class ResetPasswordBS extends StatefulWidget {
 
 class _ResetPasswordBSState extends State<ResetPasswordBS> {
   final _formKey = GlobalKey<FormState>();
-  final _newPasswordC = TextEditingController();
-  final _newPasswordC2 = TextEditingController();
+  final _newPass = TextEditingController();
+  final _newPass2 = TextEditingController();
 
   Future<void> _submitData(BuildContext context) async {
-    try {
-      if (!_formKey.currentState!.validate()) return;
-      if (_newPasswordC.text != _newPasswordC2.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Yeni şifreler eşleşmiyor')),
-        );
-        return;
-      }
-      final result = await Requester.putReq(
-        "/users/reset_password/${AppManager.user.id}",
-        json.encode({"password": _newPasswordC.text}),
-      );
+    if (!_formKey.currentState!.validate()) return;
+    if (_newPass.text != _newPass2.text) {
+      Dialogs.failDialog(context: context, content: "Yeni şifreler eşleşmiyor");
+      return;
+    }
 
-      if (result) {
-        Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      } else {
-        Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      }
-    } catch (e) {
-      print(e);
+    final result = await User.resetPassword(id: AppManager.user.id!, password: _newPass.text);
+
+    if (result) {
+      Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
+    } else {
+      Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
     }
   }
 
@@ -59,14 +50,14 @@ class _ResetPasswordBSState extends State<ResetPasswordBS> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PasswordTextFormField(
-                controller: _newPasswordC,
+                controller: _newPass,
                 icon: Icons.lock_outline,
                 labelText: "şifre *",
                 hintText: '*******',
               ),
               SizedBox(height: 10),
               PasswordTextFormField(
-                controller: _newPasswordC2,
+                controller: _newPass2,
                 icon: Icons.lock_outline,
                 labelText: "tekrar şifre *",
                 hintText: '*******',

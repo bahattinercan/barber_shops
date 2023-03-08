@@ -21,7 +21,7 @@ class _AdminBarberShopsPageState extends State<AdminBarberShopsPage> {
 
   @override
   initState() {
-    BarberShop.getUserShop(userId: AppManager.user.id!).then((value) {
+    BarberShop.getUserShops(userId: AppManager.user.id!).then((value) {
       setState(() {
         shops = value;
         dataLoaded = true;

@@ -1,5 +1,6 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/appointment.dart';
+import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/formatter.dart';
 import 'package:barbers/utils/dialogs.dart';
@@ -27,7 +28,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
   }
 
   delete(int id) async {
-    final request = await Requester.deleteReq("/barber_shops/${id}");
+    final request = await Appointment.delete(id: id);
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);

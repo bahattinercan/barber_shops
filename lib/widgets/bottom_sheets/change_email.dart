@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:barbers/widgets/text_form_fields/base.dart';
 import 'package:flutter/material.dart';
@@ -21,29 +19,22 @@ class _ChangeEmailBSState extends State<ChangeEmailBS> {
   final _newEmailC2 = TextEditingController();
 
   Future<void> _submitData(BuildContext context) async {
-    try {
-      if (!_formKey.currentState!.validate()) return;
-      if (_newEmailC.text != _newEmailC2.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Yeni emailler eşleşmiyor')),
-        );
-        return;
-      }
+    if (!_formKey.currentState!.validate()) return;
+    if (_newEmailC.text != _newEmailC2.text) {
+      Dialogs.failDialog(context: context, content: "Yeni emailler eşleşmiyor");
+      return;
+    }
 
-      final result = await Requester.putReq(
-        "/users/change_email/${AppManager.user.id}",
-        jsonEncode({
-          "email": _oldEmailC.text,
-          "new_email": _newEmailC.text,
-        }),
-      );
-      if (result) {
-        Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      } else {
-        Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      }
-    } catch (e) {
-      print(e);
+    final result = await User.changeEmail(
+      id: AppManager.user.id!,
+      newEmail: _oldEmailC.text,
+      email: _newEmailC.text,
+    );
+
+    if (result) {
+      Dialogs.successDialog(context: context, okFunction: () => Navigator.pop(context));
+    } else {
+      Dialogs.failDialog(context: context, okFunction: () => Navigator.pop(context));
     }
   }
 

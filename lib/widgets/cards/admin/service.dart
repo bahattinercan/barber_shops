@@ -36,7 +36,7 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
   }
 
   delete(int id) async {
-    final request = await Requester.deleteReq("/services/${id}");
+    final request = await Service.delete(id: id);
     if (request) {
       setState(() => isActive = false);
       Dialogs.successDialog(context: context);

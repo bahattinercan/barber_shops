@@ -33,7 +33,7 @@ class _ChooseBarberCardState extends State<ChooseBarberCard> {
     //       ":" +
     //       widget.worker!.availableTime.minute.toString();
     // }
-    return "Not Available";
+    return "Available";
   }
 
   onTap() {

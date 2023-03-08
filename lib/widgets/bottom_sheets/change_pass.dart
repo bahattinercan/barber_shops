@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'package:barbers/models/user.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
-import 'package:barbers/utils/requester.dart';
 import 'package:barbers/widgets/text_form_fields/password.dart';
 import 'package:flutter/material.dart';
 
@@ -15,33 +13,26 @@ class ChangePasswordBS extends StatefulWidget {
 
 class _ChangePasswordBSState extends State<ChangePasswordBS> {
   final _formKey = GlobalKey<FormState>();
-  final _oldPasswordC = TextEditingController();
-  final _newPasswordC = TextEditingController();
-  final _newPasswordC2 = TextEditingController();
+  final _oldPass = TextEditingController();
+  final _newPass = TextEditingController();
+  final _newPass2 = TextEditingController();
 
   Future<void> _submitData(BuildContext context) async {
-    try {
-      if (!_formKey.currentState!.validate()) return;
-      if (_newPasswordC.text != _newPasswordC2.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Yeni şifreler eşleşmiyor')),
-        );
-        return;
-      }
-      final result = await Requester.putReq(
-          "/users/change_password/${AppManager.user.id}",
-          jsonEncode({
-            "newPassword": _newPasswordC.text,
-            "password": _oldPasswordC.text,
-          }));
+    if (!_formKey.currentState!.validate()) return;
+    if (_newPass.text != _newPass2.text) {
+      Dialogs.failDialog(context: context, content: "Yeni şifreler eşleşmiyor");
+      return;
+    }
 
-      if (result) {
-        Dialogs.successDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      } else {
-        Dialogs.failDialog(context: context, okFunction: () => Navigator.of(context).pop());
-      }
-    } catch (e) {
-      print(e);
+    final result = await User.changePassword(
+      id: AppManager.user.id!,
+      newPassword: _newPass.text,
+      password: _oldPass.text,
+    );
+    if (result) {
+      Dialogs.successDialog(context: context, okFunction: () => Navigator.pop(context));
+    } else {
+      Dialogs.failDialog(context: context, okFunction: () => Navigator.pop(context));
     }
   }
 
@@ -63,7 +54,7 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PasswordTextFormField(
-                controller: _oldPasswordC,
+                controller: _oldPass,
                 icon: Icons.lock_rounded,
                 labelText: "eski şifre *",
               ),
@@ -71,7 +62,7 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
                 height: 10,
               ),
               PasswordTextFormField(
-                controller: _newPasswordC,
+                controller: _newPass,
                 icon: Icons.lock_outline,
                 labelText: "şifre *",
               ),
@@ -79,7 +70,7 @@ class _ChangePasswordBSState extends State<ChangePasswordBS> {
                 height: 10,
               ),
               PasswordTextFormField(
-                controller: _newPasswordC2,
+                controller: _newPass2,
                 icon: Icons.lock_outline,
                 labelText: "tekrar şifre *",
               ),
