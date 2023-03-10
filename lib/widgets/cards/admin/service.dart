@@ -102,24 +102,15 @@ class _AdminServiceCardState extends State<AdminServiceCard> {
   }
 
   void editPrice(GlobalKey<FormState> formKey, String text) async {
-    try {
-      if (!formKey.currentState!.validate()) return;
-      final moneyString = text.replaceAll("₺", "");
-      bool result = await Requester.putReq(
-        "/services/data/${widget.service.id}/price",
-        jsonEncode({"data": moneyString}),
-      );
-      if (result) {
-        setState(() => widget.service.price = moneyString);
-        Navigator.pop(context);
-        Dialogs.successDialog(context: context);
-      } else {
-        Dialogs.failDialog(context: context);
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+    if (!formKey.currentState!.validate()) return;
+    final moneyString = text.replaceAll("₺", "");
+
+    bool result = await Service.setData(id: widget.service.id!, column: "price", data: moneyString);
+    if (result) {
+      setState(() => widget.service.price = moneyString);
+      Navigator.pop(context);
+      Dialogs.successDialog(context: context);
+    } else {
       Dialogs.failDialog(context: context);
     }
   }

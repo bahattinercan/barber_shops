@@ -1,26 +1,26 @@
 import 'dart:io';
 
 import 'package:barbers/models/barber_shop.dart';
-import 'package:barbers/pages/admin/shop_edit.dart';
-import 'package:barbers/pages/admin/shops.dart';
+import 'package:barbers/pages/worker/edit_shop.dart';
+import 'package:barbers/pages/worker/shops.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/pusher.dart';
-import 'package:barbers/widgets/nav_bars/admin_shop.dart';
+import 'package:barbers/widgets/nav_bars/worker_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AdminShopPage extends StatefulWidget {
+class WorkerShopPage extends StatefulWidget {
   final BarberShop shop;
-  const AdminShopPage({
+  const WorkerShopPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
 
   @override
-  State<AdminShopPage> createState() => _AdminShopPageState();
+  State<WorkerShopPage> createState() => _WorkerShopPageState();
 }
 
-class _AdminShopPageState extends State<AdminShopPage> {
+class _WorkerShopPageState extends State<WorkerShopPage> {
   Uint8List? imageData;
   late File imageFile;
 
@@ -34,6 +34,8 @@ class _AdminShopPageState extends State<AdminShopPage> {
     imageData = widget.shop.getImage();
     super.initState();
   }
+
+  backButton(BuildContext context) => Pusher.pushAndRemoveAll(context, const WorkerBarberShopsPage());
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +104,7 @@ class _AdminShopPageState extends State<AdminShopPage> {
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(
-                          onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
+                          onPressed: () => backButton(context),
                           icon: const Icon(
                             Icons.arrow_back_ios_new_rounded,
                             color: Colorer.onSurface,
@@ -123,7 +125,7 @@ class _AdminShopPageState extends State<AdminShopPage> {
                           child: IconButton(
                             onPressed: () => Pusher.pushAndRemoveAll(
                                 context,
-                                AdminShopEditPage(
+                                WorkerShopEditPage(
                                   shop: widget.shop,
                                 )),
                             icon: const Icon(
@@ -229,6 +231,9 @@ class _AdminShopPageState extends State<AdminShopPage> {
                         fontSize: 16,
                       ),
                     ),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       "Tel no: ${widget.shop.phone!}",
                       style: const TextStyle(
@@ -244,7 +249,7 @@ class _AdminShopPageState extends State<AdminShopPage> {
           ]),
         ),
       ),
-      bottomNavigationBar: AdminShopBottomNav(selectedIndex: 0, shop: widget.shop),
+      bottomNavigationBar: WorkerShopBottomNav(selectedIndex: 0, shop: widget.shop),
     );
   }
 }

@@ -23,7 +23,7 @@ class BaseAppBar extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20),
         child: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
-          onPressed: onPressed,
+          onPressed: onPressed ?? () => Navigator.pop(context),
         ),
       ),
       actions: actions,

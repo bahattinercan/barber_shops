@@ -1,20 +1,23 @@
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/pages/worker/appointments.dart';
+import 'package:barbers/pages/worker/shop.dart';
+import 'package:barbers/utils/pusher.dart';
 import 'package:flutter/material.dart';
 
-class WorkerCafeBottomNB extends StatefulWidget {
+class WorkerShopBottomNav extends StatefulWidget {
   final BarberShop shop;
   final int selectedIndex;
-  const WorkerCafeBottomNB({
+  const WorkerShopBottomNav({
     super.key,
     required this.selectedIndex,
     required this.shop,
   });
 
   @override
-  State<WorkerCafeBottomNB> createState() => _WorkerCafeBottomNBState();
+  State<WorkerShopBottomNav> createState() => _WorkerShopBottomNavState();
 }
 
-class _WorkerCafeBottomNBState extends State<WorkerCafeBottomNB> {
+class _WorkerShopBottomNavState extends State<WorkerShopBottomNav> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -22,8 +25,7 @@ class _WorkerCafeBottomNBState extends State<WorkerCafeBottomNB> {
       onTap: (value) => onTap(value, context),
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.coffee), label: "Kafe"),
-        BottomNavigationBarItem(icon: Icon(Icons.menu), label: "Menü"),
-        // BottomNavigationBarItem(icon: Icon(Icons.people), label: "Çalışanlar"),
+        BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: "Randevular"),
       ],
     );
   }
@@ -31,26 +33,13 @@ class _WorkerCafeBottomNBState extends State<WorkerCafeBottomNB> {
   void onTap(int value, context) {
     if (widget.selectedIndex == value) return;
     switch (value) {
-      // TODO ADMİN WORKER PAGES
-      // case 0:
-      //   PushManager.pushReplacement(
-      //       context,
-      //       WorkerCafePage(
-      //         cafe: widget.cafe,
-      //       ));
-      //   break;
-      // case 1:
-      //   PushManager.pushReplacement(context, WorkerMenuItemsPage(cafe: widget.cafe));
-      //   break;
-      // case 2:
-      //   PushManager.pushReplacement(
-      //       context,
-      //       AdminWorkersPage(
-      //         cafe: widget.cafe,
-      //         canRemoveWorker: true,
-      //       ));
-      //   break;
-      // default:
+      case 0:
+        Pusher.pushReplacement(context, WorkerShopPage(shop: widget.shop));
+        break;
+      case 1:
+        Pusher.pushReplacement(context, WorkerAppointmentsPage(shop: widget.shop));
+        break;
+      default:
     }
   }
 }

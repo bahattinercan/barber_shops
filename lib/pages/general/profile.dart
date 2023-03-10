@@ -2,6 +2,7 @@
 
 import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/general/login.dart';
+import 'package:barbers/pages/general/settings.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -57,7 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
               RowTextButton(
                 text: "Ayarlar",
                 iconData: Icons.settings_rounded,
-                onPressed: () => null,
+                onPressed: () => Pusher.push(context, SettingsPage()),
               ),
               RowTextButton(
                 text: "Çıkış",

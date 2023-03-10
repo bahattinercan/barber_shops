@@ -8,10 +8,9 @@ import 'package:barbers/pages/general/select_schedule.dart';
 import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ChooseServicePage extends StatefulWidget {
-  Worker barber;
-  ChooseServicePage({
+  final Worker barber;
+  const ChooseServicePage({
     Key? key,
     required this.barber,
   }) : super(key: key);
@@ -88,7 +87,7 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
                             return ChooseServiceCard(
                               barber: widget.barber,
                               service: services[index],
-                              selectServiceF: selectService,
+                              select: selectService,
                             );
                           },
                         ),

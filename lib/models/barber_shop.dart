@@ -172,7 +172,8 @@ class BarberShop {
   }
 
   static Future<List<BarberShop>> getShops({required List<int> ids}) async {
-    final result = await Requester.postReq("/$table/ids", jsonEncode({ids}));
+    final result = await Requester.postReq("/$table/ids", jsonEncode(ids));
+
     if (Requester.isSuccess) {
       return barberShopListFromJson(result);
     } else {

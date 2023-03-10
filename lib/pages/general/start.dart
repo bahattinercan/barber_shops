@@ -32,15 +32,15 @@ class _StartPageState extends State<StartPage> {
       return;
     }
     Requester.addTokenToHeaders(oldToken);
-    final result = await User.tokenLogin(token: oldToken);
-    if (result == null) {
+    final user = await User.tokenLogin(token: oldToken);
+    if (user == null) {
       Pusher.pushAndRemoveAll(context, const LoginPage());
       return;
     }
     // set user data
-    AppManager.user = result;
+    AppManager.user = user;
     // update authority
-    Authorization.hasAuthority = AppManager.user.authority!;
+    Authorization.authority = AppManager.user.authority!;
     // set headers token
     Requester.addTokenToHeaders(AppManager.user.accessToken!);
     // storage the token

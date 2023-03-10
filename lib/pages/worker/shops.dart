@@ -55,7 +55,7 @@ class _WorkerBarberShopsPageState extends State<WorkerBarberShopsPage> {
               : ListView.builder(
                   itemBuilder: (context, index) => AdminBarberShopCard(
                     shops[index],
-                    EUser.boss,
+                    EUser.worker,
                   ),
                   itemCount: shops.length,
                 ),

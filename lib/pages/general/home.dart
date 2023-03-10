@@ -1,10 +1,10 @@
-import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/pages/general/appointments.dart';
 import 'package:barbers/pages/general/profile.dart';
 import 'package:barbers/pages/worker/shops.dart';
 import 'package:barbers/utils/app_manager.dart';
+import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -38,12 +38,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  adminButton() {
-    if (AppManager.user.getType == EUser.boss) {
+  openAdminPanel() {
+    if (!Authorization.isWorker) {
       Dialogs.customDialog(
           context: context,
           title: "Sayfa seç",
           content: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               BaseButton(
                 text: "Müdür",
@@ -53,6 +54,11 @@ class _HomePageState extends State<HomePage> {
                 text: "Çalışan",
                 onPressed: () => Pusher.pushAndRemoveAll(context, const WorkerBarberShopsPage()),
               ),
+              if (Authorization.isAdmin)
+                BaseButton(
+                  text: "Admin",
+                  onPressed: () {},
+                ),
             ],
           ));
     } else {
@@ -104,10 +110,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      floatingActionButton: AppManager.user.getType == EUser.normal
+      floatingActionButton: Authorization.isNormal
           ? null
           : FloatingActionButton(
-              onPressed: adminButton,
+              onPressed: openAdminPanel,
               child: const Icon(
                 Icons.admin_panel_settings_rounded,
                 size: 36,

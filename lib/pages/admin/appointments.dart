@@ -77,7 +77,7 @@ class _AdminAppointmentsPageState extends State<AdminAppointmentsPage> {
             ),
           ),
         ),
-        bottomNavigationBar: AdminBarberShopBottomNB(
+        bottomNavigationBar: AdminShopBottomNav(
           selectedIndex: 3,
           shop: widget.shop,
         ),

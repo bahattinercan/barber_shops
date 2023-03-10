@@ -72,25 +72,27 @@ class _AdminAppointmentCardState extends State<AdminAppointmentCard> {
                       "Müşteri: ${widget.appointment.customerName!}",
                       style: const TextStyle(fontWeight: FontWeight.w700, color: Colorer.onSurface),
                     ),
-                    trailing: BasePopupMenuButton(itemBuilder: (context) {
-                      return [
-                        const PopupMenuItem<int>(
-                            value: 99,
-                            child: Text(
-                              "Sil",
-                              style: TextStyle(
-                                color: Colorer.onSurface,
-                              ),
-                            )),
-                      ];
-                    }, onSelected: (value) {
-                      switch (value) {
-                        case 99:
-                          deleteButton(widget.appointment.id!);
-                          break;
-                        default:
-                      }
-                    }),
+                    trailing: widget.eUser == EUser.worker
+                        ? null
+                        : BasePopupMenuButton(itemBuilder: (context) {
+                            return [
+                              const PopupMenuItem<int>(
+                                  value: 99,
+                                  child: Text(
+                                    "Sil",
+                                    style: TextStyle(
+                                      color: Colorer.onSurface,
+                                    ),
+                                  )),
+                            ];
+                          }, onSelected: (value) {
+                            switch (value) {
+                              case 99:
+                                deleteButton(widget.appointment.id!);
+                                break;
+                              default:
+                            }
+                          }),
                     subtitle: Text(
                       "Tel: ${widget.appointment.customerPhone!}\nBerber:${widget.appointment.barberName!}\nTarih:${Formatter.time.format(widget.appointment.time!)}",
                       style: const TextStyle(fontWeight: FontWeight.w500, color: Colorer.onSurface),

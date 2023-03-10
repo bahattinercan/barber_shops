@@ -6,12 +6,11 @@ import 'package:barbers/widgets/cards/comment.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class AdminCommentsPage extends StatefulWidget {
-  BarberShop shop;
-  bool canDelete;
-  bool canRemoveWorker;
-  AdminCommentsPage({
+  final BarberShop shop;
+  final bool canDelete;
+  final bool canRemoveWorker;
+  const AdminCommentsPage({
     super.key,
     required this.shop,
     this.canDelete = false,
@@ -58,7 +57,7 @@ class _AdminCommentsPageState extends State<AdminCommentsPage> {
           ]),
         ),
       ),
-      bottomNavigationBar: AdminBarberShopBottomNB(
+      bottomNavigationBar: AdminShopBottomNav(
         selectedIndex: 0,
         shop: widget.shop,
       ),

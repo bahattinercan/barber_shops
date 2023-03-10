@@ -14,12 +14,11 @@ import 'package:barbers/widgets/cards/admin/worker.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class AdminWorkersPage extends StatefulWidget {
-  BarberShop shop;
-  bool canDelete;
-  bool canRemoveWorker;
-  AdminWorkersPage({
+  final BarberShop shop;
+  final bool canDelete;
+  final bool canRemoveWorker;
+  const AdminWorkersPage({
     super.key,
     required this.shop,
     this.canDelete = false,
@@ -41,10 +40,6 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
       });
     });
     super.initState();
-  }
-
-  updateCafe(BarberShop shop) {
-    widget.shop = shop;
   }
 
   void updateWorker(Worker worker) {
@@ -122,7 +117,7 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
           ]),
         ),
       ),
-      bottomNavigationBar: AdminBarberShopBottomNB(
+      bottomNavigationBar: AdminShopBottomNav(
         selectedIndex: 2,
         shop: widget.shop,
       ),

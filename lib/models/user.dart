@@ -168,7 +168,7 @@ class User {
   }
 
   static Future<List<User>> getUsers({required List<int> ids}) async {
-    final result = await Requester.postReq("/$table/with_ids", jsonEncode({ids}));
+    final result = await Requester.postReq("/$table/with_ids", jsonEncode(ids));
     if (Requester.isSuccess) {
       return userListFromJson(result);
     } else {

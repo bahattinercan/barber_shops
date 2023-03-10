@@ -82,11 +82,22 @@ class Worker {
     }
   }
 
+  static Future<Worker?> getJob({required int userId, required int shopId}) async {
+    final result = await Requester.getReq("/$table/job/$userId/$shopId");
+    print(result);
+    if (Requester.isSuccess) {
+      return workerFromJson(result);
+    } else {
+      return null;
+    }
+  }
+
   static Future<List<int>> getShopIds({required int userId}) async {
-    final result = await Requester.getReq("/$table/shopIds/$userId");
+    final result = await Requester.getReq("/$table/shop_ids/$userId");
     if (Requester.isSuccess) {
       List<Worker> workers = workerListFromJson(result);
-      return List<int>.from(workers.map((x) => x.barberShopId));
+      final list = List<int>.from(workers.map((x) => x.barberShopId));
+      return list;
     } else {
       return [];
     }

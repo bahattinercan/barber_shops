@@ -16,10 +16,9 @@ import 'package:barbers/widgets/buttons/row_text.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-// ignore: must_be_immutable
 class AdminShopEditPage extends StatefulWidget {
-  BarberShop shop;
-  AdminShopEditPage({
+  final BarberShop shop;
+  const AdminShopEditPage({
     Key? key,
     required this.shop,
   }) : super(key: key);
@@ -189,7 +188,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
     return Scaffold(
       appBar: BaseAppBar(
         title: AppManager.stringToTitle("Düzenle"),
-        onPressed: () => Pusher.pushReplacement(context, AdminBarberPage(shop: widget.shop)),
+        onPressed: () => Pusher.pushReplacement(context, AdminShopPage(shop: widget.shop)),
       ).build(context),
       body: SafeArea(
         child: Padding(

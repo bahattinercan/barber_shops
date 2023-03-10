@@ -6,20 +6,20 @@ import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:flutter/material.dart';
 
-class AdminBarberShopBottomNB extends StatefulWidget {
+class AdminShopBottomNav extends StatefulWidget {
   final BarberShop shop;
   final int selectedIndex;
-  const AdminBarberShopBottomNB({
+  const AdminShopBottomNav({
     super.key,
     required this.selectedIndex,
     required this.shop,
   });
 
   @override
-  State<AdminBarberShopBottomNB> createState() => _AdminBarberShopBottomNBState();
+  State<AdminShopBottomNav> createState() => _AdminShopBottomNavState();
 }
 
-class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
+class _AdminShopBottomNavState extends State<AdminShopBottomNav> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -41,7 +41,7 @@ class _AdminBarberShopBottomNBState extends State<AdminBarberShopBottomNB> {
       case 0:
         Pusher.pushReplacement(
             context,
-            AdminBarberPage(
+            AdminShopPage(
               shop: widget.shop,
             ));
         break;

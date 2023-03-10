@@ -13,10 +13,9 @@ import 'package:barbers/widgets/nav_bars/admin_shop.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
-// ignore: must_be_immutable
 class AdminServicesPage extends StatefulWidget {
-  BarberShop shop;
-  AdminServicesPage({
+  final BarberShop shop;
+  const AdminServicesPage({
     super.key,
     required this.shop,
   });
@@ -112,7 +111,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
                 ),
         ),
       ),
-      bottomNavigationBar: AdminBarberShopBottomNB(
+      bottomNavigationBar: AdminShopBottomNav(
         selectedIndex: 1,
         shop: widget.shop,
       ),

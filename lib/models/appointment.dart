@@ -120,6 +120,15 @@ class Appointment {
     }
   }
 
+  static Future<List<Appointment>> getWorkers({required int shopId, required int workerId}) async {
+    final result = await Requester.getReq("/$table/worker/$workerId/$shopId");
+    if (Requester.isSuccess) {
+      return appointmentListFromJson(result);
+    } else {
+      return [];
+    }
+  }
+
   static Future<List<Appointment>> getUserAppointments({required int userId}) async {
     final result = await Requester.getReq("/$table/my/$userId");
     if (Requester.isSuccess) {

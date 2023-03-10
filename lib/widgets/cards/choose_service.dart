@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 class ChooseServiceCard extends StatefulWidget {
   Worker? barber;
   Service service;
-  Function(Service service, bool isActive) selectServiceF;
+  Function(Service service, bool isActive) select;
   ChooseServiceCard({
     Key? key,
     this.barber,
     required this.service,
-    required this.selectServiceF,
+    required this.select,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class _ChooseServiceCardState extends State<ChooseServiceCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        widget.selectServiceF(widget.service, !isActive);
+        widget.select(widget.service, !isActive);
         setState(() {
           isActive = !isActive;
         });

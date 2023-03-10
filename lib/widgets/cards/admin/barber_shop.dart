@@ -3,6 +3,7 @@
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/admin/shop.dart';
+import 'package:barbers/pages/worker/shop.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -98,11 +99,10 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                           case 1:
                             switch (widget.eUser) {
                               case EUser.boss:
-                                Pusher.push(context, AdminBarberPage(shop: widget.shop));
+                                Pusher.push(context, AdminShopPage(shop: widget.shop));
                                 break;
                               case EUser.worker:
-                                // TODO ADMİN WORKER PAGE
-                                //PushManager.push(context, WorkerCafePage(cafe: widget.shop));
+                                Pusher.push(context, WorkerShopPage(shop: widget.shop));
                                 break;
                               case EUser.normal:
                                 break;
