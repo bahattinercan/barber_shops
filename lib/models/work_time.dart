@@ -156,7 +156,7 @@ class WorkTime {
   }
 
   static Future<WorkTime?> getBarber({required int workerId, required int shopId}) async {
-    final result = await Requester.getReq("/$table/$workerId/$shopId");
+    final result = await Requester.getReq("/$table/barber/$workerId/$shopId");
     if (Requester.isSuccess) {
       return workTimeFromJson(result);
     } else {

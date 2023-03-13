@@ -2,6 +2,7 @@ import 'package:barbers/models/barber_shop.dart';
 import 'package:barbers/pages/general/choose_barber.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/colorer.dart';
+import 'package:barbers/widgets/buttons/icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -114,6 +115,52 @@ class _BarberShopPageState extends State<BarberShopPage> {
                         ),
                       ),
                     ),
+                    // bottom content
+                    Container(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(Icons.camera),
+                                Text(
+                                  "@${widget.shop.instagram!}",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  "${widget.shop.starAverage!}",
+                                  style: const TextStyle(
+                                    color: Colorer.onPrimary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  "(${widget.shop.comments})",
+                                  style: const TextStyle(
+                                    color: Colorer.onPrimary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -139,29 +186,6 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           fontSize: 32,
                         ),
                       ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            "${widget.shop.starAverage!}",
-                            style: const TextStyle(
-                              color: Colorer.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 2),
-                          Text(
-                            "(${widget.shop.comments})",
-                            style: const TextStyle(
-                              color: Colorer.onPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 10),
                       Expanded(
                         child: Text(
@@ -184,13 +208,10 @@ class _BarberShopPageState extends State<BarberShopPage> {
                           children: [
                             Expanded(
                               flex: 20,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colorer.primaryVariant,
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              child: SizedBox(
+                                height: 55,
+                                child: ElevatedButton(
+                                  onPressed: selectBarberShop,
                                   child: Icon(
                                     Icons.message,
                                     color: Colorer.onSecondary,
@@ -198,42 +219,16 @@ class _BarberShopPageState extends State<BarberShopPage> {
                                 ),
                               ),
                             ),
+                            SizedBox(width: 8),
                             Expanded(
                               flex: 80,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: GestureDetector(
-                                  onTap: selectBarberShop,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colorer.primaryVariant,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: const [
-                                          Icon(
-                                            Icons.calendar_month,
-                                            color: Colorer.onPrimary,
-                                          ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            "Book now",
-                                            style: TextStyle(
-                                              color: Colorer.onPrimary,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              child: IconTextButton(
+                                func: selectBarberShop,
+                                icon: Icons.calendar_month,
+                                text: "Book now",
+                                height: 55,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       )

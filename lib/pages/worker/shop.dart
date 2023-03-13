@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/worker/edit_shop.dart';
 import 'package:barbers/pages/worker/shops.dart';
 import 'package:barbers/utils/colorer.dart';
@@ -10,10 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class WorkerShopPage extends StatefulWidget {
+  final Worker worker;
   final BarberShop shop;
   const WorkerShopPage({
     Key? key,
     required this.shop,
+    required this.worker,
   }) : super(key: key);
 
   @override
@@ -127,6 +130,7 @@ class _WorkerShopPageState extends State<WorkerShopPage> {
                                 context,
                                 WorkerShopEditPage(
                                   shop: widget.shop,
+                                  worker: widget.worker,
                                 )),
                             icon: const Icon(
                               Icons.edit_document,
@@ -249,7 +253,11 @@ class _WorkerShopPageState extends State<WorkerShopPage> {
           ]),
         ),
       ),
-      bottomNavigationBar: WorkerShopBottomNav(selectedIndex: 0, shop: widget.shop),
+      bottomNavigationBar: WorkerShopBottomNav(
+        selectedIndex: 0,
+        shop: widget.shop,
+        worker: widget.worker,
+      ),
     );
   }
 }

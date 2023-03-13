@@ -11,10 +11,12 @@ import 'package:barbers/widgets/nav_bars/worker_shop.dart';
 import 'package:flutter/material.dart';
 
 class WorkerAppointmentsPage extends StatefulWidget {
+  final Worker worker;
   final BarberShop shop;
   const WorkerAppointmentsPage({
     Key? key,
     required this.shop,
+    required this.worker,
   }) : super(key: key);
 
   @override
@@ -32,10 +34,10 @@ class _WorkerAppointmentsPageState extends State<WorkerAppointmentsPage> {
   }
 
   Future<void> setup() async {
-    Worker? worker = await Worker.getJob(userId: AppManager.user.id!, shopId: widget.shop.id!);
-    if (worker == null) return;
+    // Worker? worker = await Worker.getJob(userId: AppManager.user.id!, shopId: widget.shop.id!);
+    // if (worker == null) return;
 
-    final result = await Appointment.getWorkers(shopId: widget.shop.id!, workerId: worker.id!);
+    final result = await Appointment.getWorkers(shopId: widget.shop.id!, workerId: widget.worker.id!);
     setState(() {
       appointments = result;
       dataLoaded = true;
@@ -71,6 +73,7 @@ class _WorkerAppointmentsPageState extends State<WorkerAppointmentsPage> {
         bottomNavigationBar: WorkerShopBottomNav(
           selectedIndex: 1,
           shop: widget.shop,
+          worker: widget.worker,
         ),
       ),
     );

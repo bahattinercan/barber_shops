@@ -10,6 +10,7 @@ import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field_2.dart';
 import 'package:barbers/widgets/cards/admin/service.dart';
 import 'package:barbers/widgets/nav_bars/admin_shop.dart';
+import 'package:barbers/widgets/text_form_fields/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
@@ -26,6 +27,7 @@ class AdminServicesPage extends StatefulWidget {
 
 class _AdminServicesPageState extends State<AdminServicesPage> {
   List<Service> services = [];
+  List<Service> searchRes = [];
   bool dataLoaded = false;
 
   @override
@@ -33,6 +35,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
     Service.getShops(shopId: widget.shop.id!).then((value) {
       setState(() {
         services = value;
+        searchRes = value;
         dataLoaded = true;
       });
     });
@@ -86,6 +89,13 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   addList(Service service) async {
     setState(() {
       services.add(service);
+      searchRes.add(service);
+    });
+  }
+
+  void onChanged(String value) {
+    setState(() {
+      searchRes = services.where((item) => item.name!.toLowerCase().contains(value.toLowerCase())).toList();
     });
   }
 
@@ -100,15 +110,21 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: !dataLoaded
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ListView.builder(
-                  itemBuilder: (context, index) => AdminServiceCard(services[index]),
-                  itemCount: services.length,
-                ),
+          child: Column(
+            children: [
+              SearchWidget(onChanged: onChanged),
+              Expanded(
+                child: !dataLoaded
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : ListView.builder(
+                        itemBuilder: (context, index) => AdminServiceCard(services[index]),
+                        itemCount: services.length,
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: AdminShopBottomNav(

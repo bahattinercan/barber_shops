@@ -1,4 +1,6 @@
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/worker.dart';
+import 'package:barbers/pages/worker/change_work_times.dart';
 import 'package:barbers/pages/worker/shop.dart';
 import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/colorer.dart';
@@ -9,10 +11,12 @@ import 'package:barbers/widgets/buttons/row_text.dart';
 import 'package:flutter/material.dart';
 
 class WorkerShopEditPage extends StatefulWidget {
+  final Worker worker;
   final BarberShop shop;
   const WorkerShopEditPage({
     Key? key,
     required this.shop,
+    required this.worker,
   }) : super(key: key);
 
   @override
@@ -66,6 +70,13 @@ class _WorkerShopEditPageState extends State<WorkerShopEditPage> {
                 onPressed: () => isEmpty(!widget.shop.isEmpty!),
                 iconColor: widget.shop.isEmpty == false ? Colorer.onSurface : Colorer.surface,
               ),
+              RowTextButton(
+                text: "Çalışma zamanını değiştir",
+                iconData: Icons.circle,
+                onPressed: () =>
+                    Pusher.push(context, ChangeWorkTimesPage(shopId: widget.shop.id!, worker: widget.worker)),
+                iconColor: widget.shop.isEmpty == false ? Colorer.onSurface : Colorer.surface,
+              ),
             ],
           ),
         ),
@@ -73,5 +84,6 @@ class _WorkerShopEditPageState extends State<WorkerShopEditPage> {
     );
   }
 
-  backButton(BuildContext context) => Pusher.pushReplacement(context, WorkerShopPage(shop: widget.shop));
+  backButton(BuildContext context) =>
+      Pusher.pushReplacement(context, WorkerShopPage(shop: widget.shop, worker: widget.worker));
 }

@@ -99,26 +99,47 @@ class _BarberShopCardState extends State<BarberShopCard> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+
+                    // bottom content
+                    SizedBox(
+                      height: 5,
+                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          color: Colors.amber,
+                        Row(
+                          children: [
+                            const Icon(Icons.camera),
+                            Text(
+                              "@${widget.shop.instagram!}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
                         ),
-                        const SizedBox(width: 2),
-                        Text(
-                          "${widget.shop.starAverage}",
-                          style: const TextStyle(
-                            color: Colorer.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 2),
-                        Text(
-                          "(${widget.shop.comments})",
-                          style: const TextStyle(
-                            color: Colorer.onPrimary,
-                          ),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              "${widget.shop.starAverage!}",
+                              style: const TextStyle(
+                                color: Colorer.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 2),
+                            Text(
+                              "(${widget.shop.comments})",
+                              style: const TextStyle(
+                                color: Colorer.onPrimary,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

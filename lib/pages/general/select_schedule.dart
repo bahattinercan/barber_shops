@@ -26,7 +26,11 @@ class SelectSchedulePage extends StatefulWidget {
   final Worker worker;
   final List<Service> services;
 
-  const SelectSchedulePage({Key? key, required this.services, required this.worker}) : super(key: key);
+  const SelectSchedulePage({
+    Key? key,
+    required this.services,
+    required this.worker,
+  }) : super(key: key);
 
   @override
   State<SelectSchedulePage> createState() => _SelectSchedulePageState();
@@ -395,7 +399,6 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                                   text: "Select Schedule",
                                   borderRadius: BorderRadius.circular(16),
                                   height: 45,
-                                  backgroundColor: Colorer.secondary,
                                 ),
                               ],
                             ),

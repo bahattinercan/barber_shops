@@ -130,6 +130,7 @@ class Dialogs {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         backgroundColor: Colorer.background,
         title: Center(
           child: Text(

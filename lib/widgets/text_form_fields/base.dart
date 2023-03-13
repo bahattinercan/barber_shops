@@ -44,12 +44,11 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         autofocus: widget.autofocus,
         controller: widget.controller,
         decoration: InputDecoration(
-          border: const OutlineInputBorder(),
           prefixIcon: widget.icon == null ? null : Icon(widget.icon),
           hintText: widget.hintText,
           labelText: widget.labelText,
           hintStyle: const TextStyle(
-            color: Colorer.disableColor,
+            color: Colorer.disabled,
           ),
           helperStyle: const TextStyle(
             color: Colorer.onSurface,
@@ -59,6 +58,7 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         maxLength: widget.maxLength,
         maxLines: widget.maxLines,
         inputFormatters: widget.inputFormatters,
+        style: TextStyle(color: Colorer.onBackground),
       ),
     );
   }

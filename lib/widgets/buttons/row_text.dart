@@ -1,17 +1,16 @@
 import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class RowTextButton extends StatefulWidget {
   final String text;
   final IconData? iconData;
   final Function()? onPressed;
-  Color? iconColor;
+  final Color? iconColor;
 
-  RowTextButton({
+  const RowTextButton({
     Key? key,
     required this.text,
-    required this.iconData,
+    this.iconData,
     this.iconColor,
     this.onPressed,
   }) : super(key: key);

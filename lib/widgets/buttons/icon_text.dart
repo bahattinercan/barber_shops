@@ -2,14 +2,12 @@ import 'package:barbers/utils/colorer.dart';
 import 'package:flutter/material.dart';
 
 class IconTextButton extends StatelessWidget {
-  final Function func;
-  final dynamic icon;
-  final Color? iconColor;
-  final Color? textColor;
-  final Color? backgroundColor;
+  final void Function()? func;
+  final IconData icon;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final String text;
+  final double? textSize;
   final double? width, height;
   final BorderRadius? borderRadius;
 
@@ -17,12 +15,10 @@ class IconTextButton extends StatelessWidget {
     super.key,
     required this.func,
     required this.icon,
-    this.iconColor,
-    this.textColor,
-    this.backgroundColor,
     this.margin,
     this.padding,
     required this.text,
+    this.textSize,
     this.width,
     this.height,
     this.borderRadius,
@@ -30,32 +26,56 @@ class IconTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => func(),
-      child: Container(
-        width: width,
-        height: height,
-        margin: margin,
-        padding: padding,
-        decoration: BoxDecoration(
-          color: backgroundColor ?? Colorer.secondary,
-          borderRadius: borderRadius ?? BorderRadius.circular(16),
-        ),
+    return Container(
+      width: width,
+      height: height,
+      margin: margin,
+      padding: padding,
+      child: ElevatedButton(
+        onPressed: func,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Icon(
             icon,
-            color: iconColor ?? Colorer.onSecondary,
+            color: Colorer.onSecondary,
           ),
           const SizedBox(width: 5),
           Text(
             text,
             style: TextStyle(
-              color: textColor ?? Colorer.onSecondary,
+              color: Colorer.onSecondary,
               fontWeight: FontWeight.w700,
+              fontSize: textSize ?? 16,
             ),
           ),
         ]),
       ),
     );
+    // return GestureDetector(
+    //   onTap: () => func(),
+    //   child: Container(
+    //     width: width,
+    //     height: height,
+    //     margin: margin,
+    //     padding: padding,
+    //     decoration: BoxDecoration(
+    //       color: backgroundColor ?? Colorer.secondary,
+    //       borderRadius: borderRadius ?? BorderRadius.circular(16),
+    //     ),
+    //     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+    //       Icon(
+    //         icon,
+    //         color: iconColor ?? Colorer.onSecondary,
+    //       ),
+    //       const SizedBox(width: 5),
+    //       Text(
+    //         text,
+    //         style: TextStyle(
+    //           color: textColor ?? Colorer.onSecondary,
+    //           fontWeight: FontWeight.w700,
+    //         ),
+    //       ),
+    //     ]),
+    //   ),
+    // );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/validator_manager.dart';
 import 'package:flutter/material.dart';
 
@@ -41,18 +42,20 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       autofocus: widget.autofocus,
       controller: widget.controller,
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+        isDense: false,
         prefixIcon: Icon(widget.icon),
         hintText: widget.hintText,
         labelText: widget.labelText,
-        suffix: InkWell(
+        suffixIcon: InkWell(
           onTap: _togglePasswordView,
           child: Icon(
             _isHidden ? Icons.visibility : Icons.visibility_off,
+            color: _isHidden ? Colorer.primary : Colorer.primaryVariant,
           ),
         ),
       ),
       validator: widget.validator,
+      style: TextStyle(color: Colorer.onBackground),
     );
   }
 }

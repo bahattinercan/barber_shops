@@ -2,8 +2,10 @@
 
 import 'package:barbers/enums/user.dart';
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/worker.dart';
 import 'package:barbers/pages/admin/shop.dart';
 import 'package:barbers/pages/worker/shop.dart';
+import 'package:barbers/utils/app_manager.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
@@ -94,7 +96,7 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                               )),
                         ];
                       },
-                      onSelected: (value) {
+                      onSelected: (value) async {
                         switch (value) {
                           case 1:
                             switch (widget.eUser) {
@@ -102,7 +104,10 @@ class _AdminBarberShopCardState extends State<AdminBarberShopCard> {
                                 Pusher.push(context, AdminShopPage(shop: widget.shop));
                                 break;
                               case EUser.worker:
-                                Pusher.push(context, WorkerShopPage(shop: widget.shop));
+                                Worker? worker =
+                                    await Worker.getJob(userId: AppManager.user.id!, shopId: widget.shop.id!);
+                                if (worker == null) return;
+                                Pusher.push(context, WorkerShopPage(shop: widget.shop, worker: worker));
                                 break;
                               case EUser.normal:
                                 break;

@@ -1,7 +1,6 @@
 import 'package:barbers/models/service.dart';
 import 'package:barbers/models/worker.dart';
 import 'package:barbers/utils/app_manager.dart';
-import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
 import 'package:barbers/widgets/cards/choose_service.dart';
 import 'package:barbers/pages/general/select_schedule.dart';
@@ -100,7 +99,6 @@ class _ChooseServicePageState extends State<ChooseServicePage> {
                   icon: Icons.timelapse,
                   text: "Select Schedule",
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  backgroundColor: Colorer.secondary,
                 ),
               ),
             ],

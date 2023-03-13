@@ -197,32 +197,26 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
             children: [
               RowTextButton(
                 text: "İsim değiştir",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: editNameButton,
               ),
               RowTextButton(
                 text: "Açıklama ekle",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: editDescriptionButton,
               ),
               RowTextButton(
                 text: "Konum Seç",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: editLocationButton,
               ),
               RowTextButton(
                 text: "Tel No Değiştir",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: editPhoneButton,
               ),
               RowTextButton(
                 text: "Instagram düzenle",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: editInstagramButton,
               ),
               RowTextButton(
                 text: "Resim değiştir",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: changeImage,
               ),
               RowTextButton(
@@ -239,7 +233,6 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
               ),
               RowTextButton(
                 text: "Yorumlar",
-                iconData: Icons.arrow_forward_ios_rounded,
                 onPressed: () => Pusher.push(context, AdminCommentsPage(shop: widget.shop)),
               ),
             ],
