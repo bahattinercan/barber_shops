@@ -86,12 +86,13 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
             const SizedBox(
-              height: 5,
+              height: 10,
             ),
-            const Icon(
-              Icons.alarm,
-              size: 36,
-              color: Colorer.primaryVariant,
+            Image.asset(
+              "assets/icons/owl.png",
+              height: 36,
+              width: 36,
+              fit: BoxFit.cover,
             ),
             const SizedBox(
               height: 10,
@@ -100,7 +101,7 @@ class _StartPageState extends State<StartPage> {
               "Rowleyes",
               style: TextStyle(
                 color: Colorer.primaryVariant,
-                fontSize: 16,
+                fontSize: 18,
                 fontStyle: FontStyle.italic,
               ),
             ),
