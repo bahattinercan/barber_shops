@@ -22,7 +22,7 @@ class _BarberShopPageState extends State<BarberShopPage> {
 
   @override
   void initState() {
-    imageData = widget.shop.getImage();
+    imageData = widget.shop.getImage;
     super.initState();
   }
 

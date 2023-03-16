@@ -27,7 +27,7 @@ class _WorkerShopBottomNavState extends State<WorkerShopBottomNav> {
       currentIndex: widget.selectedIndex,
       onTap: (value) => onTap(value, context),
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.coffee), label: "Kafe"),
+        BottomNavigationBarItem(icon: Icon(Icons.shop), label: "Dükkan"),
         BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: "Randevular"),
       ],
     );

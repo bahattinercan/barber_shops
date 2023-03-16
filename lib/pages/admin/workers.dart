@@ -94,9 +94,10 @@ class _AdminWorkersPageState extends State<AdminWorkersPage> {
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('çalışan'),
         onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
-        actions: [IconButton(onPressed: addWorkerButton, icon: const Icon(Icons.add_rounded))],
+        actions: [],
       ).build(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(onPressed: addWorkerButton, child: const Icon(Icons.add_rounded)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SafeArea(
         child: SizedBox(
           width: media.size.width,

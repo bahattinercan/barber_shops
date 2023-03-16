@@ -54,7 +54,7 @@ class BarberShop {
 
   static String table = "barber_shops";
 
-  Uint8List? getImage() {
+  Uint8List? get getImage {
     if (profilePicture != null || profilePicture == "") {
       return AppManager.instance.hexStringToUint8List(profilePicture!);
     }
@@ -65,11 +65,11 @@ class BarberShop {
     profilePicture = AppManager.instance.base64ToHexString(base64);
   }
 
-  String starAverageToString() {
+  String get starAverageToString {
     return starAverage == null ? "0.0" : starAverage!.toStringAsFixed(1);
   }
 
-  String provinceToString() {
+  String get provinceToString {
     return province!.replaceAll("Province", "");
   }
 

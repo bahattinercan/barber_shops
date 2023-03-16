@@ -89,7 +89,7 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
   addList(Service service) async {
     setState(() {
       services.add(service);
-      searchRes.add(service);
+      // searchRes.add(service);
     });
   }
 
@@ -105,8 +105,9 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
       appBar: BaseAppBar(
         title: AppManager.stringToTitle('hizmet'),
         onPressed: () => Pusher.pushAndRemoveAll(context, const AdminBarberShopsPage()),
-        actions: [IconButton(onPressed: addItemButton, icon: const Icon(Icons.add_rounded))],
       ).build(context),
+      floatingActionButton: FloatingActionButton(onPressed: addItemButton, child: const Icon(Icons.add_rounded)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -119,8 +120,8 @@ class _AdminServicesPageState extends State<AdminServicesPage> {
                         child: CircularProgressIndicator(),
                       )
                     : ListView.builder(
-                        itemBuilder: (context, index) => AdminServiceCard(services[index]),
-                        itemCount: services.length,
+                        itemBuilder: (context, index) => AdminServiceCard(searchRes[index]),
+                        itemCount: searchRes.length,
                       ),
               ),
             ],

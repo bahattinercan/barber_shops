@@ -34,7 +34,7 @@ class _WorkerShopPageState extends State<WorkerShopPage> {
 
   @override
   initState() {
-    imageData = widget.shop.getImage();
+    imageData = widget.shop.getImage;
     super.initState();
   }
 

@@ -62,20 +62,18 @@ class _WorkerShopEditPageState extends State<WorkerShopEditPage> {
                 text: "Dükkanı aç/kapa",
                 iconData: Icons.circle,
                 onPressed: () => isOpen(!widget.shop.isOpen!),
-                iconColor: widget.shop.isOpen == false ? Colorer.onSurface : Colorer.surface,
+                iconColor: widget.shop.isOpen! ? Colorer.onSurface : Colorer.surface,
               ),
               RowTextButton(
                 text: "Dükkan boş/dolu",
                 iconData: Icons.circle,
                 onPressed: () => isEmpty(!widget.shop.isEmpty!),
-                iconColor: widget.shop.isEmpty == false ? Colorer.onSurface : Colorer.surface,
+                iconColor: widget.shop.isEmpty! ? Colorer.onSurface : Colorer.surface,
               ),
               RowTextButton(
                 text: "Çalışma zamanını değiştir",
-                iconData: Icons.circle,
                 onPressed: () =>
                     Pusher.push(context, ChangeWorkTimesPage(shopId: widget.shop.id!, worker: widget.worker)),
-                iconColor: widget.shop.isEmpty == false ? Colorer.onSurface : Colorer.surface,
               ),
             ],
           ),

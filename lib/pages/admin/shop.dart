@@ -31,7 +31,7 @@ class _AdminShopPageState extends State<AdminShopPage> {
 
   @override
   initState() {
-    imageData = widget.shop.getImage();
+    imageData = widget.shop.getImage;
     super.initState();
   }
 
