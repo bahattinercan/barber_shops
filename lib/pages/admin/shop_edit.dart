@@ -11,6 +11,7 @@ import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
 import 'package:barbers/widgets/app_bars/base.dart';
+import 'package:barbers/widgets/bottom_sheets/change_location.dart';
 import 'package:barbers/widgets/bottom_sheets/text_field.dart';
 import 'package:barbers/widgets/buttons/row_text.dart';
 import 'package:flutter/material.dart';
@@ -164,7 +165,7 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
     });
   }
 
-  changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
+  void changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
     if (countryValue == null || stateValue == null || cityValue == null) return;
     bool result = await BarberShop.changeLocation(
         id: widget.shop.id!, country: countryValue, province: stateValue, district: cityValue);
@@ -179,6 +180,10 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
       widget.shop.province = stateValue;
       widget.shop.district = cityValue;
     });
+  }
+
+  void changeLocationButton() {
+    AppManager.bottomSheet(context, ChangeLocationBS(submit: changeLocation));
   }
 
   //#endregion
@@ -204,8 +209,12 @@ class _AdminShopEditPageState extends State<AdminShopEditPage> {
                 onPressed: editDescriptionButton,
               ),
               RowTextButton(
-                text: "Konum Seç",
+                text: "Adres değiştir",
                 onPressed: editLocationButton,
+              ),
+              RowTextButton(
+                text: "Konum Seç",
+                onPressed: changeLocationButton,
               ),
               RowTextButton(
                 text: "Tel No Değiştir",

@@ -39,21 +39,21 @@ class _ChangeLocationBSState extends State<ChangeLocationBS> {
           children: [
             SelectState(
               onCountryChanged: (value) {
-                if (value == "Ülke Seç") {
+                if (value == "Ülke Seç" || value.isEmpty) {
                   countryValue = null;
                 } else {
                   countryValue = value;
                 }
               },
               onStateChanged: (value) {
-                if (value == "Şehir Seç") {
+                if (value == "Şehir Seç" || value.isEmpty) {
                   stateValue = null;
                 } else {
                   stateValue = value;
                 }
               },
               onCityChanged: (value) {
-                if (value == "İlçe Seç") {
+                if (value == "İlçe Seç" || value.isEmpty) {
                   cityValue = null;
                 } else {
                   cityValue = value;

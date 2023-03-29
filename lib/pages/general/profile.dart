@@ -80,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
       province: stateValue,
       district: cityValue,
     );
-    if (res) {
+    if (!res) {
       Dialogs.failDialog(context: context);
       return;
     }

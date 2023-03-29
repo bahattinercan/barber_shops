@@ -1,4 +1,5 @@
 import 'package:barbers/models/barber_shop.dart';
+import 'package:barbers/models/user.dart';
 import 'package:barbers/pages/admin/shops.dart';
 import 'package:barbers/pages/general/appointments.dart';
 import 'package:barbers/pages/general/profile.dart';
@@ -8,6 +9,7 @@ import 'package:barbers/utils/authority_manager.dart';
 import 'package:barbers/utils/colorer.dart';
 import 'package:barbers/utils/dialogs.dart';
 import 'package:barbers/utils/pusher.dart';
+import 'package:barbers/widgets/bottom_sheets/change_location.dart';
 import 'package:barbers/widgets/buttons/base.dart';
 import 'package:barbers/widgets/cards/barber_shop.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +27,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   initState() {
+    getNearbyBarberShops();
+    super.initState();
+  }
+
+  void getNearbyBarberShops() {
     BarberShop.getNearby(
       country: AppManager.user.country!,
       province: AppManager.user.province!,
@@ -35,7 +42,27 @@ class _HomePageState extends State<HomePage> {
         dataLoaded = true;
       });
     });
-    super.initState();
+  }
+
+  void changeLocation(String? countryValue, String? stateValue, String? cityValue) async {
+    if (countryValue == null || stateValue == null || cityValue == null) return;
+    final res = await User.changeLocation(
+      id: AppManager.user.id!,
+      country: countryValue,
+      province: stateValue,
+      district: cityValue,
+    );
+    if (!res) {
+      Dialogs.failDialog(context: context);
+      return;
+    }
+    Dialogs.successDialog(context: context);
+    setState(() {
+      AppManager.user.country = countryValue;
+      AppManager.user.province = stateValue;
+      AppManager.user.district = cityValue;
+    });
+    getNearbyBarberShops();
   }
 
   openAdminPanel() {
@@ -70,20 +97,31 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              "Şuanki konum",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colorer.onBackground),
-            ),
-            Text(
-              '${AppManager.user.provinceToString()}, ${AppManager.user.districtToString()}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colorer.onBackground),
-            ),
-          ],
+        title: GestureDetector(
+          onTap: () => AppManager.bottomSheet(context, ChangeLocationBS(submit: changeLocation)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Şuanki konum",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colorer.onBackground),
+              ),
+              Text(
+                '${AppManager.user.provinceToString()}, ${AppManager.user.districtToString()}',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colorer.onBackground),
+              ),
+            ],
+          ),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh_rounded,
+              color: Colorer.onBackground,
+              size: 32,
+            ),
+            onPressed: () => getNearbyBarberShops(),
+          ),
           IconButton(
             icon: const Icon(
               Icons.bookmarks_rounded,

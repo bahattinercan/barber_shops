@@ -3,7 +3,7 @@ import 'package:http/http.dart';
 
 class Requester {
   static final notifier = ValueNotifier<RequestState>(RequestInitial());
-  static const _urlPrefix = 'ef47-88-226-51-102.eu.ngrok.io';
+  static const _urlPrefix = '95c9-78-189-11-135.eu.ngrok.io';
 
   static final Map<String, String> _headers = {
     "Access-Control-Allow-Origin": "*",
