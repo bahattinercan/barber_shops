@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         primaryColor: Colorer.primary,
         primarySwatch: Colorer.getMatColor(Colorer.primary),
-        accentColor: Colorer.getMatColor(Colorer.secondary),
+        hintColor: Colorer.getMatColor(Colorer.secondary),
         // WIDGETS
         appBarTheme: const AppBarTheme(
           elevation: 0,
