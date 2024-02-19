@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Berberim',
       theme: ThemeData(
+        useMaterial3: false,
         colorScheme: const ColorScheme(
           primary: Colorer.primary,
-          primaryVariant: Colorer.primaryVariant,
+          //primaryVariant: Colorer.primaryVariant,
           secondary: Colorer.secondary,
-          secondaryVariant: Colorer.secondaryVariant,
+          //secondaryVariant: Colorer.secondaryVariant,
           background: Colorer.background,
           surface: Colorer.onSurface,
           onBackground: Colorer.onBackground,
