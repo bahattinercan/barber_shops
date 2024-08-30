@@ -134,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                           )),
                       SizedBox(
                         width: 100,
+                        height: 40,
                         child: ElevatedButton(
                           onPressed: _loginButton,
                           child: const Text('Giriş'),
