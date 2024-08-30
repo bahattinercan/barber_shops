@@ -1,4 +1,4 @@
-Berber dükkanlarından kullanıcıların daha kolay randevu alabilmesi ve dükkanlarında çalışanlarını daha kolay yönetebilmesi için geliştirdiğim uygulama
+Berber dükkanlarından kullanıcıların daha kolay randevu alabilmesi ve dükkanlarında çalışanlarını daha kolay yönetebilmesi için geliştirdiğim uygulama. Flutter ile yazılmıştır.
 
 ![Screenshot_1725012087](https://github.com/user-attachments/assets/bf6b3254-419b-42c2-a475-1b5aad5c1678)
 ![Screenshot_1725012094](https://github.com/user-attachments/assets/e479d33e-0e3b-4cb9-bc8d-74f31c9737e4)
